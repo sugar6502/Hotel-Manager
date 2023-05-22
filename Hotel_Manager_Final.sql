@@ -290,9 +290,9 @@ begin
 insert into BAOCAO_LUONG(Thang) values(MONTH(@time))
 set @mabc= (select Ma_BC from BAOCAO_LUONG where Thang=MONTH(@time))
 insert into BAOCAOCT_LUONG(Ma_BC, MaNV, Thanh_Tien) 
-select Ma_BC + 1, BAOCAOCT_LUONG.MaNV, LuongCoBan 
-from BAOCAOCT_LUONG, CHUCVU, NHANVIEN
-where BAOCAOCT_LUONG.Ma_BC = @mabc-1 AND BAOCAOCT_LUONG.MaNV = NHANVIEN.MaNV AND NHANVIEN.MaCV = CHUCVU.MaCV
+select @mabc, NHANVIEN.MaNV, LuongCoBan 
+from CHUCVU, NHANVIEN
+where NHANVIEN.MaCV = CHUCVU.MaCV
 end
 end
 
@@ -306,9 +306,73 @@ begin
 select TenLoaiPhong as 'Loại Phòng', DoanhThu as 'Doanh Thu' 
 from LOAIPHONG, CT_BAOCAO, BAOCAO
 where Thang = @thang and CT_BAOCAO.Ma_BC = BAOCAO.Ma_BC and CT_BAOCAO.MaLoaiPhong = LOAIPHONG.MaLoaiPhong
+end
 
+
+Go 
+CREATE PROC HienThiChiTietBaoCaoLuong -- hien thi chi tiet bao cao luong
+@thang int
+as
+begin
+select TenNV as 'Tên Nhân Viên', LuongCoBan as 'Lương Cơ Bản', PhatSinh as 'Phát Sinh', Thanh_Tien as 'Thành Tiền', GhiChu as 'Ghi Chú'
+from NHANVIEN, BAOCAOCT_LUONG, CHUCVU, BAOCAO_LUONG
+where Thang = @thang and BAOCAO_LUONG.Ma_BC = BAOCAOCT_LUONG.Ma_BC and NHANVIEN.MaNV = BAOCAOCT_LUONG.MaNV and NHANVIEN.MaCV = CHUCVU.MaCV
+end
 --------------------------------------------------------------------------------------------------
 
 -- PHAN UPDATE --
+
+Go
+CREATE PROC UpdatePhatSinhBangCTLuong -- cap nhat phan phat sinh cong tru luong
+@phatsinh money, @manv int, @ghichu nvarchar(40)
+as
+begin
+update BAOCAOCT_LUONG 
+set PhatSinh = @phatsinh,Thanh_Tien = Thanh_Tien + @phatsinh , GhiChu = @ghichu
+where MaNV = @manv
+end
+
+Go 
+CREATE PROC UpdateLuongCoBan -- cap nhat luong co ban trong bang chuc vu
+@chechlechluong money, @macv int 
+as
+begin
+
+update CHUCVU
+set LuongCoBan = LuongCoBan + @chechlechluong
+where MaCV = @macv
+
+
+update BAOCAOCT_LUONG
+set Thanh_Tien = Thanh_Tien + @chechlechluong
+where MaNV in (select MaNV from NHANVIEN where MaCV = @macv)
+
+end
+
+
+
+-- TEST ------
+--- TEST PHẦN NHÂN VIÊN ---
+EXEC ThemChucVu N'giam doc',10000
+EXEC ThemNhanVien N'Mai Duy Ngọc',1,'123','123'
+EXEC ThemNhanVien N'Mai Duy Ngọtt',1,'123','123'
+EXEC KT_BCL
+EXEC HienThiChiTietBaoCaoLuong 5
+EXEC UpdateLuongCoBan 10,1
+
+SELECT * FROM CHUCVU
+SELECT * FROM NHANVIEN
+SELECT * FROM BAOCAO_LUONG
+SELECT * FROM BAOCAOCT_LUONG
+
+--DROP PROC HienThiChiTietBaoCaoLuong
+DELETE FROM BAOCAOCT_LUONG
+DELETE FROM BAOCAO_LUONG
+
+DELETE FROM NHANVIEN
+DELETE FROM CHUCVU
+
+
+DROP PROC UpdateLuongCoBan
 
 
