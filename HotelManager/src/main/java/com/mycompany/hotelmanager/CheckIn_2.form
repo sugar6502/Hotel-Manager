@@ -45,19 +45,25 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="btn_No" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="btn_No" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="btn_Yes" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <Component id="btn_Yes" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                                   <Component id="btn_Add" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                  <Component id="btn_Delete" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -89,7 +95,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="cb_Phong" min="-2" pref="324" max="-2" attributes="0"/>
-                              <Component id="cb_LoaiPhong" min="-2" pref="324" max="-2" attributes="0"/>
+                              <Component id="cb_LoaiPhong" alignment="0" min="-2" pref="324" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -122,7 +128,7 @@
                       <Component id="lb_cccd" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="7" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
                       <Component id="cb_LoaiPhong" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -137,15 +143,18 @@
                       <Component id="jLabel6" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
                       <Component id="txb_Note" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="65" max="32767" attributes="0"/>
-                          <Component id="btn_Add" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace pref="32" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btn_Add" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_Delete" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Component id="btn_Yes" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
@@ -216,12 +225,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SVN-Nexa Light" size="36" style="0"/>
             </Property>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(tenPhong.toArray(String[]::new))" type="code"/>
-            </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="List&lt;String&gt; tenPhong = new ArrayList&lt;String&gt;();&#xa;try{//L&#x1ea5;y ph&#xf2;ng t&#x1eeb; CSDL&#xa;&#xa;//System.out.print(idxLP);&#xa;&#xa;//int maloaiphong = model.LayMaLoaiPhong(cb_LoaiPhong.getItemAt(idxLP).toString());&#xa;ResultSet rs_P = model.LayPhong(1,0);&#xa;while(rs_P.next())&#xa;tenPhong.add(rs_P.getString(1));&#xa;}&#xa;catch(SQLException e){System.out.print(e);};"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="List&lt;String&gt; tenPhong = new ArrayList&lt;String&gt;();&#xa;        try{//L&#x1ea5;y ph&#xf2;ng t&#x1eeb; CSDL&#xa;            ResultSet rs_P = model.LayPhong(1,0);&#xa;            while(rs_P.next())&#xa;            tenPhong.add(rs_P.getString(1));&#xa;        }&#xa;        catch(SQLException e){System.out.print(e);};&#xa;        cb_Phong.setModel(new javax.swing.DefaultComboBoxModel&lt;&gt;(tenPhong.toArray(String[]::new)));"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
@@ -234,8 +240,11 @@
               <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(tenLoaiPhong.toArray(String[]::new))" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cb_LoaiPhongItemStateChanged"/>
+          </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="List&lt;String&gt; tenLoaiPhong = new ArrayList&lt;String&gt;();&#xa;try{//L&#x1ea5;y lo&#x1ea1;i ph&#xf2;ng t&#x1eeb; CSDL&#xa;ResultSet rs_LP = model.LayLoaiPhong();&#xa;while(rs_LP.next())&#xa;tenLoaiPhong.add(rs_LP.getString(2));&#xa;}&#xa;catch(SQLException e){System.out.print(e);};"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="List&lt;String&gt; tenLoaiPhong = new ArrayList&lt;String&gt;();&#xa;try{//L&#x1ea5;y lo&#x1ea1;i ph&#xf2;ng t&#x1eeb; CSDL&#xa;ResultSet rs_LP = model.LayLoaiPhong();&#xa;while(rs_LP.next())&#xa;tenLoaiPhong.add(rs_LP.getString(2));&#xa;}&#xa;catch(SQLException e){System.out.print(e);};"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
@@ -316,6 +325,9 @@
               <Border info="null"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_AddMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
@@ -379,6 +391,24 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="btn_Delete">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SVN-Nexa Rush Sans Black" size="36" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="0" red="99" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

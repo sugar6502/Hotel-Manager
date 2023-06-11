@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author netpr
@@ -23,7 +25,6 @@ public class CheckIn_2 extends javax.swing.JFrame {
         lb_cusname.setText(newKhach.getTenKhach());
         lb_cccd.setText(newKhach.getCCCD());
         lb_sdt.setText(newKhach.getSDT());
-        
         
     }
 
@@ -44,7 +45,22 @@ public class CheckIn_2 extends javax.swing.JFrame {
         lb_cusname = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         cb_Phong = new javax.swing.JComboBox<>();
+        List<String> tenPhong = new ArrayList<String>();
+        try{//Lấy phòng từ CSDL
+            ResultSet rs_P = model.LayPhong(1,0);
+            while(rs_P.next())
+            tenPhong.add(rs_P.getString(1));
+        }
+        catch(SQLException e){System.out.print(e);};
+        cb_Phong.setModel(new javax.swing.DefaultComboBoxModel<>(tenPhong.toArray(String[]::new)));
         cb_LoaiPhong = new javax.swing.JComboBox<>();
+        List<String> tenLoaiPhong = new ArrayList<String>();
+        try{//Lấy loại phòng từ CSDL
+            ResultSet rs_LP = model.LayLoaiPhong();
+            while(rs_LP.next())
+            tenLoaiPhong.add(rs_LP.getString(2));
+        }
+        catch(SQLException e){System.out.print(e);};
         txb_Note = new javax.swing.JTextField();
         btn_Yes = new javax.swing.JButton();
         btn_No = new javax.swing.JButton();
@@ -55,6 +71,7 @@ public class CheckIn_2 extends javax.swing.JFrame {
         lb_sdt = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_Room = new javax.swing.JTable();
+        btn_Delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,30 +100,16 @@ public class CheckIn_2 extends javax.swing.JFrame {
         jLabel6.setText("Ghi chú:");
         jLabel6.setToolTipText("");
 
-        List<String> tenPhong = new ArrayList<String>();
-        try{//Lấy phòng từ CSDL
-
-            //System.out.print(idxLP);
-
-            //int maloaiphong = model.LayMaLoaiPhong(cb_LoaiPhong.getItemAt(idxLP).toString());
-            ResultSet rs_P = model.LayPhong(1,0);
-            while(rs_P.next())
-            tenPhong.add(rs_P.getString(1));
-        }
-        catch(SQLException e){System.out.print(e);};
         cb_Phong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
-        cb_Phong.setModel(new javax.swing.DefaultComboBoxModel<>(tenPhong.toArray(String[]::new)));
 
-        List<String> tenLoaiPhong = new ArrayList<String>();
-        try{//Lấy loại phòng từ CSDL
-            ResultSet rs_LP = model.LayLoaiPhong();
-            while(rs_LP.next())
-            tenLoaiPhong.add(rs_LP.getString(2));
-        }
-        catch(SQLException e){System.out.print(e);};
         cb_LoaiPhong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
         //Thêm loại phòng vào combo box
         cb_LoaiPhong.setModel(new javax.swing.DefaultComboBoxModel<>(tenLoaiPhong.toArray(String[]::new)));
+        cb_LoaiPhong.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_LoaiPhongItemStateChanged(evt);
+            }
+        });
 
         txb_Note.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
         txb_Note.setText("....");
@@ -137,6 +140,11 @@ public class CheckIn_2 extends javax.swing.JFrame {
         btn_Add.setText("Thêm");
         btn_Add.setToolTipText("");
         btn_Add.setBorder(null);
+        btn_Add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_AddMouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
         jLabel8.setText("SĐT: ");
@@ -180,24 +188,35 @@ public class CheckIn_2 extends javax.swing.JFrame {
         tb_Room.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tb_Room);
 
+        btn_Delete.setBackground(new java.awt.Color(255, 204, 204));
+        btn_Delete.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Delete.setForeground(new java.awt.Color(153, 0, 204));
+        btn_Delete.setText("Xóa");
+        btn_Delete.setToolTipText("");
+        btn_Delete.setBorder(null);
+
         javax.swing.GroupLayout pn_CheckInLayout = new javax.swing.GroupLayout(pn_CheckIn);
         pn_CheckIn.setLayout(pn_CheckInLayout);
         pn_CheckInLayout.setHorizontalGroup(
             pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_CheckInLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pn_CheckInLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_CheckInLayout.createSequentialGroup()
-                                .addComponent(btn_No)
-                                .addGap(75, 75, 75))
-                            .addComponent(btn_Yes, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_CheckInLayout.createSequentialGroup()
+                            .addGroup(pn_CheckInLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_CheckInLayout.createSequentialGroup()
+                                        .addComponent(btn_No)
+                                        .addGap(75, 75, 75))
+                                    .addComponent(btn_Yes, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(pn_CheckInLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
                                 .addComponent(btn_Add)
-                                .addGap(54, 54, 54))))
+                                .addGap(33, 33, 33)
+                                .addComponent(btn_Delete))))
                     .addGroup(pn_CheckInLayout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -244,7 +263,7 @@ public class CheckIn_2 extends javax.swing.JFrame {
                 .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_cccd, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cb_LoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -256,14 +275,16 @@ public class CheckIn_2 extends javax.swing.JFrame {
                 .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txb_Note, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pn_CheckInLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_CheckInLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                        .addComponent(btn_Add)
+                    .addGroup(pn_CheckInLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_Add)
+                            .addComponent(btn_Delete))
                         .addGap(18, 18, 18)
                         .addComponent(btn_Yes)
                         .addGap(29, 29, 29)
@@ -285,6 +306,31 @@ public class CheckIn_2 extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CapNhatPhong(){ // Cập nhật thông tin cho combo box Phòng
+        //System.out.print(cb_LoaiPhong.getSelectedItem().toString());
+        int maloaiphong = model.LayMaLoaiPhong(cb_LoaiPhong.getSelectedItem().toString());
+        //System.out.print(maloaiphong);
+        List<String> tenPhong = new ArrayList<String>();
+        try{//Lấy phòng từ CSDL
+            ResultSet rs_P = model.LayPhong(maloaiphong,0);
+            while(rs_P.next())
+            tenPhong.add(rs_P.getString(1));
+        }
+        catch(SQLException e){System.out.print(e);};
+        cb_Phong.setModel(new javax.swing.DefaultComboBoxModel<>(tenPhong.toArray(String[]::new)));
+    }
+    
+    private void cb_LoaiPhongItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_LoaiPhongItemStateChanged
+        CapNhatPhong();
+    }//GEN-LAST:event_cb_LoaiPhongItemStateChanged
+
+    private void btn_AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AddMouseClicked
+        model.XetTinhTrangPhong(Integer.parseInt(cb_Phong.getSelectedItem().toString()),2);
+        ResultSet rs_P2 = model.PhongTinhTrang2();
+
+        CapNhatPhong();
+    }//GEN-LAST:event_btn_AddMouseClicked
 
     /**
      * @param args the command line arguments
@@ -326,6 +372,7 @@ public class CheckIn_2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Add;
+    private javax.swing.JButton btn_Delete;
     private javax.swing.JButton btn_No;
     private javax.swing.JButton btn_Yes;
     private javax.swing.JComboBox<String> cb_LoaiPhong;
