@@ -39,7 +39,7 @@ NgayLap date,
 CREATE TABLE CT_PTP
 (
 MaCT_PTP int PRIMARY KEY IDENTITY, -- Dinh danh 
-SoPTP int,
+SoPTP int IDENTITY,
 SoPhong int,
 MaKH int,
 GhiChu nvarchar(40),
@@ -98,7 +98,7 @@ DoanhThu money,
 CREATE TABLE CHUCVU
 (
 MaCV int PRIMARY KEY IDENTITY,
-TenCV nvarchar(40),
+TenCV nvarchar(40) UNIQUE,
 LuongCoBan money,
 );
 
@@ -107,7 +107,7 @@ CREATE TABLE NHANVIEN
 MaNV int PRIMARY KEY IDENTITY,
 TenNV nvarchar(40),
 MaCV int,
-DinhDanh int,
+DinhDanh nvarchar(12),
 DiaChi nvarchar(40),
 );
 
@@ -126,6 +126,7 @@ PhatSinh money default (0),
 Thanh_Tien money,
 GhiChu nvarchar(40),
 )
+
 ---------------------------------------------------------------------------------------------------------------------------------
 -- PHAN TAO KHOA NGOAI --
 ALTER TABLE PHONG ADD
@@ -166,13 +167,15 @@ INSERT INTO LOAIPHONG(TenLoaiPhong, DonGia, SucChua) values(N'Đơn', 200000,2)
 INSERT INTO LOAIPHONG(TenLoaiPhong, DonGia, SucChua) values(N'Đôi', 380000,4)
 INSERT INTO LOAIPHONG(TenLoaiPhong, DonGia, SucChua) values(N'VIP', 500000,4)
 
-INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(0, 0)
-INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(0, 3)
-INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(1, 3)
 INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(1, 0)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(1, 3)
 INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(2, 3)
 INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(2, 0)
-INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(0, 0)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(3, 3)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(3, 0)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(1, 0)
+
+INSERT INTO NHANVIEN(TenNV,MaCV,DinhDanh,DiaChi) values (N'Mai Duy Ngọc',1,'0324567',N'Ký túc xá')
 
 ------------------------------------------------------------------------------------------------------------------
 
@@ -205,10 +208,10 @@ end
 
 Go
 CREATE PROC ThemChiTietPhieuThuePhong -- Them chi tiet phieu thue phong tuong ung
-@soptp int, @sophong int, @makh int, @ghichu nvarchar(40)
+@sophong int, @makh int, @ghichu nvarchar(40)
 as 
 begin
-insert into CT_PTP(SoPTP, SoPhong, MaKH, GhiChu) values(@soptp, @sophong, @makh, @ghichu)
+insert into CT_PTP(SoPhong, MaKH, GhiChu) values( @sophong, @makh, @ghichu)
 end
 
 Go
@@ -366,6 +369,7 @@ set Thanh_Tien = Thanh_Tien + @chechlechluong
 where MaNV in (select MaNV from NHANVIEN where MaCV = @macv)
 
 end
+
 
 
 
