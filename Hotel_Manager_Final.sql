@@ -26,7 +26,7 @@ CREATE TABLE PHONG
 (
 SoPhong int PRIMARY KEY IDENTITY, -- Dinh danh 
 MaLoaiPhong int,
-TinhTrang nvarchar(40) DEFAULT('TRONG'),
+TinhTrang int DEFAULT(0),
 GhiChu nvarchar(40),
 );
 
@@ -51,6 +51,8 @@ CREATE TABLE KHACHHANG
 MaKH int PRIMARY KEY IDENTITY,
 TenKH nvarchar(40),
 DinhDanh nvarchar (40),
+SoDT varchar(12),
+
 );
 
 CREATE TABLE PHIEUTHANHTOAN
@@ -155,6 +157,10 @@ CONSTRAINT FK_NHANVIEN_MaCV FOREIGN KEY (MaCV) REFERENCES CHUCVU(MaCV)
 ------------------------------------------------------------------------------------------------------------------
 -- Tao Cac Tham So Mac Dinh --
 INSERT INTO NGUOIDUNG VALUES ('admin','123456',1) --admin
+
+INSERT INTO CHUCVU(TenCV,LUONGCOBAN) VALUES(N'Quản lý',10000000)
+INSERT INTO CHUCVU(TenCV,LUONGCOBAN) VALUES(N'Lễ tân',5000000)
+INSERT INTO CHUCVU(TenCV,LUONGCOBAN) VALUES(N'Phục vụ',2000000)
 
 ------------------------------------------------------------------------------------------------------------------
 
@@ -359,6 +365,8 @@ EXEC ThemNhanVien N'Mai Duy Ngọtt',1,'123','123'
 EXEC KT_BCL
 EXEC HienThiChiTietBaoCaoLuong 5
 EXEC UpdateLuongCoBan 10,1
+
+EXEC Login 'as','123'
 
 SELECT * FROM CHUCVU
 SELECT * FROM NHANVIEN
