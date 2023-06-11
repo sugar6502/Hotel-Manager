@@ -26,6 +26,8 @@ public class Admin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         tabbedPanel = new javax.swing.JTabbedPane();
         tabpn_NV = new javax.swing.JPanel();
@@ -82,6 +84,19 @@ public class Admin extends javax.swing.JFrame {
         btn_Adjust_DV1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane6.setViewportView(jTable1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 204));
 
@@ -132,28 +147,24 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Salary.setBackground(new java.awt.Color(255, 204, 204));
         btn_Salary.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Salary.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/3586362_checklist_document_list_paper_icon.png"))); // NOI18N
         btn_Salary.setText("Lương");
         btn_Salary.setToolTipText("");
         btn_Salary.setBorder(null);
 
         btn_Delete_NV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_NV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Delete_NV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/3669361_delete_ic_icon.png"))); // NOI18N
         btn_Delete_NV.setText("Xóa");
         btn_Delete_NV.setToolTipText("");
         btn_Delete_NV.setBorder(null);
 
         btn_Add_NV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add_NV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Add_NV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/134224_add_plus_new_icon.png"))); // NOI18N
         btn_Add_NV.setText("Thêm");
         btn_Add_NV.setToolTipText("");
         btn_Add_NV.setBorder(null);
 
         btn_Adjust_NV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_NV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Adjust_NV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2931152_adjust_control_gear_settings_setup_icon.png"))); // NOI18N
         btn_Adjust_NV.setText("Sửa");
         btn_Adjust_NV.setToolTipText("");
         btn_Adjust_NV.setBorder(null);
@@ -173,7 +184,7 @@ public class Admin extends javax.swing.JFrame {
                                 .addGap(271, 271, 271)
                                 .addComponent(btn_Delete_NV))
                             .addGroup(tabpn_NVLayout.createSequentialGroup()
-                                .addGap(0, 297, Short.MAX_VALUE)
+                                .addGap(0, 433, Short.MAX_VALUE)
                                 .addComponent(btn_Add_NV)))
                         .addGap(119, 119, 119)
                         .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +206,7 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_Adjust_NV)
                     .addComponent(btn_Delete_NV))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         tabbedPanel.addTab("NHÂN VIÊN", tabpn_NV);
@@ -204,21 +215,18 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Add_DV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add_DV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Add_DV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/134224_add_plus_new_icon.png"))); // NOI18N
         btn_Add_DV.setText("Thêm");
         btn_Add_DV.setToolTipText("");
         btn_Add_DV.setBorder(null);
 
         btn_Delete_DV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_DV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Delete_DV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/3669361_delete_ic_icon.png"))); // NOI18N
         btn_Delete_DV.setText("Xóa");
         btn_Delete_DV.setToolTipText("");
         btn_Delete_DV.setBorder(null);
 
         btn_Adjust_DV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_DV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Adjust_DV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2931152_adjust_control_gear_settings_setup_icon.png"))); // NOI18N
         btn_Adjust_DV.setText("Sửa");
         btn_Adjust_DV.setToolTipText("");
         btn_Adjust_DV.setBorder(null);
@@ -309,7 +317,7 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(txb_GiaDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(tabpn_DVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_DVLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btn_Add_DV)
@@ -341,20 +349,20 @@ public class Admin extends javax.swing.JFrame {
         txb_SucChua.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
 
         btn_Add_LP.setBackground(new java.awt.Color(255, 204, 204));
-        btn_Add_LP.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Add_LP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/134224_add_plus_new_icon.png"))); // NOI18N
+        btn_Add_LP.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
+        btn_Add_LP.setText("T");
         btn_Add_LP.setToolTipText("");
         btn_Add_LP.setBorder(null);
 
         btn_Adjust_LP.setBackground(new java.awt.Color(255, 204, 204));
-        btn_Adjust_LP.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Adjust_LP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2931152_adjust_control_gear_settings_setup_icon.png"))); // NOI18N
+        btn_Adjust_LP.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
+        btn_Adjust_LP.setText("S");
         btn_Adjust_LP.setToolTipText("");
         btn_Adjust_LP.setBorder(null);
 
         btn_Delete_LP.setBackground(new java.awt.Color(255, 204, 204));
-        btn_Delete_LP.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Delete_LP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/3669361_delete_ic_icon.png"))); // NOI18N
+        btn_Delete_LP.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
+        btn_Delete_LP.setText("X");
         btn_Delete_LP.setToolTipText("");
         btn_Delete_LP.setBorder(null);
 
@@ -451,20 +459,20 @@ public class Admin extends javax.swing.JFrame {
         combob_TinhTrang.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
 
         btn_Add_Phong.setBackground(new java.awt.Color(255, 204, 204));
-        btn_Add_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Add_Phong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/134224_add_plus_new_icon.png"))); // NOI18N
+        btn_Add_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
+        btn_Add_Phong.setText("T");
         btn_Add_Phong.setToolTipText("");
         btn_Add_Phong.setBorder(null);
 
         btn_Adjust_Phong.setBackground(new java.awt.Color(255, 204, 204));
-        btn_Adjust_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Adjust_Phong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2931152_adjust_control_gear_settings_setup_icon.png"))); // NOI18N
+        btn_Adjust_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
+        btn_Adjust_Phong.setText("S");
         btn_Adjust_Phong.setToolTipText("");
         btn_Adjust_Phong.setBorder(null);
 
         btn_Delete_Phong.setBackground(new java.awt.Color(255, 204, 204));
-        btn_Delete_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Delete_Phong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/3669361_delete_ic_icon.png"))); // NOI18N
+        btn_Delete_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
+        btn_Delete_Phong.setText("X");
         btn_Delete_Phong.setToolTipText("");
         btn_Delete_Phong.setBorder(null);
 
@@ -513,7 +521,7 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(btn_Adjust_Phong)
                         .addGap(18, 18, 18)
                         .addComponent(btn_Delete_Phong)
-                        .addGap(156, 156, 156))))
+                        .addGap(142, 142, 142))))
         );
         tabpn_PhongLayout.setVerticalGroup(
             tabpn_PhongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -556,9 +564,9 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(tabpn_PhongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_Add_LP)
                     .addComponent(btn_Adjust_LP)
+                    .addComponent(btn_Delete_LP)
                     .addComponent(btn_Add_Phong)
                     .addComponent(btn_Adjust_Phong)
-                    .addComponent(btn_Delete_LP)
                     .addComponent(btn_Delete_Phong))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
@@ -616,21 +624,18 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Add_DV1.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add_DV1.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Add_DV1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/134224_add_plus_new_icon.png"))); // NOI18N
         btn_Add_DV1.setText("Thêm");
         btn_Add_DV1.setToolTipText("");
         btn_Add_DV1.setBorder(null);
 
         btn_Delete_DV1.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_DV1.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Delete_DV1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/3669361_delete_ic_icon.png"))); // NOI18N
         btn_Delete_DV1.setText("Xóa");
         btn_Delete_DV1.setToolTipText("");
         btn_Delete_DV1.setBorder(null);
 
         btn_Adjust_DV1.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_DV1.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Adjust_DV1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2931152_adjust_control_gear_settings_setup_icon.png"))); // NOI18N
         btn_Adjust_DV1.setText("Sửa");
         btn_Adjust_DV1.setToolTipText("");
         btn_Adjust_DV1.setBorder(null);
@@ -673,7 +678,7 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(tabpn_ChucVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tabpn_ChucVuLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(tabpn_ChucVuLayout.createSequentialGroup()
                         .addGap(144, 144, 144)
@@ -723,6 +728,7 @@ public class Admin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -797,6 +803,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTabbedPane tabbedPanel;
     private javax.swing.JPanel tabpn_ChucVu;
     private javax.swing.JPanel tabpn_DV;
