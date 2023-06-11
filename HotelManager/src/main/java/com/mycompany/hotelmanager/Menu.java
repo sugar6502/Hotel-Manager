@@ -41,8 +41,11 @@ public class Menu extends javax.swing.JFrame {
         tb_RoomInfo = new javax.swing.JTable();
         txb_TimKiem = new javax.swing.JTextField();
         btn_Find = new javax.swing.JButton();
-        tabpn_Phong = new javax.swing.JScrollPane();
-        tb_Room = new javax.swing.JTable();
+        tabpn_Phong = new javax.swing.JPanel();
+        Scrollpn_Phong1 = new javax.swing.JScrollPane();
+        tb_Room1 = new javax.swing.JTable();
+        comb_ThongTinPhong = new javax.swing.JComboBox<>();
+        btn_Filter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Màn hình chính");
@@ -194,10 +197,12 @@ public class Menu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Phòng cho thuê", tabpn_PhongThue);
 
-        tb_Room.setBackground(new java.awt.Color(255, 204, 204));
-        tb_Room.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tb_Room.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
-        tb_Room.setModel(new javax.swing.table.DefaultTableModel(
+        tabpn_Phong.setBackground(new java.awt.Color(255, 204, 204));
+
+        tb_Room1.setBackground(new java.awt.Color(255, 204, 204));
+        tb_Room1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tb_Room1.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
+        tb_Room1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null}
             },
@@ -220,19 +225,50 @@ public class Menu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tb_Room.setGridColor(new java.awt.Color(0, 0, 0));
-        tb_Room.setSelectionBackground(new java.awt.Color(255, 102, 102));
-        tb_Room.setShowGrid(false);
-        tb_Room.setShowHorizontalLines(true);
-        tb_Room.setShowVerticalLines(true);
-        tb_Room.getTableHeader().setReorderingAllowed(false);
-        tabpn_Phong.setViewportView(tb_Room);
-        if (tb_Room.getColumnModel().getColumnCount() > 0) {
-            tb_Room.getColumnModel().getColumn(0).setResizable(false);
-            tb_Room.getColumnModel().getColumn(1).setResizable(false);
-            tb_Room.getColumnModel().getColumn(2).setResizable(false);
-            tb_Room.getColumnModel().getColumn(3).setResizable(false);
+        tb_Room1.setGridColor(new java.awt.Color(0, 0, 0));
+        tb_Room1.setSelectionBackground(new java.awt.Color(255, 102, 102));
+        tb_Room1.setShowGrid(false);
+        tb_Room1.setShowHorizontalLines(true);
+        tb_Room1.setShowVerticalLines(true);
+        tb_Room1.getTableHeader().setReorderingAllowed(false);
+        Scrollpn_Phong1.setViewportView(tb_Room1);
+        if (tb_Room1.getColumnModel().getColumnCount() > 0) {
+            tb_Room1.getColumnModel().getColumn(0).setResizable(false);
+            tb_Room1.getColumnModel().getColumn(1).setResizable(false);
+            tb_Room1.getColumnModel().getColumn(2).setResizable(false);
+            tb_Room1.getColumnModel().getColumn(3).setResizable(false);
         }
+
+        comb_ThongTinPhong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+
+        btn_Filter.setBackground(new java.awt.Color(255, 204, 204));
+        btn_Filter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/172546_search_icon.png"))); // NOI18N
+        btn_Filter.setBorder(null);
+
+        javax.swing.GroupLayout tabpn_PhongLayout = new javax.swing.GroupLayout(tabpn_Phong);
+        tabpn_Phong.setLayout(tabpn_PhongLayout);
+        tabpn_PhongLayout.setHorizontalGroup(
+            tabpn_PhongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabpn_PhongLayout.createSequentialGroup()
+                .addComponent(Scrollpn_Phong1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(tabpn_PhongLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(comb_ThongTinPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_Filter)
+                .addGap(142, 142, 142))
+        );
+        tabpn_PhongLayout.setVerticalGroup(
+            tabpn_PhongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_PhongLayout.createSequentialGroup()
+                .addGap(0, 10, Short.MAX_VALUE)
+                .addGroup(tabpn_PhongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_Filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comb_ThongTinPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(Scrollpn_Phong1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jTabbedPane1.addTab("Phòng", tabpn_Phong);
 
@@ -328,21 +364,24 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane Scrollpn_Phong1;
     private javax.swing.JButton btn_Admin;
     private javax.swing.JButton btn_CheckIN;
     private javax.swing.JButton btn_CheckOUT;
     private javax.swing.JButton btn_CheckOUT1;
+    private javax.swing.JButton btn_Filter;
     private javax.swing.JButton btn_Find;
     private javax.swing.JComboBox<String> comb_ThongTin;
+    private javax.swing.JComboBox<String> comb_ThongTinPhong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel pn_Main;
     private javax.swing.JPanel pn_Name;
-    private javax.swing.JScrollPane tabpn_Phong;
+    private javax.swing.JPanel tabpn_Phong;
     private javax.swing.JPanel tabpn_PhongThue;
-    private javax.swing.JTable tb_Room;
+    private javax.swing.JTable tb_Room1;
     private javax.swing.JTable tb_RoomInfo;
     private javax.swing.JTextField txb_TimKiem;
     // End of variables declaration//GEN-END:variables
