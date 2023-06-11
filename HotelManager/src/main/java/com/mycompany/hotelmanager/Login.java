@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.hotelmanager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -10,9 +15,7 @@ package com.mycompany.hotelmanager;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    private Connection con = new ConnectionSQL().getCon();
     public Login() {
         initComponents();
     }
@@ -31,11 +34,12 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txb_Username = new javax.swing.JTextField();
-        tbx_Password = new javax.swing.JPasswordField();
+        txb_Password = new javax.swing.JPasswordField();
         btn_Login = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập");
+        setAutoRequestFocus(false);
         setForeground(java.awt.Color.white);
         setResizable(false);
 
@@ -56,13 +60,17 @@ public class Login extends javax.swing.JFrame {
         txb_Username.setFont(new java.awt.Font("SVN-Nexa Light", 0, 18)); // NOI18N
         txb_Username.setName("txb_Username"); // NOI18N
 
-        tbx_Password.setFont(new java.awt.Font("SVN-Nexa Light", 0, 18)); // NOI18N
+        txb_Password.setFont(new java.awt.Font("SVN-Nexa Light", 0, 18)); // NOI18N
 
         btn_Login.setBackground(new java.awt.Color(255, 204, 204));
         btn_Login.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 14)); // NOI18N
-        btn_Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/4115234_login_sign in_icon.png"))); // NOI18N
         btn_Login.setText("Đăng nhập");
         btn_Login.setBorderPainted(false);
+        btn_Login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_LoginMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pn_LoginLayout = new javax.swing.GroupLayout(pn_Login);
         pn_Login.setLayout(pn_LoginLayout);
@@ -80,9 +88,8 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pn_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btn_Login, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                    .addGroup(pn_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txb_Username)
-                        .addComponent(tbx_Password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)))
+                    .addComponent(txb_Username, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txb_Password, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
                 .addGap(27, 27, 27))
         );
         pn_LoginLayout.setVerticalGroup(
@@ -97,9 +104,9 @@ public class Login extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(pn_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(tbx_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txb_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btn_Login)
+                .addComponent(btn_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
@@ -109,15 +116,52 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pn_Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pn_Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pn_Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pn_Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_LoginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LoginMousePressed
+        // Nhấn nút đăng nhập
+        String username = txb_Username.getText();
+        String password = String.valueOf(txb_Password.getPassword());
+        // Kiểm tra tài khoản trong SQL
+        String sql = "EXEC Login ?,?";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setString(1,username);
+            pres.setString(2,password);
+            ResultSet rs = pres.executeQuery();
+            rs.next();
+            if (rs.getRow()!= 0){ // Có tài khoản trong SQL
+                JOptionPane.showMessageDialog(null, "Đăng nhập thành công.");
+                Global chucvu = new Global();         
+                if (rs.getInt(1)==1) {
+                    // Tiến hành lưu chức vụ của tài khoản 
+                    // Với 1 là tài khoản Admin/Quản lí                
+                    chucvu.setChucVu(1);
+                }
+                else{
+                    // Với 2 là tài khoản nhân viên thu ngân                   
+                    chucvu.setChucVu(2);
+                }
+                new Menu().setVisible(true);  // Mở menu chính
+                this.dispose();
+            }
+            else { //KHông có tài khoản
+                JOptionPane.showMessageDialog(null, "Đăng nhập không thành công. Vui lòng đăng nhập lại");
+            }
+        }
+        catch (Exception e) {
+             {JOptionPane.showMessageDialog(null, e);}
+        }
+    }//GEN-LAST:event_btn_LoginMousePressed
 
     /**
      * @param args the command line arguments
@@ -160,7 +204,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel pn_Login;
-    private javax.swing.JPasswordField tbx_Password;
+    private javax.swing.JPasswordField txb_Password;
     private javax.swing.JTextField txb_Username;
     // End of variables declaration//GEN-END:variables
 }
