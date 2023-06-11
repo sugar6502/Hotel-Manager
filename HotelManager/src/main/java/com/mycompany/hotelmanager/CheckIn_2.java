@@ -83,7 +83,15 @@ public class CheckIn_2 extends javax.swing.JFrame {
         jLabel6.setText("Ghi chú:");
         jLabel6.setToolTipText("");
 
+        List<String> tenPhong = new ArrayList<String>();
+        try{//Lấy phòng từ CSDL
+            ResultSet rs_P = model.LayPhong(1,0);
+            while(rs_P.next())
+            tenPhong.add(rs_P.getString(1));
+        }
+        catch(SQLException e){System.out.print(e);};
         cb_Phong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+        cb_Phong.setModel(new javax.swing.DefaultComboBoxModel<>(tenPhong.toArray(String[]::new)));
 
         List<String> tenLoaiPhong = new ArrayList<String>();
         try{//Lấy loại phòng từ CSDL
