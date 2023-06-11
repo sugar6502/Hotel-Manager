@@ -35,7 +35,7 @@ public class Khach_source { // Lớp khách hàng
             PreparedStatement pres = con.prepareStatement(sql);
             pres.setString(1,TenKhach);
             pres.setString(2,Cccd);
-            pres.setString(3,Cccd);
+            pres.setString(3,Sdt);
             ResultSet rs = pres.executeQuery();   
         }
         catch(Exception e) {JOptionPane.showMessageDialog(null, "Lỗi");}
