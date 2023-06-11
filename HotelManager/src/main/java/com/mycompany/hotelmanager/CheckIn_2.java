@@ -3,18 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.hotelmanager;
-
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 /**
  *
  * @author netpr
  */
 public class CheckIn_2 extends javax.swing.JFrame {
-
-    /**
-     * Creates new form CheckIn
-     */
+    Source_code model = new Source_code();
     public CheckIn_2() {
         initComponents();
+        
+        Khach_source newKhach = new Khach_source();
+        // Thông tin khách sẽ checkin
+        lb_cusname.setText(newKhach.getTenKhach());
+        lb_cccd.setText(newKhach.getCCCD());
+        lb_sdt.setText(newKhach.getSDT());
+        
+        
     }
 
     /**
@@ -75,8 +85,16 @@ public class CheckIn_2 extends javax.swing.JFrame {
 
         cb_Phong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
 
+        List<String> tenLoaiPhong = new ArrayList<String>();
+        try{//Lấy loại phòng từ CSDL
+            ResultSet rs_LP = model.LayLoaiPhong();
+            while(rs_LP.next())
+            tenLoaiPhong.add(rs_LP.getString(2));
+        }
+        catch(SQLException e){System.out.print(e);};
         cb_LoaiPhong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
-        cb_LoaiPhong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đơn", "Đôi" }));
+        //Thêm loại phòng vào combo box
+        cb_LoaiPhong.setModel(new javax.swing.DefaultComboBoxModel<>(tenLoaiPhong.toArray(String[]::new)));
 
         txb_Note.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
         txb_Note.setText("....");
@@ -84,14 +102,12 @@ public class CheckIn_2 extends javax.swing.JFrame {
         btn_Yes.setBackground(new java.awt.Color(255, 204, 204));
         btn_Yes.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Yes.setForeground(new java.awt.Color(0, 204, 0));
-        btn_Yes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1398911_correct_mark_success_tick_valid_icon.png"))); // NOI18N
         btn_Yes.setText("Xác nhận");
         btn_Yes.setBorder(null);
 
         btn_No.setBackground(new java.awt.Color(255, 204, 204));
         btn_No.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_No.setForeground(new java.awt.Color(255, 0, 51));
-        btn_No.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1398917_circle_close_cross_incorrect_invalid_icon.png"))); // NOI18N
         btn_No.setText("HỦy");
         btn_No.setBorder(null);
 
@@ -106,7 +122,6 @@ public class CheckIn_2 extends javax.swing.JFrame {
         btn_Add.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Add.setForeground(new java.awt.Color(153, 0, 204));
-        btn_Add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1343436_add_circle_download_plus_icon (1).png"))); // NOI18N
         btn_Add.setText("Thêm");
         btn_Add.setToolTipText("");
         btn_Add.setBorder(null);
@@ -182,10 +197,10 @@ public class CheckIn_2 extends javax.swing.JFrame {
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lb_cccd, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lb_cusname, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lb_sdt, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lb_sdt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lb_cusname, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                            .addComponent(lb_cccd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(pn_CheckInLayout.createSequentialGroup()
                         .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -235,7 +250,7 @@ public class CheckIn_2 extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_CheckInLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                         .addComponent(btn_Add)
                         .addGap(18, 18, 18)
                         .addComponent(btn_Yes)
@@ -256,6 +271,7 @@ public class CheckIn_2 extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
