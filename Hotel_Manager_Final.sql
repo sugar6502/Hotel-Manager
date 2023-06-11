@@ -162,6 +162,18 @@ INSERT INTO CHUCVU(TenCV,LUONGCOBAN) VALUES(N'Quản lý',10000000)
 INSERT INTO CHUCVU(TenCV,LUONGCOBAN) VALUES(N'Lễ tân',5000000)
 INSERT INTO CHUCVU(TenCV,LUONGCOBAN) VALUES(N'Phục vụ',2000000)
 
+INSERT INTO LOAIPHONG(TenLoaiPhong, DonGia, SucChua) values(N'Đơn', 200000,2)
+INSERT INTO LOAIPHONG(TenLoaiPhong, DonGia, SucChua) values(N'Đôi', 380000,4)
+INSERT INTO LOAIPHONG(TenLoaiPhong, DonGia, SucChua) values(N'VIP', 500000,4)
+
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(0, 0)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(0, 3)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(1, 3)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(1, 0)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(2, 3)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(2, 0)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(0, 0)
+
 ------------------------------------------------------------------------------------------------------------------
 
 -- Chuc Nang Nhap Du Lieu --
@@ -201,10 +213,10 @@ end
 
 Go
 CREATE PROC ThemKhachHang -- Them vao du lieu khach hang
-@tenkh nvarchar(40), @dinhdanh nvarchar(40)
+@tenkh nvarchar(40), @dinhdanh nvarchar(40), @dienthoai varchar(12)
 as
 begin
-insert into KHACHHANG(TenKH, DinhDanh) values(@tenkh, @dinhdanh)
+insert into KHACHHANG(TenKH, DinhDanh,SoDT) values(@tenkh, @dinhdanh,@dienthoai)
 end
 
 Go
