@@ -17,7 +17,7 @@ public class CheckIn_2 extends javax.swing.JFrame {
     Source_code model = new Source_code();
     public CheckIn_2() {
         initComponents();
-        
+        //System.out.println("2");
         Khach_source newKhach = new Khach_source();
         // Thông tin khách sẽ checkin
         lb_cusname.setText(newKhach.getTenKhach());
@@ -85,8 +85,9 @@ public class CheckIn_2 extends javax.swing.JFrame {
 
         List<String> tenPhong = new ArrayList<String>();
         try{//Lấy phòng từ CSDL
-            int idxLP = cb_LoaiPhong.getSelectedIndex();
-            System.out.print(idxLP);
+
+            //System.out.print(idxLP);
+
             //int maloaiphong = model.LayMaLoaiPhong(cb_LoaiPhong.getItemAt(idxLP).toString());
             ResultSet rs_P = model.LayPhong(1,0);
             while(rs_P.next())
@@ -316,7 +317,9 @@ public class CheckIn_2 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+               
                 new CheckIn_2().setVisible(true);
+                
             }
         });
     }
