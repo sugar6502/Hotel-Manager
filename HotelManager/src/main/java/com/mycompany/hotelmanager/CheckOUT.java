@@ -92,14 +92,12 @@ public class CheckOUT extends javax.swing.JFrame {
         btn_Yes.setBackground(new java.awt.Color(255, 204, 204));
         btn_Yes.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Yes.setForeground(new java.awt.Color(0, 204, 0));
-        btn_Yes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1398911_correct_mark_success_tick_valid_icon.png"))); // NOI18N
         btn_Yes.setText("Xác nhận");
         btn_Yes.setBorder(null);
 
         btn_No.setBackground(new java.awt.Color(255, 204, 204));
         btn_No.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_No.setForeground(new java.awt.Color(255, 0, 51));
-        btn_No.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1398917_circle_close_cross_incorrect_invalid_icon.png"))); // NOI18N
         btn_No.setText("HỦy");
         btn_No.setBorder(null);
 

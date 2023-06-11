@@ -11,6 +11,7 @@ package com.mycompany.hotelmanager;
 public class HotelManager {
 
     public static void main(String[] args) {
-       new Login().setVisible(true);
+    Login newLogin = new Login();
+    newLogin.setVisible(true);
     }
 }

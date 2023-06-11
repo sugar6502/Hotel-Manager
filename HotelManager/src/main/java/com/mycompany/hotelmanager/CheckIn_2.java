@@ -85,6 +85,9 @@ public class CheckIn_2 extends javax.swing.JFrame {
 
         List<String> tenPhong = new ArrayList<String>();
         try{//Lấy phòng từ CSDL
+            int idxLP = cb_LoaiPhong.getSelectedIndex();
+            System.out.print(idxLP);
+            //int maloaiphong = model.LayMaLoaiPhong(cb_LoaiPhong.getItemAt(idxLP).toString());
             ResultSet rs_P = model.LayPhong(1,0);
             while(rs_P.next())
             tenPhong.add(rs_P.getString(1));

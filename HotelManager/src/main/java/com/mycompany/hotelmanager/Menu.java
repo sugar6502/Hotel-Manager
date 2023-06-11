@@ -10,11 +10,12 @@ package com.mycompany.hotelmanager;
  */
 public class Menu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Menu
-     */
     public Menu() {
         initComponents();
+        Global chucvu = new Global();
+        int quyen = chucvu.getChucVu();
+        if (quyen == 1){btn_Admin.setVisible(true);} // Phân quyền Admin
+        else {btn_Admin.setVisible(false);} // Phân quyền nhân viên thu ngân
     }
 
     /**
@@ -49,9 +50,11 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Màn hình chính");
+        setAutoRequestFocus(false);
         setBackground(new java.awt.Color(255, 204, 204));
+        setLocation(new java.awt.Point(0, 0));
+        setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setName("fMenu"); // NOI18N
-        setUndecorated(true);
         setResizable(false);
 
         pn_Name.setBackground(new java.awt.Color(255, 153, 153));
@@ -87,25 +90,27 @@ public class Menu extends javax.swing.JFrame {
 
         btn_CheckIN.setBackground(new java.awt.Color(255, 204, 204));
         btn_CheckIN.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_CheckIN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2931187_door_enter_exit_in_leave_icon.png"))); // NOI18N
         btn_CheckIN.setText("Nhận phòng");
         btn_CheckIN.setBorder(null);
+        btn_CheckIN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_CheckINMouseClicked(evt);
+            }
+        });
 
         btn_CheckOUT.setBackground(new java.awt.Color(255, 204, 204));
         btn_CheckOUT.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_CheckOUT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2931188_door_enter_exit_leave_out_icon.png"))); // NOI18N
         btn_CheckOUT.setText(" Trả phòng");
         btn_CheckOUT.setBorder(null);
 
         btn_CheckOUT1.setBackground(new java.awt.Color(255, 204, 204));
         btn_CheckOUT1.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_CheckOUT1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2931177_output_print_printer_icon.png"))); // NOI18N
         btn_CheckOUT1.setText("Báo cáo");
         btn_CheckOUT1.setBorder(null);
 
         btn_Admin.setBackground(new java.awt.Color(255, 204, 204));
         btn_Admin.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
-        btn_Admin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/2203549_admin_avatar_human_login_user_icon.png"))); // NOI18N
+        btn_Admin.setText("AD");
         btn_Admin.setBorder(null);
 
         jTabbedPane1.setBackground(new java.awt.Color(242, 102, 102));
@@ -114,6 +119,7 @@ public class Menu extends javax.swing.JFrame {
         tabpn_PhongThue.setBackground(new java.awt.Color(252, 204, 204));
 
         comb_ThongTin.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+        comb_ThongTin.setBorder(null);
 
         tb_RoomInfo.setBackground(new java.awt.Color(255, 204, 204));
         tb_RoomInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -156,9 +162,11 @@ public class Menu extends javax.swing.JFrame {
         }
 
         txb_TimKiem.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
+        txb_TimKiem.setBorder(null);
 
         btn_Find.setBackground(new java.awt.Color(255, 204, 204));
-        btn_Find.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/172546_search_icon.png"))); // NOI18N
+        btn_Find.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+        btn_Find.setText("T");
         btn_Find.setBorder(null);
 
         javax.swing.GroupLayout tabpn_PhongThueLayout = new javax.swing.GroupLayout(tabpn_PhongThue);
@@ -169,7 +177,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(txb_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comb_ThongTin, 0, 155, Short.MAX_VALUE)
+                .addComponent(comb_ThongTin, 0, 152, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_Find)
                 .addContainerGap())
@@ -187,7 +195,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(txb_TimKiem)
                     .addComponent(btn_Find, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(comb_ThongTin, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(0, 527, Short.MAX_VALUE))
+                .addGap(0, 524, Short.MAX_VALUE))
             .addGroup(tabpn_PhongThueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_PhongThueLayout.createSequentialGroup()
                     .addContainerGap(79, Short.MAX_VALUE)
@@ -242,7 +250,8 @@ public class Menu extends javax.swing.JFrame {
         comb_ThongTinPhong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
 
         btn_Filter.setBackground(new java.awt.Color(255, 204, 204));
-        btn_Filter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/172546_search_icon.png"))); // NOI18N
+        btn_Filter.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+        btn_Filter.setText("T");
         btn_Filter.setBorder(null);
 
         javax.swing.GroupLayout tabpn_PhongLayout = new javax.swing.GroupLayout(tabpn_Phong);
@@ -262,7 +271,7 @@ public class Menu extends javax.swing.JFrame {
         tabpn_PhongLayout.setVerticalGroup(
             tabpn_PhongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_PhongLayout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
+                .addGap(0, 7, Short.MAX_VALUE)
                 .addGroup(tabpn_PhongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_Filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(comb_ThongTinPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -326,7 +335,13 @@ public class Menu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_CheckINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CheckINMouseClicked
+        // Click chuột nút Nhận phòng
+        new CheckIn().setVisible(true);
+    }//GEN-LAST:event_btn_CheckINMouseClicked
 
     /**
      * @param args the command line arguments

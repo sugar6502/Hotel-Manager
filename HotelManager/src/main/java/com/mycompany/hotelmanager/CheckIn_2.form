@@ -221,7 +221,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="List&lt;String&gt; tenPhong = new ArrayList&lt;String&gt;();&#xa;try{//L&#x1ea5;y ph&#xf2;ng t&#x1eeb; CSDL&#xa;ResultSet rs_P = model.LayPhong(1,0);&#xa;while(rs_P.next())&#xa;tenPhong.add(rs_P.getString(1));&#xa;}&#xa;catch(SQLException e){System.out.print(e);};"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="List&lt;String&gt; tenPhong = new ArrayList&lt;String&gt;();&#xa;try{//L&#x1ea5;y ph&#xf2;ng t&#x1eeb; CSDL&#xa;int idxLP = cb_LoaiPhong.getSelectedIndex();&#xa;System.out.print(idxLP);&#xa;//int maloaiphong = model.LayMaLoaiPhong(cb_LoaiPhong.getItemAt(idxLP).toString());&#xa;ResultSet rs_P = model.LayPhong(1,0);&#xa;while(rs_P.next())&#xa;tenPhong.add(rs_P.getString(1));&#xa;}&#xa;catch(SQLException e){System.out.print(e);};"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
