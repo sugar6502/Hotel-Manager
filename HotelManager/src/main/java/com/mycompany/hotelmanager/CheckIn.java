@@ -4,6 +4,11 @@
  */
 package com.mycompany.hotelmanager;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author netpr
@@ -35,7 +40,7 @@ public class CheckIn extends javax.swing.JFrame {
         txb_CusName = new javax.swing.JTextField();
         btn_Yes = new javax.swing.JButton();
         btn_No = new javax.swing.JButton();
-        txb_SĐT = new javax.swing.JTextField();
+        txb_SDT = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,18 +68,26 @@ public class CheckIn extends javax.swing.JFrame {
         btn_Yes.setBackground(new java.awt.Color(255, 204, 204));
         btn_Yes.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Yes.setForeground(new java.awt.Color(0, 204, 0));
-        btn_Yes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1398911_correct_mark_success_tick_valid_icon.png"))); // NOI18N
         btn_Yes.setText("Xác nhận");
         btn_Yes.setBorder(null);
+        btn_Yes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_YesMouseClicked(evt);
+            }
+        });
 
         btn_No.setBackground(new java.awt.Color(255, 204, 204));
         btn_No.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_No.setForeground(new java.awt.Color(255, 0, 51));
-        btn_No.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1398917_circle_close_cross_incorrect_invalid_icon.png"))); // NOI18N
         btn_No.setText("HỦy");
         btn_No.setBorder(null);
+        btn_No.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_NoMouseClicked(evt);
+            }
+        });
 
-        txb_SĐT.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+        txb_SDT.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
 
         javax.swing.GroupLayout pn_CheckInLayout = new javax.swing.GroupLayout(pn_CheckIn);
         pn_CheckIn.setLayout(pn_CheckInLayout);
@@ -96,7 +109,7 @@ public class CheckIn extends javax.swing.JFrame {
                         .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txb_CCCD, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txb_CusName, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txb_SĐT, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txb_SDT, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pn_CheckInLayout.createSequentialGroup()
                         .addComponent(btn_Yes)
                         .addGap(104, 104, 104)
@@ -119,7 +132,7 @@ public class CheckIn extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txb_SĐT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txb_SDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_Yes)
@@ -139,7 +152,35 @@ public class CheckIn extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_NoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NoMouseClicked
+        // Nhấp vào nút Hủy
+        this.dispose();
+    }//GEN-LAST:event_btn_NoMouseClicked
+
+    private void btn_YesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_YesMouseClicked
+        // Nhấp vào nút Xác nhận
+        String tenKhach = txb_CusName.getText();
+        String cccd = txb_CCCD.getText();
+        String sdt = txb_SDT.getText();
+        if (tenKhach.isEmpty() || cccd.isEmpty() || sdt.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+            return;
+        }
+        int icccd,isdt;
+        try {
+            icccd = Integer.parseInt(cccd);
+            isdt = Integer.parseInt(sdt);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá trị phải là số.");
+            return;
+        }  
+        Khach_source newKhach = new Khach_source(tenKhach,cccd,sdt);  
+        new CheckIn_2().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_YesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -186,6 +227,6 @@ public class CheckIn extends javax.swing.JFrame {
     private javax.swing.JPanel pn_CheckIn;
     private javax.swing.JTextField txb_CCCD;
     private javax.swing.JTextField txb_CusName;
-    private javax.swing.JTextField txb_SĐT;
+    private javax.swing.JTextField txb_SDT;
     // End of variables declaration//GEN-END:variables
 }
