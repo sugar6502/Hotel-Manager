@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author netpr
@@ -159,7 +160,7 @@ public class CheckIn_2 extends javax.swing.JFrame {
         tb_Room.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
         tb_Room.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "STT", "Loại phòng", "Phòng", "Ghi chú"
@@ -194,6 +195,11 @@ public class CheckIn_2 extends javax.swing.JFrame {
         btn_Delete.setText("Xóa");
         btn_Delete.setToolTipText("");
         btn_Delete.setBorder(null);
+        btn_Delete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_DeleteMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pn_CheckInLayout = new javax.swing.GroupLayout(pn_CheckIn);
         pn_CheckIn.setLayout(pn_CheckInLayout);
@@ -328,9 +334,39 @@ public class CheckIn_2 extends javax.swing.JFrame {
     private void btn_AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AddMouseClicked
         model.XetTinhTrangPhong(Integer.parseInt(cb_Phong.getSelectedItem().toString()),2);
         ResultSet rs_P2 = model.PhongTinhTrang2();
-
+        int i=1;
+        try {
+            DefaultTableModel model = (DefaultTableModel)tb_Room.getModel();
+            model.setRowCount(0);
+            while(rs_P2.next()){
+                Object[] rowData = {i,rs_P2.getString(1),rs_P2.getInt(2),rs_P2.getString(3)};
+                i++;
+                model.addRow(rowData);
+            }
+        } catch (SQLException ex) {}
         CapNhatPhong();
     }//GEN-LAST:event_btn_AddMouseClicked
+
+    private void btn_DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_DeleteMouseClicked
+        int indexTb = tb_Room.getSelectedRow();
+        try{
+            var sophong = tb_Room.getValueAt(indexTb, 2);
+            model.XetTinhTrangPhong((int) sophong,0);}
+        catch(Exception e){}
+        int i=1;
+        try {
+            ResultSet rs_P2 = model.PhongTinhTrang2();
+            DefaultTableModel model = (DefaultTableModel)tb_Room.getModel();
+            model.setRowCount(0);
+            while(rs_P2.next()){
+                Object[] rowData = {i,rs_P2.getString(1),rs_P2.getInt(2),rs_P2.getString(3)};
+                i++;
+                model.addRow(rowData);
+            }
+        } catch (SQLException ex) {}
+        CapNhatPhong();
+        
+    }//GEN-LAST:event_btn_DeleteMouseClicked
 
     /**
      * @param args the command line arguments
