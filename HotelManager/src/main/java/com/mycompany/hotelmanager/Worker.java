@@ -4,6 +4,8 @@
  */
 package com.mycompany.hotelmanager;
 
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author Admins
@@ -13,8 +15,11 @@ public class Worker extends javax.swing.JFrame {
     /**
      * Creates new form Worker
      */
+    Source_code model = new Source_code();
     public Worker() {
         initComponents();
+        combob_ChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(model.LayChucVu().toArray(String[]::new)));
+        
     }
 
     /**
@@ -129,19 +134,33 @@ public class Worker extends javax.swing.JFrame {
         txb_DiaChi.setFont(new java.awt.Font("SVN-Nexa Light", 0, 28)); // NOI18N
 
         combob_ChucVu.setFont(new java.awt.Font("SVN-Nexa Light", 0, 28)); // NOI18N
-        combob_ChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản lí", "Lễ tân", "Phục vụ" }));
+        combob_ChucVu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combob_ChucVuActionPerformed(evt);
+            }
+        });
 
         btn_Yes.setBackground(new java.awt.Color(255, 204, 204));
         btn_Yes.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Yes.setForeground(new java.awt.Color(0, 204, 0));
         btn_Yes.setText("Xác nhận");
         btn_Yes.setBorder(null);
+        btn_Yes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_YesActionPerformed(evt);
+            }
+        });
 
         btn_No.setBackground(new java.awt.Color(255, 204, 204));
         btn_No.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_No.setForeground(new java.awt.Color(255, 0, 51));
-        btn_No.setText("HỦy");
+        btn_No.setText("Hủy");
         btn_No.setBorder(null);
+        btn_No.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_NoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -224,6 +243,25 @@ public class Worker extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_NoActionPerformed
+
+    private void btn_YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_YesActionPerformed
+        String TenNV = txb_TenNV.getText();
+        String CCCD  = txb_CCCD.getText();
+        String DiaChi = txb_DiaChi.getText();
+        
+        String TenCV = (String) combob_ChucVu.getSelectedItem();
+        int MaCV = model.LayMaChucVu(TenCV);
+        NhanVien_source newNV = new NhanVien_source(TenNV,MaCV, CCCD,DiaChi);
+        newNV.AddNV();
+    }//GEN-LAST:event_btn_YesActionPerformed
+
+    private void combob_ChucVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combob_ChucVuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combob_ChucVuActionPerformed
 
     /**
      * @param args the command line arguments

@@ -6,12 +6,22 @@ package com.mycompany.hotelmanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class Source_code {
-    private Connection con = new ConnectionSQL().getCon();
+    private final Connection con = new ConnectionSQL().getCon();
     
     public Source_code(){}
+    
+    public Connection GetCon() {
+    
+        return con;
+    
+    }
     
     public ResultSet LayLoaiPhong(){ // Lấy thông tin loại phòng
     String sql = "select MaLoaiPhong, TenLoaiPhong from LOAIPHONG";
@@ -71,4 +81,51 @@ public class Source_code {
         catch(Exception e) {JOptionPane.showMessageDialog(null, "Lỗi hàm PhongTinhTrang2");}
         return rs;
     }
+        public List<String> LayChucVu () {  //Lấy list tên chức vụ
+        List<String> name = new ArrayList<String>();
+        String sql = "select TenCV from CHUCVU";
+        try{
+        Statement stat = con.createStatement();
+        ResultSet rs = stat.executeQuery(sql);
+            while(rs.next()) {
+            name.add(rs.getString(1));
+                }
+        }
+        catch(SQLException e) {
+            System.out.println(e);
+        }
+        return name;
+    }
+    public int LayMaChucVu(String tenCV){ //Lấy mã chức vụ
+        
+        String sql = "select MaCV from CHUCVU where TenCV = ?";
+        int ketqua=0;
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setString(1,tenCV);       
+            ResultSet rs = pres.executeQuery(); 
+            rs.next();
+            ketqua = rs.getInt(1);
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        return ketqua;
+    }
+    public int LayLuongChucVu(String tenCV){ //Lấy mã chức vụ
+        
+        String sql = "select LuongCoBan from CHUCVU where TenCV = ?";
+        int ketqua=0;
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setString(1,tenCV);       
+            ResultSet rs = pres.executeQuery(); 
+            rs.next();
+            ketqua = rs.getInt(1);
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        return ketqua;
+    }
+    
 }
+
+
+    

@@ -6,6 +6,8 @@ package com.mycompany.hotelmanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 
@@ -69,6 +71,11 @@ public class Login extends javax.swing.JFrame {
         btn_Login.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btn_LoginMousePressed(evt);
+            }
+        });
+        btn_Login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LoginActionPerformed(evt);
             }
         });
 
@@ -158,10 +165,22 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Đăng nhập không thành công. Vui lòng đăng nhập lại");
             }
         }
-        catch (Exception e) {
+        catch (SQLException e) {
              {JOptionPane.showMessageDialog(null, e);}
         }
     }//GEN-LAST:event_btn_LoginMousePressed
+
+    private void btn_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginActionPerformed
+        String sql = "EXEC KT_BCL";
+        try{
+       
+          Statement pres = con.createStatement();
+          pres.executeUpdate(sql);
+     
+   
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
+    }//GEN-LAST:event_btn_LoginActionPerformed
 
     /**
      * @param args the command line arguments

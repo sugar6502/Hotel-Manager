@@ -4,6 +4,13 @@
  */
 package com.mycompany.hotelmanager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Admins
@@ -13,8 +20,25 @@ public class Admin extends javax.swing.JFrame {
     /**
      * Creates new form Admin
      */
+    Source_code model = new Source_code();
     public Admin() {
+        
         initComponents();
+        List<String> ChucVu = model.LayChucVu();
+        String row[] = new String[3];
+        DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV1.getModel();
+     
+        for (String TenChucVu : ChucVu) {
+            int Luong = model.LayLuongChucVu(TenChucVu);
+            row[0] = Integer.toString(Tablemodel.getRowCount()+1);
+            row[1] = TenChucVu;
+            row[2] = Integer.toString(Luong);
+            Tablemodel.addRow(row);
+            
+        }
+
+
+
     }
 
     /**
@@ -585,6 +609,11 @@ public class Admin extends javax.swing.JFrame {
         txb_TenDV1.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
 
         txb_GiaDV1.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
+        txb_GiaDV1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txb_GiaDV1ActionPerformed(evt);
+            }
+        });
 
         jScrollPane5.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
 
@@ -593,7 +622,7 @@ public class Admin extends javax.swing.JFrame {
         tb_DV1.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
         tb_DV1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "STT", "Tên chức vụ", "Lương cơ bản"
@@ -603,7 +632,7 @@ public class Admin extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Long.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -620,6 +649,11 @@ public class Admin extends javax.swing.JFrame {
         tb_DV1.setShowHorizontalLines(true);
         tb_DV1.setShowVerticalLines(true);
         tb_DV1.getTableHeader().setReorderingAllowed(false);
+        tb_DV1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_DV1MouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(tb_DV1);
 
         btn_Add_DV1.setBackground(new java.awt.Color(255, 204, 204));
@@ -627,6 +661,11 @@ public class Admin extends javax.swing.JFrame {
         btn_Add_DV1.setText("Thêm");
         btn_Add_DV1.setToolTipText("");
         btn_Add_DV1.setBorder(null);
+        btn_Add_DV1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Add_DV1ActionPerformed(evt);
+            }
+        });
 
         btn_Delete_DV1.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_DV1.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
@@ -730,6 +769,48 @@ public class Admin extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tb_DV1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_DV1MouseClicked
+       int index = tb_DV1.getSelectedRow();
+       if(evt.getClickCount()==2) {
+       tb_DV1.clearSelection();
+       txb_TenDV1.setText("");
+       txb_GiaDV1.setText("");
+       btn_Add_DV1.setEnabled(true);
+       btn_Delete_DV1.setEnabled(false);
+       btn_Adjust_DV1.setEnabled(false);
+       }
+       else {
+       btn_Add_DV1.setEnabled(false);
+       btn_Delete_DV1.setEnabled(true);
+       btn_Adjust_DV1.setEnabled(true);
+  
+       DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV1.getModel();
+      
+       txb_TenDV1.setText((String)tb_DV1.getValueAt(index,1));
+       txb_GiaDV1.setText((String)tb_DV1.getValueAt(index,2));
+       }
+    }//GEN-LAST:event_tb_DV1MouseClicked
+
+    private void btn_Add_DV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Add_DV1ActionPerformed
+        Connection con = model.GetCon();
+        String TenCV = txb_TenDV1.getText();
+        String LuongCoBan = txb_GiaDV1.getText();
+        String sql = "EXEC ThemChucVu ?,?";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setString(1,TenCV);
+            pres.setInt(2,Integer.parseInt(LuongCoBan));
+
+            pres.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Thêm thành công");
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+    }//GEN-LAST:event_btn_Add_DV1ActionPerformed
+
+    private void txb_GiaDV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txb_GiaDV1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txb_GiaDV1ActionPerformed
 
     /**
      * @param args the command line arguments
