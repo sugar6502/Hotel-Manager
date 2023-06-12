@@ -61,6 +61,7 @@ public class Admin extends javax.swing.JFrame {
         btn_Delete_NV = new javax.swing.JButton();
         btn_Add_NV = new javax.swing.JButton();
         btn_Adjust_NV = new javax.swing.JButton();
+        btn_Account = new javax.swing.JButton();
         tabpn_DV = new javax.swing.JPanel();
         btn_Add_DV = new javax.swing.JButton();
         btn_Delete_DV = new javax.swing.JButton();
@@ -193,44 +194,57 @@ public class Admin extends javax.swing.JFrame {
         btn_Adjust_NV.setToolTipText("");
         btn_Adjust_NV.setBorder(null);
 
+        btn_Account.setBackground(new java.awt.Color(255, 204, 204));
+        btn_Account.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Account.setText("Tài khoản");
+        btn_Account.setToolTipText("");
+        btn_Account.setBorder(null);
+
         javax.swing.GroupLayout tabpn_NVLayout = new javax.swing.GroupLayout(tabpn_NV);
         tabpn_NV.setLayout(tabpn_NVLayout);
         tabpn_NVLayout.setHorizontalGroup(
             tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabpn_NVLayout.createSequentialGroup()
-                .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(tabpn_NVLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jScrollPane1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_NVLayout.createSequentialGroup()
-                        .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(tabpn_NVLayout.createSequentialGroup()
-                                .addGap(271, 271, 271)
-                                .addComponent(btn_Delete_NV))
-                            .addGroup(tabpn_NVLayout.createSequentialGroup()
-                                .addGap(0, 433, Short.MAX_VALUE)
-                                .addComponent(btn_Add_NV)))
-                        .addGap(119, 119, 119)
-                        .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Salary)
-                            .addComponent(btn_Adjust_NV))
-                        .addGap(243, 243, 243)))
+                .addGap(13, 13, 13)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_NVLayout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_Add_NV)
+                    .addGroup(tabpn_NVLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_Adjust_NV)
+                            .addComponent(btn_Delete_NV))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
+                .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_NVLayout.createSequentialGroup()
+                        .addComponent(btn_Salary)
+                        .addGap(322, 322, 322))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_NVLayout.createSequentialGroup()
+                        .addComponent(btn_Account)
+                        .addGap(289, 289, 289))))
         );
         tabpn_NVLayout.setVerticalGroup(
             tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_NVLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Salary)
-                    .addComponent(btn_Add_NV))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Adjust_NV)
-                    .addComponent(btn_Delete_NV))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabpn_NVLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_Salary)
+                            .addComponent(btn_Add_NV))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_Delete_NV)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_NVLayout.createSequentialGroup()
+                        .addComponent(btn_Account)
+                        .addGap(2, 2, 2)))
+                .addComponent(btn_Adjust_NV)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         tabbedPanel.addTab("NHÂN VIÊN", tabpn_NV);
@@ -920,6 +934,7 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Account;
     private javax.swing.JButton btn_Add_DV;
     private javax.swing.JButton btn_Add_DV1;
     private javax.swing.JButton btn_Add_LP;
