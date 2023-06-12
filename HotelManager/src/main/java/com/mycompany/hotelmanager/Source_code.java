@@ -81,14 +81,15 @@ public class Source_code {
         catch(Exception e) {JOptionPane.showMessageDialog(null, "Lỗi hàm PhongTinhTrang2");}
         return rs;
     }
-        public List<String> LayChucVu () {  //Lấy list tên chức vụ
-        List<String> name = new ArrayList<String>();
-        String sql = "select TenCV from CHUCVU";
+    public List<Integer> LayMaChucVu () {  //Lấy list tên chức vụ
+        List<Integer> name = new ArrayList<>();
+        String sql = "select MaCV from CHUCVU  ";
         try{
         Statement stat = con.createStatement();
         ResultSet rs = stat.executeQuery(sql);
             while(rs.next()) {
-            name.add(rs.getString(1));
+            name.add(rs.getInt(1));
+            
                 }
         }
         catch(SQLException e) {
@@ -96,13 +97,27 @@ public class Source_code {
         }
         return name;
     }
-    public int LayMaChucVu(String tenCV){ //Lấy mã chức vụ
+    public String LayTenChucVu(int MaCV){ //Lấy mã chức vụ
         
-        String sql = "select MaCV from CHUCVU where TenCV = ?";
+        String sql = "select TenCV from CHUCVU where MaCV = ?";
+        String ketqua="";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,MaCV);       
+            ResultSet rs = pres.executeQuery(); 
+            rs.next();
+            ketqua = rs.getString(1);
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        return ketqua;
+    }
+    public int LayLuongChucVu(int MaCV){ //Lấy mã chức vụ
+        
+        String sql = "select LuongCoBan from CHUCVU where MaCV = ?";
         int ketqua=0;
         try{
             PreparedStatement pres = con.prepareStatement(sql);
-            pres.setString(1,tenCV);       
+            pres.setInt(1,MaCV);       
             ResultSet rs = pres.executeQuery(); 
             rs.next();
             ketqua = rs.getInt(1);
@@ -110,13 +125,29 @@ public class Source_code {
         catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
         return ketqua;
     }
-    public int LayLuongChucVu(String tenCV){ //Lấy mã chức vụ
+    public List<Integer> LayMaDichVu () {  //Lấy list tên chức vụ
+        List<Integer> name = new ArrayList<>();
+        String sql = "select MaDV from DICHVU";
+        try{
+        Statement stat = con.createStatement();
+        ResultSet rs = stat.executeQuery(sql);
+            while(rs.next()) {
+            name.add(rs.getInt(1));
+            
+                }
+        }
+        catch(SQLException e) {
+            System.out.println(e);
+        }
+        return name;
+    }
+     public int LayDonGiaDichVu(int MaDV){ //Lấy đơn giá dịch vụ
         
-        String sql = "select LuongCoBan from CHUCVU where TenCV = ?";
+        String sql = "select DonGia from DICHVU where MaDV = ?";
         int ketqua=0;
         try{
             PreparedStatement pres = con.prepareStatement(sql);
-            pres.setString(1,tenCV);       
+            pres.setInt(1,MaDV);       
             ResultSet rs = pres.executeQuery(); 
             rs.next();
             ketqua = rs.getInt(1);
@@ -124,6 +155,21 @@ public class Source_code {
         catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
         return ketqua;
     }
+    public String LayTenDichVu(int MaDV){ //Lấy đơn giá dịch vụ
+        
+        String sql = "select TenDV from DICHVU where MaDV = ?";
+        String ketqua="";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,MaDV);       
+            ResultSet rs = pres.executeQuery(); 
+            rs.next();
+            ketqua = rs.getString(1);
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        return ketqua;
+    }
+    
     
 }
 
