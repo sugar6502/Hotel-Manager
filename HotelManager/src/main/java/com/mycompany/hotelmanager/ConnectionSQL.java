@@ -23,7 +23,7 @@ public class ConnectionSQL {
 
     public ConnectionSQL(){
      try{
-        Class.forName(this.driver);
+        Class.forName(this.driver); 
         this.con = DriverManager.getConnection(this.url,this.userName,this.password);
         }catch(ClassNotFoundException | SQLException e){
 
