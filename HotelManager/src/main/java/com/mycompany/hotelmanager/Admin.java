@@ -21,19 +21,36 @@ public class Admin extends javax.swing.JFrame {
      * Creates new form Admin
      */
     Source_code model = new Source_code();
+    List<Integer> DichVu = model.LayMaDichVu();
+    List<Integer> ChucVu = model.LayMaChucVu();
     public Admin() {
         
         initComponents();
-        List<String> ChucVu = model.LayChucVu();
-        String row[] = new String[3];
+        
+        
+        String rowCV[] = new String[3];
+        String rowDV[] = new String[3];
         DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV1.getModel();
      
-        for (String TenChucVu : ChucVu) {
-            int Luong = model.LayLuongChucVu(TenChucVu);
-            row[0] = Integer.toString(Tablemodel.getRowCount()+1);
-            row[1] = TenChucVu;
-            row[2] = Integer.toString(Luong);
-            Tablemodel.addRow(row);
+        for (int MaCV : ChucVu) {
+            int Luong = model.LayLuongChucVu(MaCV);
+            String TenCV = model.LayTenChucVu(MaCV);
+            rowCV[0] = Integer.toString(Tablemodel.getRowCount()+1);
+            rowCV[1] = TenCV;
+            rowCV[2] = Integer.toString(Luong);
+            Tablemodel.addRow(rowCV);
+            
+        }
+        Tablemodel = (DefaultTableModel) tb_DV.getModel();
+        
+         for (int MaDV : DichVu) {
+            
+            int Luong = model.LayDonGiaDichVu(MaDV);
+            String TenDV = model.LayTenDichVu(MaDV);
+            rowDV[0] = Integer.toString(Tablemodel.getRowCount()+1);
+            rowDV[1] = TenDV;
+            rowDV[2] = Integer.toString(Luong);
+            Tablemodel.addRow(rowDV);
             
         }
 
@@ -242,18 +259,35 @@ public class Admin extends javax.swing.JFrame {
         btn_Add_DV.setText("Thêm");
         btn_Add_DV.setToolTipText("");
         btn_Add_DV.setBorder(null);
+        btn_Add_DV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Add_DVActionPerformed(evt);
+            }
+        });
 
         btn_Delete_DV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_DV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Delete_DV.setText("Xóa");
         btn_Delete_DV.setToolTipText("");
         btn_Delete_DV.setBorder(null);
+        btn_Delete_DV.setEnabled(false);
+        btn_Delete_DV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Delete_DVActionPerformed(evt);
+            }
+        });
 
         btn_Adjust_DV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_DV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Adjust_DV.setText("Sửa");
         btn_Adjust_DV.setToolTipText("");
         btn_Adjust_DV.setBorder(null);
+        btn_Adjust_DV.setEnabled(false);
+        btn_Adjust_DV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Adjust_DVActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
         jLabel2.setText("Giá tiền:");
@@ -272,7 +306,7 @@ public class Admin extends javax.swing.JFrame {
         tb_DV.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
         tb_DV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "STT", "Tên dịch vụ", "Đơn giá"
@@ -282,7 +316,7 @@ public class Admin extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Long.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -293,12 +327,18 @@ public class Admin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tb_DV.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tb_DV.setGridColor(new java.awt.Color(0, 0, 0));
         tb_DV.setSelectionBackground(new java.awt.Color(255, 102, 102));
         tb_DV.setShowGrid(false);
         tb_DV.setShowHorizontalLines(true);
         tb_DV.setShowVerticalLines(true);
         tb_DV.getTableHeader().setReorderingAllowed(false);
+        tb_DV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_DVMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tb_DV);
 
         javax.swing.GroupLayout tabpn_DVLayout = new javax.swing.GroupLayout(tabpn_DV);
@@ -817,6 +857,7 @@ public class Admin extends javax.swing.JFrame {
             pres.setInt(2,Integer.parseInt(LuongCoBan));
 
             pres.executeUpdate();
+            ChucVu = model.LayMaChucVu();
             JOptionPane.showMessageDialog(null, "Thêm thành công");
             DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV1.getModel();
             String [] row = {Integer.toString(Tablemodel.getRowCount()+1),TenCV,LuongCoBan};
@@ -835,19 +876,24 @@ public class Admin extends javax.swing.JFrame {
        if(ret == JOptionPane.NO_OPTION) return;
        Connection con = model.GetCon();
        int index = tb_DV1.getSelectedRow();
-       String TenCV = (String) tb_DV1.getValueAt(index,1);
+       int MaCV = ChucVu.get(index) ;
+       
        //int MaCV = model.LayMaChucVu(TenCV);
-       String sql = "DELETE FROM CHUCVU WHERE TenCV=?";
+       String sql = "DELETE FROM CHUCVU WHERE MaCV=?";
        DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV1.getModel();
        try{
             PreparedStatement pres = con.prepareStatement(sql);
-            pres.setString(1,TenCV);
+            pres.setInt(1,MaCV);
             pres.executeUpdate();
             JOptionPane.showMessageDialog(null, "Xóa thành công");
+            ChucVu = model.LayMaChucVu();
             Tablemodel.removeRow(tb_DV1.getSelectedRow());
             tb_DV1.clearSelection();
             txb_TenDV1.setText("");
             txb_GiaDV1.setText("");
+            btn_Add_DV1.setEnabled(true);
+            btn_Delete_DV1.setEnabled(false);
+            btn_Adjust_DV1.setEnabled(false);
             for(int i=0;i<Tablemodel.getRowCount();i++) {
                 tb_DV1.setValueAt(i+1, i, 0);
             
@@ -864,25 +910,135 @@ public class Admin extends javax.swing.JFrame {
        Connection con = model.GetCon();
        String TenCV = txb_TenDV1.getText();
        String LuongCoBan = txb_GiaDV1.getText();
+       int MaCV = ChucVu.get(index) ;
+    
        
-       String TenCV1 = (String) tb_DV1.getValueAt(index,1);
-       
-       String sql = "UPDATE CHUCVU SET TenCV=?,LUONGCOBAN=? WHERE TenCV=?";
+       String sql = "UPDATE CHUCVU SET TenCV=?,LUONGCOBAN=? WHERE MaCV=?";
        try{
             PreparedStatement pres = con.prepareStatement(sql);
             pres.setString(1,TenCV);
             pres.setInt(2,Integer.parseInt(LuongCoBan));
-            pres.setString(3,TenCV1);
+            pres.setInt(3,MaCV);
             pres.executeUpdate();
             JOptionPane.showMessageDialog(null, "Sửa thành công");
             tb_DV1.setValueAt(TenCV, index, 1);
             tb_DV1.setValueAt(LuongCoBan, index, 2);
             txb_TenDV1.setText("");
             txb_GiaDV1.setText("");
+            btn_Add_DV1.setEnabled(true);
+            btn_Delete_DV1.setEnabled(false);
+            btn_Adjust_DV1.setEnabled(false);
         
         }
-        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
     }//GEN-LAST:event_btn_Adjust_DV1ActionPerformed
+
+    private void tb_DVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_DVMouseClicked
+      int index = tb_DV.getSelectedRow();
+       if(evt.getClickCount()==2) {
+       tb_DV.clearSelection();
+       txb_TenDV.setText("");
+       txb_GiaDV.setText("");
+       btn_Add_DV.setEnabled(true);
+       btn_Delete_DV.setEnabled(false);
+       btn_Adjust_DV.setEnabled(false);
+       }
+       else {
+       btn_Add_DV.setEnabled(false);
+       btn_Delete_DV.setEnabled(true);
+       btn_Adjust_DV.setEnabled(true);
+  
+       //DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV1.getModel();
+      
+       txb_TenDV.setText((String)tb_DV.getValueAt(index,1));
+       txb_GiaDV.setText((String)tb_DV.getValueAt(index,2));
+       }
+    }//GEN-LAST:event_tb_DVMouseClicked
+
+    private void btn_Add_DVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Add_DVActionPerformed
+         int ret = JOptionPane.showConfirmDialog(null,"Bạn có muốn thêm","Thêm dữ liệu",JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.NO_OPTION) return;
+        Connection con = model.GetCon();
+        String TenDV = txb_TenDV.getText();
+        String DonGia = txb_GiaDV.getText();
+        String sql = "EXEC ThemDichVu ?,?";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setString(1,TenDV);
+            pres.setInt(2,Integer.parseInt(DonGia));
+
+            pres.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Thêm thành công");
+            DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV.getModel();
+            String [] row = {Integer.toString(Tablemodel.getRowCount()+1),TenDV,DonGia};
+            Tablemodel.addRow(row);
+            DichVu = model.LayMaDichVu();
+            
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+                 
+    }//GEN-LAST:event_btn_Add_DVActionPerformed
+
+    private void btn_Delete_DVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Delete_DVActionPerformed
+       int ret = JOptionPane.showConfirmDialog(null,"Bạn có muốn xóa","Xóa dữ liệu",JOptionPane.YES_NO_OPTION);
+       if(ret == JOptionPane.NO_OPTION) return;
+       Connection con = model.GetCon();
+       int index = tb_DV.getSelectedRow();
+       
+       int MaDV = DichVu.get(index) ;
+
+       String sql = "DELETE FROM DICHVU WHERE MaDV=?";
+       DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV.getModel();
+       try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,MaDV);
+            pres.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Xóa thành công");
+            Tablemodel.removeRow(tb_DV.getSelectedRow());
+            DichVu = model.LayMaDichVu();
+            tb_DV.clearSelection();
+            txb_TenDV.setText("");
+            txb_GiaDV.setText("");
+            btn_Add_DV.setEnabled(true);
+            btn_Delete_DV.setEnabled(false);
+            btn_Adjust_DV.setEnabled(false);
+            for(int i=0;i<Tablemodel.getRowCount();i++) {
+                tb_DV.setValueAt(i+1, i, 0);
+            
+            }
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+    }//GEN-LAST:event_btn_Delete_DVActionPerformed
+
+    private void btn_Adjust_DVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Adjust_DVActionPerformed
+       int ret = JOptionPane.showConfirmDialog(null,"Bạn có muốn sửa","Sửa dữ liệu",JOptionPane.YES_NO_OPTION);
+       if(ret == JOptionPane.NO_OPTION) return;
+       int index = tb_DV.getSelectedRow();
+       Connection con = model.GetCon();       
+       int MaDV = DichVu.get(index) ;
+       String TenDV = txb_TenDV.getText();
+       String DonGia = txb_GiaDV.getText();
+      
+       
+       String sql = "UPDATE DICHVU SET TenDV=?,DonGia=? WHERE MaDV=?";
+       try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setString(1,TenDV);
+            pres.setInt(2,Integer.parseInt(DonGia));
+            pres.setInt(3,MaDV);
+            pres.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Sửa thành công");
+            tb_DV.setValueAt(TenDV, index, 1);
+            tb_DV.setValueAt(DonGia, index, 2);
+            txb_TenDV.setText("");
+            txb_GiaDV.setText("");
+            btn_Add_DV.setEnabled(true);
+            btn_Delete_DV.setEnabled(false);
+            btn_Adjust_DV.setEnabled(false);
+        
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+    }//GEN-LAST:event_btn_Adjust_DVActionPerformed
 
     /**
      * @param args the command line arguments

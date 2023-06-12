@@ -5,6 +5,8 @@
 package com.mycompany.hotelmanager;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,9 +18,14 @@ public class Worker extends javax.swing.JFrame {
      * Creates new form Worker
      */
     Source_code model = new Source_code();
+    List<Integer> ChucVu = model.LayMaChucVu();
     public Worker() {
         initComponents();
-        combob_ChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(model.LayChucVu().toArray(String[]::new)));
+         List<String> TenChucVu = new ArrayList<>();
+         for(int i:ChucVu) {
+         TenChucVu.add(model.LayTenChucVu(i));
+         }
+        combob_ChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(TenChucVu.toArray(String[]::new)));
         
     }
 
@@ -253,8 +260,8 @@ public class Worker extends javax.swing.JFrame {
         String CCCD  = txb_CCCD.getText();
         String DiaChi = txb_DiaChi.getText();
         
-        String TenCV = (String) combob_ChucVu.getSelectedItem();
-        int MaCV = model.LayMaChucVu(TenCV);
+        int index = combob_ChucVu.getSelectedIndex();
+        int MaCV = ChucVu.get(index);
         NhanVien_source newNV = new NhanVien_source(TenNV,MaCV, CCCD,DiaChi);
         newNV.AddNV();
     }//GEN-LAST:event_btn_YesActionPerformed
