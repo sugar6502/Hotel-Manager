@@ -113,6 +113,7 @@ public class CheckIn_2 extends javax.swing.JFrame {
         });
 
         txb_Note.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+        txb_Note.setText("....");
 
         btn_Yes.setBackground(new java.awt.Color(255, 204, 204));
         btn_Yes.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
