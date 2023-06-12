@@ -1,4 +1,4 @@
-﻿--CREATE DATABASE Hotel_Manager
+﻿-- CREATE DATABASE Hotel_Manager
 USE Hotel_Manager
 
 --DROP DATABASE Hotel_Manager
@@ -26,7 +26,7 @@ CREATE TABLE PHONG
 (
 SoPhong int PRIMARY KEY IDENTITY, -- Dinh danh 
 MaLoaiPhong int,
-TinhTrang nvarchar(40) DEFAULT('TRONG'),
+TinhTrang int DEFAULT(0),
 GhiChu nvarchar(40),
 );
 
@@ -51,6 +51,8 @@ CREATE TABLE KHACHHANG
 MaKH int PRIMARY KEY IDENTITY,
 TenKH nvarchar(40),
 DinhDanh nvarchar (40),
+SoDT varchar(12),
+
 );
 
 CREATE TABLE PHIEUTHANHTOAN
@@ -156,6 +158,22 @@ CONSTRAINT FK_NHANVIEN_MaCV FOREIGN KEY (MaCV) REFERENCES CHUCVU(MaCV)
 -- Tao Cac Tham So Mac Dinh --
 INSERT INTO NGUOIDUNG VALUES ('admin','123456',1) --admin
 
+INSERT INTO CHUCVU(TenCV,LUONGCOBAN) VALUES(N'Quản lý',10000000)
+INSERT INTO CHUCVU(TenCV,LUONGCOBAN) VALUES(N'Lễ tân',5000000)
+INSERT INTO CHUCVU(TenCV,LUONGCOBAN) VALUES(N'Phục vụ',2000000)
+
+INSERT INTO LOAIPHONG(TenLoaiPhong, DonGia, SucChua) values(N'Đơn', 200000,2)
+INSERT INTO LOAIPHONG(TenLoaiPhong, DonGia, SucChua) values(N'Đôi', 380000,4)
+INSERT INTO LOAIPHONG(TenLoaiPhong, DonGia, SucChua) values(N'VIP', 500000,4)
+
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(1, 0)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(1, 3)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(2, 3)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(2, 0)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(3, 3)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(3, 0)
+INSERT INTO PHONG(MaLoaiPhong,TinhTrang) values(1, 0)
+
 ------------------------------------------------------------------------------------------------------------------
 
 -- Chuc Nang Nhap Du Lieu --
@@ -195,10 +213,10 @@ end
 
 Go
 CREATE PROC ThemKhachHang -- Them vao du lieu khach hang
-@tenkh nvarchar(40), @dinhdanh nvarchar(40)
+@tenkh nvarchar(40), @dinhdanh nvarchar(40), @dienthoai varchar(12)
 as
 begin
-insert into KHACHHANG(TenKH, DinhDanh) values(@tenkh, @dinhdanh)
+insert into KHACHHANG(TenKH, DinhDanh,SoDT) values(@tenkh, @dinhdanh,@dienthoai)
 end
 
 Go
@@ -360,10 +378,26 @@ EXEC KT_BCL
 EXEC HienThiChiTietBaoCaoLuong 5
 EXEC UpdateLuongCoBan 10,1
 
+EXEC Login 'as','123'
+
 SELECT * FROM CHUCVU
+SELECT * FROM PHONG 
+SELECT * FROM LOAIPHONG
 SELECT * FROM NHANVIEN
 SELECT * FROM BAOCAO_LUONG
 SELECT * FROM BAOCAOCT_LUONG
 
 
+--DROP PROC HienThiChiTietBaoCaoLuong
+DELETE FROM BAOCAOCT_LUONG
+DELETE FROM BAOCAO_LUONG
 
+DELETE FROM NHANVIEN
+DELETE FROM CHUCVU
+
+
+DROP PROC UpdateLuongCoBan
+
+select LOAIPHONG.TenLoaiPhong, PHONG.SoPhong, PHONG.GhiChu from PHONG, LOAIPHONG where PHONG.MaLoaiPhong = LOAIPHONG.MaLoaiPhong and PHONG.TinhTrang = 0
+
+update PHONG Set TinhTrang = 0  Where SoPhong = 21
