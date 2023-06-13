@@ -4,20 +4,135 @@
  */
 package com.mycompany.hotelmanager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author Admins
  */
 public class Menu extends javax.swing.JFrame {
 
+    Source_code model = new Source_code();
+    
     public Menu() {
         initComponents();
         Global chucvu = new Global();
         int quyen = chucvu.getChucVu();
         if (quyen == 1){btn_Admin.setVisible(true);} // Phân quyền Admin
         else {btn_Admin.setVisible(false);} // Phân quyền nhân viên thu ngân
+        LoadTable();
+        LoadComboBoxThongTinPhong();
+        LoadRoomInfo();
     }
+    
+    public void LoadTable(){
+       try{//Lấy các tất cả các phòng trong cơ sở dữ liệu và load lên table tb_Room1
+            ResultSet rs = model.LayPhongVaLoaiPhong();
+            DefaultTableModel tb_Room1_model = (DefaultTableModel) tb_Room1.getModel();
+            int col1 = 1;
+            String col2, col3, col4, col5;
+            while(rs.next()){
+                col2 = rs.getString(1);
+                col3 = rs.getString(2);
+                col4 = rs.getString(3);
+                col5 = rs.getString(4);
+                String[] row = {Integer.toString(col1), col2, col3, col4, col5};
+                tb_Room1_model.addRow(row);
+                col1++;
+            }
+          }
+       catch(SQLException e){System.out.print(e);};
+    }
+    
+    public void LoadComboBoxThongTinPhong(){
+        List<String> tenLoaiPhong = new ArrayList<String>();
+        try{//Lấy tất cả loại phòng trong csdl load lên combobox comb_ThongTinPhong
+        ResultSet rs_LP = model.LayLoaiPhong();
+        while(rs_LP.next())
+        tenLoaiPhong.add(rs_LP.getString(2));
+        }
+        catch(SQLException e){System.out.print(e);};
+        //Thêm loại phòng vào combo box
+        comb_ThongTinPhong.setModel(new javax.swing.DefaultComboBoxModel<>(tenLoaiPhong.toArray(String[]::new)));
+    }
+    
+    public void LocTheoLoaiPhong(String loaiphong){
+        try{//Lấy các tất cả các phòng trong cơ sở dữ liệu theo loại được chỉ định và load lên table tb_Room1
+            ResultSet rs = model.LayPhongVaLoaiPhong(loaiphong);
+            DefaultTableModel tb_Room1_model = (DefaultTableModel) tb_Room1.getModel();
+            int col1 = 1;
+            String col2, col3, col4, col5;
+            while(rs.next()){
+                col2 = rs.getString(1);
+                col3 = rs.getString(2);
+                col4 = rs.getString(3);
+                col5 = rs.getString(4);
+                String[] row = {Integer.toString(col1), col2, col3, col4, col5};
+                tb_Room1_model.addRow(row);
+                col1++;
+            }
+          }
+       catch(SQLException e){System.out.print(e);};
+    }
+    
+    public void LoadRoomInfo(){
+        try{//Lấy  tất cả phòng hiện đang cho thuê từ CSDL load lên table tb_Roominfo
+            ResultSet rs = model.LayPhongDangChoThue();
+             DefaultTableModel tb_RoomInfo_model = (DefaultTableModel) tb_RoomInfo.getModel();
 
+            int col1 = 1;
+            String col2, col3, col4, col5;
+            while(rs.next()){
+                col2 = rs.getString(1);
+                col3 = rs.getString(2);
+                col4 = rs.getString(3);
+                col5 = rs.getString(4);
+                String[] row = {Integer.toString(col1), col2, col3, col4, col5};
+                tb_RoomInfo_model.addRow(row);
+                col1++;
+            }
+          }
+       catch(SQLException e){System.out.print(e);};
+    }
+    
+    public void TimPhongChoThue(){
+        try{
+            ResultSet rs = null;
+            DefaultTableModel tb_RoomInfo_model = (DefaultTableModel) tb_RoomInfo.getModel();
+            tb_RoomInfo_model.setRowCount(0);
+
+            if(comb_ThongTin.getSelectedIndex() == 0)//Search theo số phòng
+                rs = model.LayPhongDangChoThueTheoSoPhong(txb_TimKiem.getText().toString());
+            else if(comb_ThongTin.getSelectedIndex() == 1)//Search theo tên khách
+                rs = model.LayPhongDangChoThueTheoTenKhach(txb_TimKiem.getText().toString());
+            else//Search theo ngày thuê
+                rs = model.LayPhongDangChoThueTheoNgay(txb_TimKiem.getText().toString());
+                
+            int col1 = 1;
+            String col2, col3, col4, col5;
+            while(rs.next()){
+                col2 = rs.getString(1);
+                col3 = rs.getString(2);
+                col4 = rs.getString(3);
+                col5 = rs.getString(4);
+                String[] row = {Integer.toString(col1), col2, col3, col4, col5};
+                tb_RoomInfo_model.addRow(row);
+                col1++;
+            }
+        }
+       catch(SQLException e){System.out.print(e);};
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,6 +234,8 @@ public class Menu extends javax.swing.JFrame {
         tabpn_PhongThue.setBackground(new java.awt.Color(252, 204, 204));
 
         comb_ThongTin.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+        String[] filter = {"Phòng", "Tên khách", "Thời gian thuê"};
+        comb_ThongTin.setModel(new javax.swing.DefaultComboBoxModel<>(filter));
         comb_ThongTin.setBorder(null);
 
         tb_RoomInfo.setBackground(new java.awt.Color(255, 204, 204));
@@ -126,7 +243,7 @@ public class Menu extends javax.swing.JFrame {
         tb_RoomInfo.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
         tb_RoomInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "STT", "Phòng", "Tên khách", "Thời gian thuê", "Ghi chú"
@@ -168,6 +285,11 @@ public class Menu extends javax.swing.JFrame {
         btn_Find.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
         btn_Find.setText("T");
         btn_Find.setBorder(null);
+        btn_Find.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_FindMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout tabpn_PhongThueLayout = new javax.swing.GroupLayout(tabpn_PhongThue);
         tabpn_PhongThue.setLayout(tabpn_PhongThueLayout);
@@ -212,7 +334,7 @@ public class Menu extends javax.swing.JFrame {
         tb_Room1.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
         tb_Room1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "STT", "Loại phòng", "Phòng", "Sức chứa", "Tình trạng", "Ghi chú"
@@ -253,6 +375,16 @@ public class Menu extends javax.swing.JFrame {
         btn_Filter.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
         btn_Filter.setText("T");
         btn_Filter.setBorder(null);
+        btn_Filter.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_FilterMouseClicked(evt);
+            }
+        });
+        btn_Filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_FilterActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tabpn_PhongLayout = new javax.swing.GroupLayout(tabpn_Phong);
         tabpn_Phong.setLayout(tabpn_PhongLayout);
@@ -342,6 +474,23 @@ public class Menu extends javax.swing.JFrame {
         // Click chuột nút Nhận phòng
         new CheckIn().setVisible(true);
     }//GEN-LAST:event_btn_CheckINMouseClicked
+
+    private void btn_FilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_FilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_FilterActionPerformed
+
+    private void btn_FilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_FilterMouseClicked
+        // TODO add your handling code here:
+        LocTheoLoaiPhong(comb_ThongTinPhong.getSelectedItem().toString());
+    }//GEN-LAST:event_btn_FilterMouseClicked
+
+    private void btn_FindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_FindMouseClicked
+        // TODO add your handling code here:
+        if(txb_TimKiem.getText().isEmpty())
+            LoadRoomInfo();//Nếu ô tìm kiếm trống thì cho hiện lại tất cả phòng đang cho thuê
+        else
+            TimPhongChoThue();
+    }//GEN-LAST:event_btn_FindMouseClicked
 
     /**
      * @param args the command line arguments
