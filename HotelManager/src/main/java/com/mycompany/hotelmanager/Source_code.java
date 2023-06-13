@@ -170,6 +170,100 @@ public class Source_code {
         return ketqua;
     }
     
+     public ResultSet LayPhongVaLoaiPhong(){
+        String sql = "Select LOAIPHONG.TenLoaiPhong, PHONG.SoPhong, LOAIPHONG.SucChua, PHONG.TinhTrang, PHONG.GhiChu\n" +
+                     "From PHONG inner join LOAIPHONG \n" +
+                     "ON PHONG.MaLoaiPhong = LOAIPHONG.MaLoaiPhong";
+        ResultSet rs = null;
+        try{
+                PreparedStatement pres = con.prepareStatement(sql);
+                rs = pres.executeQuery();   
+           }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi hàm LayPhongVaLoaiPhong");}
+        return rs;
+    }
+    
+     public ResultSet LayPhongVaLoaiPhong(String tenloaiphong){
+        String sql = "Select LOAIPHONG.TenLoaiPhong, PHONG.SoPhong, LOAIPHONG.SucChua, PHONG.TinhTrang, PHONG.GhiChu\n" +
+                     "From PHONG inner join LOAIPHONG \n" +
+                     "ON PHONG.MaLoaiPhong = LOAIPHONG.MaLoaiPhong\n"+
+                     "Where LOAIPHONG.TenLoaiPhong = N'" + tenloaiphong + "'";
+        ResultSet rs = null;
+        try{
+                PreparedStatement pres = con.prepareStatement(sql);
+                rs = pres.executeQuery();   
+           }
+        catch(Exception e) {JOptionPane.showMessageDialog(null, "Lỗi hàm LayPhongVaLoaiPhong co tham so");}
+        return rs;
+    }
+     
+    public ResultSet LayPhongDangChoThue(){
+        String sql = "Select PHONG.SoPhong ,KHACHHANG.TenKH, PHIEUTHUEPHONG.NgayLap, PHONG.GhiChu\n" +
+                    "From PHONG full outer join  CT_PTP on PHONG.SoPhong = CT_PTP.SoPhong\n" +
+                    "full outer join KHACHHANG on KHACHHANG.MaKH = CT_PTP.MaKH\n" +
+                    "full outer join PHIEUTHUEPHONG on PHIEUTHUEPHONG.SoPTP = CT_PTP.SoPTP\n" +
+                    "where PHONG.TinhTrang = 1 \n" +
+                    "and PHIEUTHUEPHONG.NgayLap = (Select MAX(PHIEUTHUEPHONG.NgayLap) from PHIEUTHUEPHONG inner join CT_PTP on CT_PTP.SoPTP = PHIEUTHUEPHONG.SoPTP\n" +
+        								"where CT_PTP.SoPhong in (Select SoPhong from PHONG where TinhTrang = 1))";
+        ResultSet rs = null;
+        try{
+                PreparedStatement pres = con.prepareStatement(sql);
+                rs = pres.executeQuery();   
+           }
+        catch(Exception e) {JOptionPane.showMessageDialog(null, "Lỗi hàm LayPhongDangChoThue");}
+        return rs;
+    }
+    
+    public ResultSet LayPhongDangChoThueTheoSoPhong(String sophong){
+        String sql = "Select PHONG.SoPhong ,KHACHHANG.TenKH, PHIEUTHUEPHONG.NgayLap, PHONG.GhiChu\n" +
+                    "From PHONG full outer join  CT_PTP on PHONG.SoPhong = CT_PTP.SoPhong\n" +
+                    "full outer join KHACHHANG on KHACHHANG.MaKH = CT_PTP.MaKH\n" +
+                    "full outer join PHIEUTHUEPHONG on PHIEUTHUEPHONG.SoPTP = CT_PTP.SoPTP\n" +
+                    "where PHONG.SoPhong = " + sophong + " and PHONG.TinhTrang = 1 \n" +
+                    "and PHIEUTHUEPHONG.NgayLap = (Select MAX(PHIEUTHUEPHONG.NgayLap) from PHIEUTHUEPHONG inner join CT_PTP on CT_PTP.SoPTP = PHIEUTHUEPHONG.SoPTP\n" +
+        								"where CT_PTP.SoPhong in (Select SoPhong from PHONG where TinhTrang = 1))";
+        ResultSet rs = null;
+        try{
+                PreparedStatement pres = con.prepareStatement(sql);
+                rs = pres.executeQuery();   
+           }
+        catch(Exception e) {JOptionPane.showMessageDialog(null, "Lỗi hàm LayPhongDangChoThueTheoSoPhong");}
+        return rs;
+    }
+    
+    public ResultSet LayPhongDangChoThueTheoTenKhach(String tenkhach){
+        String sql = "Select PHONG.SoPhong ,KHACHHANG.TenKH, PHIEUTHUEPHONG.NgayLap, PHONG.GhiChu\n" +
+                    "From PHONG full outer join  CT_PTP on PHONG.SoPhong = CT_PTP.SoPhong\n" +
+                    "full outer join KHACHHANG on KHACHHANG.MaKH = CT_PTP.MaKH\n" +
+                    "full outer join PHIEUTHUEPHONG on PHIEUTHUEPHONG.SoPTP = CT_PTP.SoPTP\n" +
+                    "where KHACHHANG.TenKH = N'" + tenkhach + "' and PHONG.TinhTrang = 1 \n" +
+                    "and PHIEUTHUEPHONG.NgayLap = (Select MAX(PHIEUTHUEPHONG.NgayLap) from PHIEUTHUEPHONG inner join CT_PTP on CT_PTP.SoPTP = PHIEUTHUEPHONG.SoPTP\n" +
+        								"where CT_PTP.SoPhong in (Select SoPhong from PHONG where TinhTrang = 1))";
+        ResultSet rs = null;
+        try{
+                PreparedStatement pres = con.prepareStatement(sql);
+                rs = pres.executeQuery();   
+           }
+        catch(Exception e) {JOptionPane.showMessageDialog(null, "Lỗi hàm LayPhongDangChoThueTheoTenKhach");}
+        return rs;
+    }
+    
+    public ResultSet LayPhongDangChoThueTheoNgay(String ngay){
+        String sql = "Select PHONG.SoPhong ,KHACHHANG.TenKH, PHIEUTHUEPHONG.NgayLap, PHONG.GhiChu\n" +
+                    "From PHONG full outer join  CT_PTP on PHONG.SoPhong = CT_PTP.SoPhong\n" +
+                    "full outer join KHACHHANG on KHACHHANG.MaKH = CT_PTP.MaKH\n" +
+                    "full outer join PHIEUTHUEPHONG on PHIEUTHUEPHONG.SoPTP = CT_PTP.SoPTP\n" +
+                    "where PHIEUTHUEPHONG.NgayLap = '" + ngay + "' and PHONG.TinhTrang = 1 \n" +
+                    "and PHIEUTHUEPHONG.NgayLap = (Select MAX(PHIEUTHUEPHONG.NgayLap) from PHIEUTHUEPHONG inner join CT_PTP on CT_PTP.SoPTP = PHIEUTHUEPHONG.SoPTP\n" +
+        								"where CT_PTP.SoPhong in (Select SoPhong from PHONG where TinhTrang = 1))";
+        ResultSet rs = null;
+        try{
+                PreparedStatement pres = con.prepareStatement(sql);
+                rs = pres.executeQuery();   
+           }
+        catch(Exception e) {JOptionPane.showMessageDialog(null, "Lỗi hàm LayPhongDangChoThueTheoNgay");}
+        return rs;
+    }
     
 }
 

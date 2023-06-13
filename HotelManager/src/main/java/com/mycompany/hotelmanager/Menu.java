@@ -23,6 +23,8 @@ public class Menu extends javax.swing.JFrame {
 
     Source_code model = new Source_code();
     
+    int temp = 0;
+    
     public Menu() {
         initComponents();
         Global chucvu = new Global();
