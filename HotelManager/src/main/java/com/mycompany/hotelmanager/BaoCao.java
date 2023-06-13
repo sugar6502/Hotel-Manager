@@ -36,10 +36,6 @@ public class BaoCao extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         lb_Tong = new javax.swing.JLabel();
         lb_Month = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tb_DV = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
-        lb_TongDV = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,11 +54,11 @@ public class BaoCao extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "STT", "Loại phòng", "Thành tiền"
+                "STT", "Số phòng", "Thành tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Long.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -104,48 +100,6 @@ public class BaoCao extends javax.swing.JFrame {
         lb_Month.setFont(new java.awt.Font("SVN-Nexa Light", 1, 30)); // NOI18N
         lb_Month.setText("...");
 
-        jScrollPane2.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
-
-        tb_DV.setBackground(new java.awt.Color(255, 204, 204));
-        tb_DV.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tb_DV.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
-        tb_DV.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null}
-            },
-            new String [] {
-                "STT", "Dịch vụ", "Thành tiền"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tb_DV.setGridColor(new java.awt.Color(0, 0, 0));
-        tb_DV.setSelectionBackground(new java.awt.Color(255, 102, 102));
-        tb_DV.setShowGrid(false);
-        tb_DV.setShowHorizontalLines(true);
-        tb_DV.setShowVerticalLines(true);
-        tb_DV.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tb_DV);
-
-        jLabel4.setFont(new java.awt.Font("SVN-Nexa Light", 1, 30)); // NOI18N
-        jLabel4.setText("Tổng:");
-
-        lb_TongDV.setFont(new java.awt.Font("SVN-Nexa Light", 1, 30)); // NOI18N
-        lb_TongDV.setText("...");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -161,7 +115,6 @@ public class BaoCao extends javax.swing.JFrame {
                         .addComponent(btn_Back))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -170,13 +123,10 @@ public class BaoCao extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
                                 .addComponent(lb_Tong)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(lb_TongDV))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(290, 701, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -193,15 +143,11 @@ public class BaoCao extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(lb_Month))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(lb_Tong)
-                    .addComponent(jLabel4)
-                    .addComponent(lb_TongDV))
+                    .addComponent(lb_Tong))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -261,14 +207,10 @@ public class BaoCao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lb_Month;
     private javax.swing.JLabel lb_Tong;
-    private javax.swing.JLabel lb_TongDV;
-    private javax.swing.JTable tb_DV;
     private javax.swing.JTable tb_LP;
     // End of variables declaration//GEN-END:variables
 }
