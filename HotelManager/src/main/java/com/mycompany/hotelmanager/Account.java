@@ -66,6 +66,11 @@ public class Account extends javax.swing.JFrame {
         btn_No.setForeground(new java.awt.Color(255, 0, 51));
         btn_No.setText("Hủy");
         btn_No.setBorder(null);
+        btn_No.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_NoActionPerformed(evt);
+            }
+        });
 
         Passtxb_MatKhau.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
 
@@ -135,6 +140,10 @@ public class Account extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NoActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btn_NoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -176,40 +185,10 @@ public class Account extends javax.swing.JFrame {
     private javax.swing.JButton btn_No;
     private javax.swing.JButton btn_Yes;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel pn_TaiKhoan;
-    private javax.swing.JPanel pn_TaiKhoan1;
-    private javax.swing.JPanel pn_TaiKhoan2;
-    private javax.swing.JPanel pn_TaiKhoan3;
-    private javax.swing.JPanel pn_TaiKhoan4;
-    private javax.swing.JTextField txb_MK;
-    private javax.swing.JTextField txb_MK1;
-    private javax.swing.JTextField txb_MK2;
-    private javax.swing.JTextField txb_MK3;
-    private javax.swing.JTextField txb_MK4;
-    private javax.swing.JTextField txb_TK;
-    private javax.swing.JTextField txb_TK1;
-    private javax.swing.JTextField txb_TK2;
-    private javax.swing.JTextField txb_TK3;
-    private javax.swing.JTextField txb_TK4;
     private javax.swing.JTextField txb_TaiKhoan;
     // End of variables declaration//GEN-END:variables
 }

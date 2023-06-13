@@ -97,6 +97,11 @@ public class Menu extends javax.swing.JFrame {
                 btn_CheckINMouseClicked(evt);
             }
         });
+        btn_CheckIN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_CheckINActionPerformed(evt);
+            }
+        });
 
         btn_CheckOUT.setBackground(new java.awt.Color(255, 204, 204));
         btn_CheckOUT.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
@@ -112,6 +117,11 @@ public class Menu extends javax.swing.JFrame {
         btn_Admin.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Admin.setText("AD");
         btn_Admin.setBorder(null);
+        btn_Admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AdminActionPerformed(evt);
+            }
+        });
 
         jTabbedPane1.setBackground(new java.awt.Color(242, 102, 102));
         jTabbedPane1.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 24)); // NOI18N
@@ -342,6 +352,14 @@ public class Menu extends javax.swing.JFrame {
         // Click chuột nút Nhận phòng
         new CheckIn().setVisible(true);
     }//GEN-LAST:event_btn_CheckINMouseClicked
+
+    private void btn_CheckINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CheckINActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_CheckINActionPerformed
+
+    private void btn_AdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AdminActionPerformed
+        new Admin().setVisible(true);
+    }//GEN-LAST:event_btn_AdminActionPerformed
 
     /**
      * @param args the command line arguments

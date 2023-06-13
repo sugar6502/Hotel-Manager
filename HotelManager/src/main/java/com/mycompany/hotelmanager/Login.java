@@ -171,15 +171,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_LoginMousePressed
 
     private void btn_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginActionPerformed
-        String sql = "EXEC KT_BCL";
-        try{
-       
-          Statement pres = con.createStatement();
-          pres.executeUpdate(sql);
-     
-   
-        }
-        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
+
     }//GEN-LAST:event_btn_LoginActionPerformed
 
     /**

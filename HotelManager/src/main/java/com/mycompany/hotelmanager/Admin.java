@@ -7,6 +7,7 @@ package com.mycompany.hotelmanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,16 +22,26 @@ public class Admin extends javax.swing.JFrame {
      * Creates new form Admin
      */
     Source_code model = new Source_code();
-    List<Integer> DichVu = model.LayMaDichVu();
-    List<Integer> ChucVu = model.LayMaChucVu();
-    public Admin() {
-        
-        initComponents();
-        
-        
+    private  List<Integer> DichVu ;
+    private  List<Integer> ChucVu ;
+    private  List<Integer> NhanVien ;
+    private  List<Integer> LoaiPhong;
+    private  List<Integer> Phong;
+    
+    public void Restart() {
+        DichVu = model.LayMaDichVu();
+        ChucVu = model.LayMaChucVu();
+        NhanVien = model.LayMaNhanVien();
+        LoaiPhong = model.LayMaLoaiPhong();
+        Phong = model.LayMaPhong();
         String rowCV[] = new String[3];
         String rowDV[] = new String[3];
+        String rowNV[] = new String[5];
+        String rowLP[] = new String[4];
+        String rowP[] = new String[5];
+        
         DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV1.getModel();
+        Tablemodel.setRowCount(0);
      
         for (int MaCV : ChucVu) {
             int Luong = model.LayLuongChucVu(MaCV);
@@ -42,6 +53,7 @@ public class Admin extends javax.swing.JFrame {
             
         }
         Tablemodel = (DefaultTableModel) tb_DV.getModel();
+        Tablemodel.setRowCount(0);
         
          for (int MaDV : DichVu) {
             
@@ -53,7 +65,74 @@ public class Admin extends javax.swing.JFrame {
             Tablemodel.addRow(rowDV);
             
         }
-
+         
+        Tablemodel = (DefaultTableModel) tb_NV.getModel();
+        Tablemodel.setRowCount(0);
+   
+         for (int MaNV : NhanVien) {
+       
+            String TenNV = model.LayThuocTinhNhanVien(MaNV,"TenNV");
+            
+       
+            int MaCV = Integer.parseInt(model.LayThuocTinhNhanVien(MaNV,"MaCV"));
+            String TenCV = model.LayTenChucVu(MaCV);
+            String CCCD = model.LayThuocTinhNhanVien(MaNV,"DinhDanh");
+            String DC = model.LayThuocTinhNhanVien(MaNV,"DiaChi");
+            rowNV[0] = Integer.toString(Tablemodel.getRowCount()+1);
+            rowNV[1] = TenNV;
+            rowNV[2] = TenCV;
+            rowNV[3] = CCCD;
+            rowNV[4] = DC;
+            Tablemodel.addRow(rowNV);
+            
+        }
+         
+         Tablemodel = (DefaultTableModel) tb_LPhong.getModel();
+         Tablemodel.setRowCount(0);
+         List<String> TenLoaiPhong = new ArrayList<>();
+         for (int MaLP : LoaiPhong) {
+            String TenLP = model.LayThuocTinhLoaiPhong(MaLP,"TenLoaiPhong");
+            TenLoaiPhong.add(TenLP);
+            String DonGia = model.LayThuocTinhLoaiPhong(MaLP,"DonGia");
+            String SucChua = model.LayThuocTinhLoaiPhong(MaLP,"SucChua");
+            rowLP[0] = Integer.toString(Tablemodel.getRowCount()+1);
+            rowLP[1] = TenLP;
+            rowLP[2] = (DonGia);
+            rowLP[3] = (SucChua);
+            Tablemodel.addRow(rowLP);
+            
+        }
+         combob_LoaiPhong.setModel(new javax.swing.DefaultComboBoxModel<>(TenLoaiPhong.toArray(String[]::new)));
+       
+         Tablemodel = (DefaultTableModel) tb_Phong.getModel();
+         Tablemodel.setRowCount(0);
+         
+         for (int MaP : Phong) {
+            String MaLP = model.LayThuocTinhPhong(MaP,"MaLoaiPhong");
+            String TenLP = model.LayThuocTinhLoaiPhong(Integer.parseInt(MaLP),"TenLoaiPhong");
+            String TinhTrang = model.LayThuocTinhPhong(MaP,"TinhTrang");
+            String GhiChu = model.LayThuocTinhPhong(MaP,"GhiChu");
+            rowP[0] = Integer.toString(Tablemodel.getRowCount()+1);
+            rowP[1] = Integer.toString(MaP);
+            rowP[2] = TenLP;
+            rowP[3] = TinhTrang;
+            rowP[4] = GhiChu;
+            Tablemodel.addRow(rowP);
+            
+        }
+         
+  
+        
+       
+    }
+    
+    public Admin() {
+        
+        initComponents();
+        Restart();
+        
+        
+        
 
 
     }
@@ -147,6 +226,11 @@ public class Admin extends javax.swing.JFrame {
         tabbedPanel.setBackground(new java.awt.Color(255, 102, 102));
         tabbedPanel.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 24)); // NOI18N
         tabbedPanel.setRequestFocusEnabled(false);
+        tabbedPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabbedPanelMouseClicked(evt);
+            }
+        });
 
         tabpn_NV.setBackground(new java.awt.Color(255, 204, 204));
         tabpn_NV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 18)); // NOI18N
@@ -158,7 +242,7 @@ public class Admin extends javax.swing.JFrame {
         tb_NV.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
         tb_NV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "STT", "Nhân viên", "Chức vụ", "CCCD", "Địa chỉ"
@@ -185,6 +269,11 @@ public class Admin extends javax.swing.JFrame {
         tb_NV.setShowHorizontalLines(true);
         tb_NV.setShowVerticalLines(true);
         tb_NV.getTableHeader().setReorderingAllowed(false);
+        tb_NV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_NVMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tb_NV);
 
         btn_Salary.setBackground(new java.awt.Color(255, 204, 204));
@@ -192,30 +281,62 @@ public class Admin extends javax.swing.JFrame {
         btn_Salary.setText("Lương");
         btn_Salary.setToolTipText("");
         btn_Salary.setBorder(null);
+        btn_Salary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_SalaryActionPerformed(evt);
+            }
+        });
 
         btn_Delete_NV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_NV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Delete_NV.setText("Xóa");
         btn_Delete_NV.setToolTipText("");
         btn_Delete_NV.setBorder(null);
+        btn_Delete_NV.setEnabled(false);
+        btn_Delete_NV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Delete_NVActionPerformed(evt);
+            }
+        });
 
         btn_Add_NV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add_NV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Add_NV.setText("Thêm");
         btn_Add_NV.setToolTipText("");
         btn_Add_NV.setBorder(null);
+        btn_Add_NV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_Add_NVMouseClicked(evt);
+            }
+        });
+        btn_Add_NV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Add_NVActionPerformed(evt);
+            }
+        });
 
         btn_Adjust_NV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_NV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Adjust_NV.setText("Sửa");
         btn_Adjust_NV.setToolTipText("");
         btn_Adjust_NV.setBorder(null);
+        btn_Adjust_NV.setEnabled(false);
+        btn_Adjust_NV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Adjust_NVActionPerformed(evt);
+            }
+        });
 
         btn_Account.setBackground(new java.awt.Color(255, 204, 204));
         btn_Account.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Account.setText("Tài khoản");
         btn_Account.setToolTipText("");
         btn_Account.setBorder(null);
+        btn_Account.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AccountActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tabpn_NVLayout = new javax.swing.GroupLayout(tabpn_NV);
         tabpn_NV.setLayout(tabpn_NVLayout);
@@ -420,6 +541,11 @@ public class Admin extends javax.swing.JFrame {
         txb_GiaLPhong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
 
         txb_TenLPhong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
+        txb_TenLPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txb_TenLPhongActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("SVN-Nexa Light", 0, 30)); // NOI18N
         jLabel6.setText("Sức chứa:");
@@ -431,18 +557,35 @@ public class Admin extends javax.swing.JFrame {
         btn_Add_LP.setText("T");
         btn_Add_LP.setToolTipText("");
         btn_Add_LP.setBorder(null);
+        btn_Add_LP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Add_LPActionPerformed(evt);
+            }
+        });
 
         btn_Adjust_LP.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_LP.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
         btn_Adjust_LP.setText("S");
         btn_Adjust_LP.setToolTipText("");
         btn_Adjust_LP.setBorder(null);
+        btn_Adjust_LP.setEnabled(false);
+        btn_Adjust_LP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Adjust_LPActionPerformed(evt);
+            }
+        });
 
         btn_Delete_LP.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_LP.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
         btn_Delete_LP.setText("X");
         btn_Delete_LP.setToolTipText("");
         btn_Delete_LP.setBorder(null);
+        btn_Delete_LP.setEnabled(false);
+        btn_Delete_LP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Delete_LPActionPerformed(evt);
+            }
+        });
 
         jScrollPane3.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
 
@@ -451,7 +594,7 @@ public class Admin extends javax.swing.JFrame {
         tb_LPhong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
         tb_LPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "STT", "Tên loại phòng", "Đơn giá", "Sức chứa"
@@ -478,6 +621,11 @@ public class Admin extends javax.swing.JFrame {
         tb_LPhong.setShowHorizontalLines(true);
         tb_LPhong.setShowVerticalLines(true);
         tb_LPhong.getTableHeader().setReorderingAllowed(false);
+        tb_LPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_LPhongMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tb_LPhong);
 
         jLabel7.setFont(new java.awt.Font("SVN-Nexa Light", 0, 30)); // NOI18N
@@ -500,7 +648,7 @@ public class Admin extends javax.swing.JFrame {
         tb_Phong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
         tb_Phong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "STT", "Số phòng", "Loại phòng", "Tình trạng", "Ghi chú"
@@ -527,6 +675,11 @@ public class Admin extends javax.swing.JFrame {
         tb_Phong.setShowHorizontalLines(true);
         tb_Phong.setShowVerticalLines(true);
         tb_Phong.getTableHeader().setReorderingAllowed(false);
+        tb_Phong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_PhongMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tb_Phong);
 
         jLabel10.setFont(new java.awt.Font("SVN-Nexa Light", 0, 30)); // NOI18N
@@ -535,24 +688,42 @@ public class Admin extends javax.swing.JFrame {
         combob_LoaiPhong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
 
         combob_TinhTrang.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
+        combob_TinhTrang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3" }));
 
         btn_Add_Phong.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
         btn_Add_Phong.setText("T");
         btn_Add_Phong.setToolTipText("");
         btn_Add_Phong.setBorder(null);
+        btn_Add_Phong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Add_PhongActionPerformed(evt);
+            }
+        });
 
         btn_Adjust_Phong.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
         btn_Adjust_Phong.setText("S");
         btn_Adjust_Phong.setToolTipText("");
         btn_Adjust_Phong.setBorder(null);
+        btn_Adjust_Phong.setEnabled(false);
+        btn_Adjust_Phong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Adjust_PhongActionPerformed(evt);
+            }
+        });
 
         btn_Delete_Phong.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
         btn_Delete_Phong.setText("X");
         btn_Delete_Phong.setToolTipText("");
         btn_Delete_Phong.setBorder(null);
+        btn_Delete_Phong.setEnabled(false);
+        btn_Delete_Phong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Delete_PhongActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tabpn_PhongLayout = new javax.swing.GroupLayout(tabpn_Phong);
         tabpn_Phong.setLayout(tabpn_PhongLayout);
@@ -838,7 +1009,7 @@ public class Admin extends javax.swing.JFrame {
 
     private void tb_DV1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_DV1MouseClicked
        int index = tb_DV1.getSelectedRow();
-       if(evt.getClickCount()==2) {
+       if(evt.getClickCount()>=2) {
        tb_DV1.clearSelection();
        txb_TenDV1.setText("");
        txb_GiaDV1.setText("");
@@ -895,6 +1066,7 @@ public class Admin extends javax.swing.JFrame {
        //int MaCV = model.LayMaChucVu(TenCV);
        String sql = "DELETE FROM CHUCVU WHERE MaCV=?";
        DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV1.getModel();
+       
        try{
             PreparedStatement pres = con.prepareStatement(sql);
             pres.setInt(1,MaCV);
@@ -925,15 +1097,23 @@ public class Admin extends javax.swing.JFrame {
        String TenCV = txb_TenDV1.getText();
        String LuongCoBan = txb_GiaDV1.getText();
        int MaCV = ChucVu.get(index) ;
-    
+       int LuongBanDau = Integer.parseInt((String) tb_DV1.getValueAt(index, 2));
+       int ChenhLech =  Integer.parseInt(LuongCoBan) - LuongBanDau;
        
-       String sql = "UPDATE CHUCVU SET TenCV=?,LUONGCOBAN=? WHERE MaCV=?";
+       
+       //String sql = "UPDATE CHUCVU SET TenCV=?,LUONGCOBAN=? WHERE MaCV=?";
+       String sql1 = "EXEC UpdateLuongCoBan ?,?,?,?";
        try{
-            PreparedStatement pres = con.prepareStatement(sql);
-            pres.setString(1,TenCV);
-            pres.setInt(2,Integer.parseInt(LuongCoBan));
-            pres.setInt(3,MaCV);
-            pres.executeUpdate();
+            //PreparedStatement pres = con.prepareStatement(sql);
+            PreparedStatement pres1 = con.prepareStatement(sql1);
+            pres1.setInt(1, Integer.parseInt(LuongCoBan));
+            pres1.setInt(2, ChenhLech);
+            pres1.setInt(3, MaCV);
+            pres1.setString(4, TenCV);
+            //pres.setString(1,TenCV);
+            //pres.setInt(2,Integer.parseInt(LuongCoBan));
+            //pres.setInt(3,MaCV);
+            pres1.executeUpdate();
             JOptionPane.showMessageDialog(null, "Sửa thành công");
             tb_DV1.setValueAt(TenCV, index, 1);
             tb_DV1.setValueAt(LuongCoBan, index, 2);
@@ -944,12 +1124,12 @@ public class Admin extends javax.swing.JFrame {
             btn_Adjust_DV1.setEnabled(false);
         
         }
-        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
     }//GEN-LAST:event_btn_Adjust_DV1ActionPerformed
 
     private void tb_DVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_DVMouseClicked
       int index = tb_DV.getSelectedRow();
-       if(evt.getClickCount()==2) {
+       if(evt.getClickCount()>=2) {
        tb_DV.clearSelection();
        txb_TenDV.setText("");
        txb_GiaDV.setText("");
@@ -1053,6 +1233,295 @@ public class Admin extends javax.swing.JFrame {
         }
         catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
     }//GEN-LAST:event_btn_Adjust_DVActionPerformed
+
+    private void btn_SalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalaryActionPerformed
+        new Salary().setVisible(true);
+    }//GEN-LAST:event_btn_SalaryActionPerformed
+
+    private void btn_Add_NVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_Add_NVMouseClicked
+        new Worker().setVisible(true);
+    }//GEN-LAST:event_btn_Add_NVMouseClicked
+
+    private void btn_AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AccountActionPerformed
+        new Account().setVisible(true);
+    }//GEN-LAST:event_btn_AccountActionPerformed
+
+    private void tb_NVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_NVMouseClicked
+       if(evt.getClickCount()>=2) {
+       tb_NV.clearSelection();
+       btn_Delete_NV.setEnabled(false);
+       btn_Adjust_NV.setEnabled(false);
+       }
+       else{
+       
+       btn_Delete_NV.setEnabled(true);
+       btn_Adjust_NV.setEnabled(true);
+       }
+  
+       //DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV1.getModel();
+
+       
+    }//GEN-LAST:event_tb_NVMouseClicked
+
+    private void btn_Adjust_NVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Adjust_NVActionPerformed
+        int index = tb_NV.getSelectedRow();
+        int MaNV = NhanVien.get(index);
+        //int MaCV = Integer.parseInt(model.LayThuocTinhNhanVien(MaNV,"MaCV"));
+        String TenCV = (String)tb_NV.getValueAt(index, 2);
+        String TenNhanVien = (String)tb_NV.getValueAt(index, 1);
+        String CCCD = (String)tb_NV.getValueAt(index, 3);
+        String DT = (String)tb_NV.getValueAt(index, 4);
+        new Worker(TenNhanVien,TenCV,CCCD,DT,MaNV).setVisible(true);
+    }//GEN-LAST:event_btn_Adjust_NVActionPerformed
+
+    private void btn_Add_NVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Add_NVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_Add_NVActionPerformed
+
+    private void btn_Delete_NVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Delete_NVActionPerformed
+        int index = tb_NV.getSelectedRow();
+        int MaNV = NhanVien.get(index);
+        //int MaCV = Integer.parseInt(model.LayThuocTinhNhanVien(MaNV,"MaCV"));
+        Connection con = model.GetCon();
+        String sql="DELETE FROM NHANVIEN WHERE MaNV=?";
+        DefaultTableModel Tablemodel = (DefaultTableModel) tb_NV.getModel();
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,MaNV);
+            pres.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Xóa thành công");
+            Tablemodel.removeRow(index);
+                  for(int i=0;i<Tablemodel.getRowCount();i++) {
+                tb_NV.setValueAt(i+1, i, 0);
+            
+            }
+            
+            
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+    }//GEN-LAST:event_btn_Delete_NVActionPerformed
+
+    private void tb_LPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_LPhongMouseClicked
+        
+      int index = tb_LPhong.getSelectedRow();
+       if(evt.getClickCount()>=2) {
+       tb_LPhong.clearSelection();
+       txb_TenLPhong.setText("");
+       txb_GiaLPhong.setText("");
+       txb_SucChua.setText("");
+       btn_Add_LP.setEnabled(true);
+       btn_Adjust_LP.setEnabled(false);
+       btn_Delete_LP.setEnabled(false);
+       }
+       else {
+       btn_Add_LP.setEnabled(false);
+       btn_Adjust_LP.setEnabled(true);
+       btn_Delete_LP.setEnabled(true);
+  
+       //DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV1.getModel();
+      
+       txb_TenLPhong.setText((String)tb_LPhong.getValueAt(index,1));
+       txb_GiaLPhong.setText((String)tb_LPhong.getValueAt(index,2));
+       txb_SucChua.setText((String)tb_LPhong.getValueAt(index,3));
+       }
+    }//GEN-LAST:event_tb_LPhongMouseClicked
+
+    private void btn_Delete_LPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Delete_LPActionPerformed
+        int index = tb_LPhong.getSelectedRow();
+        int MaLoaiPhong = LoaiPhong.get(index);
+        Connection con = model.GetCon();
+        String sql="DELETE FROM LOAIPHONG WHERE MaLoaiPhong=?";
+        //DefaultTableModel Tablemodel = (DefaultTableModel) tb_LPhong.getModel();
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,MaLoaiPhong);
+            pres.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Xóa thành công");
+  
+            txb_TenLPhong.setText("");
+            txb_GiaLPhong.setText("");
+            txb_SucChua.setText("");
+            btn_Add_LP.setEnabled(true);
+            btn_Adjust_LP.setEnabled(false);
+            btn_Delete_LP.setEnabled(false);
+            Restart();
+            
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi do còn phòng đang thuộc loại phòng này");}
+    }//GEN-LAST:event_btn_Delete_LPActionPerformed
+
+    private void txb_TenLPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txb_TenLPhongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txb_TenLPhongActionPerformed
+
+    private void tabbedPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPanelMouseClicked
+       
+        Restart();
+    }//GEN-LAST:event_tabbedPanelMouseClicked
+
+    private void btn_Adjust_LPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Adjust_LPActionPerformed
+        int index = tb_LPhong.getSelectedRow();
+        int MaLoaiPhong = LoaiPhong.get(index);
+        Connection con = model.GetCon();
+        String TenLoaiPhong = txb_TenLPhong.getText();
+        String DonGia = txb_GiaLPhong.getText();
+        String SucChua = txb_SucChua.getText();
+        String sql="UPDATE LOAIPHONG SET TenLoaiPhong=?,DonGia=?,SucChua=? WHERE MaLoaiPhong=?";
+        //DefaultTableModel Tablemodel = (DefaultTableModel) tb_LPhong.getModel();
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setString(1,TenLoaiPhong);
+            pres.setFloat(2,Float.parseFloat(DonGia));
+            pres.setInt(3,Integer.parseInt(SucChua));
+            pres.setInt(4,MaLoaiPhong);
+            pres.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Sửa thành công");
+            //Tablemodel.removeRow(index);
+            txb_TenLPhong.setText("");
+            txb_GiaLPhong.setText("");
+            txb_SucChua.setText("");
+    
+            btn_Add_LP.setEnabled(true);
+            btn_Adjust_LP.setEnabled(false);
+            btn_Delete_LP.setEnabled(false);
+            Restart();
+            
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+    }//GEN-LAST:event_btn_Adjust_LPActionPerformed
+
+    private void btn_Add_PhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Add_PhongActionPerformed
+       String SoPhong = txb_SoPhong.getText();
+       String GhiChu = txb_GhiChu.getText();
+       String TinhTrang = (String) combob_TinhTrang.getSelectedItem();
+       int index = combob_LoaiPhong.getSelectedIndex();
+       int MaLoaiPhong = LoaiPhong.get(index);
+       String sql="Insert into PHONG values(?,?,?,?)";
+       Connection con = model.GetCon();
+        //DefaultTableModel Tablemodel = (DefaultTableModel) tb_LPhong.getModel();
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,Integer.parseInt(SoPhong));
+            pres.setInt(2,MaLoaiPhong);
+            pres.setInt(3,Integer.parseInt(TinhTrang));
+            pres.setString(4,GhiChu);
+            pres.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Thêm thành công");
+            
+            txb_SoPhong.setText("");
+          
+            txb_GhiChu.setText("");
+            Restart();
+            
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
+    }//GEN-LAST:event_btn_Add_PhongActionPerformed
+
+    private void btn_Add_LPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Add_LPActionPerformed
+       String TenLoaiPhong = txb_TenLPhong.getText();
+       String DonGia = txb_GiaLPhong.getText();
+       String SucChua = txb_SucChua.getText();
+       String sql="EXEC ThemLoaiPhong ?,?,?";
+       Connection con = model.GetCon();
+        //DefaultTableModel Tablemodel = (DefaultTableModel) tb_LPhong.getModel();
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setString(1,TenLoaiPhong);
+            pres.setFloat(2,Float.parseFloat(DonGia));
+            pres.setInt(3,Integer.parseInt(SucChua));
+           
+            pres.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Thêm thành công");
+            
+            txb_TenLPhong.setText("");
+            txb_GiaLPhong.setText("");
+            txb_SucChua.setText("");
+            Restart();
+            
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+    }//GEN-LAST:event_btn_Add_LPActionPerformed
+
+    private void tb_PhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_PhongMouseClicked
+        int index = tb_Phong.getSelectedRow();
+       if(evt.getClickCount()>=2) {
+       tb_Phong.clearSelection();
+       txb_SoPhong.setText("");
+       txb_GhiChu.setText("");
+      
+       btn_Add_Phong.setEnabled(true);
+       btn_Adjust_Phong.setEnabled(false);
+       btn_Delete_Phong.setEnabled(false);
+       txb_SoPhong.setEnabled(true);
+       }
+       else {
+       btn_Add_Phong.setEnabled(false);
+       btn_Adjust_Phong.setEnabled(true);
+       btn_Delete_Phong.setEnabled(true);
+       txb_SoPhong.setEnabled(false);
+  
+       //DefaultTableModel Tablemodel = (DefaultTableModel) tb_DV1.getModel();
+      
+       txb_SoPhong.setText((String)tb_Phong.getValueAt(index,1));
+       txb_GhiChu.setText((String)tb_Phong.getValueAt(index,4));
+       combob_LoaiPhong.setSelectedItem(tb_Phong.getValueAt(index,2));
+       combob_TinhTrang.setSelectedItem(tb_Phong.getValueAt(index,3));
+       }
+    }//GEN-LAST:event_tb_PhongMouseClicked
+
+    private void btn_Adjust_PhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Adjust_PhongActionPerformed
+       String SoPhong = txb_SoPhong.getText();
+       String GhiChu = txb_GhiChu.getText();
+       String TinhTrang = (String) combob_TinhTrang.getSelectedItem();
+       int index = combob_LoaiPhong.getSelectedIndex();
+       int MaLoaiPhong = LoaiPhong.get(index);
+       Connection con = model.GetCon();
+        String sql="UPDATE PHONG SET GhiChu=?,TinhTrang=?,MaLoaiPhong=? WHERE SoPhong=?";
+        //DefaultTableModel Tablemodel = (DefaultTableModel) tb_LPhong.getModel();
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setString(1,GhiChu);
+            pres.setInt(2,Integer.parseInt(TinhTrang));
+            pres.setInt(3,MaLoaiPhong);
+            pres.setInt(4,Integer.parseInt(SoPhong));
+            pres.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Sửa thành công");
+            //Tablemodel.removeRow(index);
+            txb_GhiChu.setText("");
+            txb_SoPhong.setText("");
+            btn_Add_Phong.setEnabled(true);
+            btn_Adjust_Phong.setEnabled(false);
+            btn_Delete_Phong.setEnabled(false);
+            txb_SoPhong.setEnabled(true);
+            Restart();
+            
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+    }//GEN-LAST:event_btn_Adjust_PhongActionPerformed
+
+    private void btn_Delete_PhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Delete_PhongActionPerformed
+        String SoPhong = txb_SoPhong.getText();
+        Connection con = model.GetCon();
+        String sql="DELETE FROM PHONG WHERE SoPhong=?";
+        //DefaultTableModel Tablemodel = (DefaultTableModel) tb_LPhong.getModel();
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,Integer.parseInt(SoPhong));
+            pres.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Xóa thành công");
+  
+            txb_SoPhong.setText("");
+            txb_GhiChu.setText("");
+            btn_Add_Phong.setEnabled(true);
+            btn_Adjust_Phong.setEnabled(false);
+            btn_Delete_Phong.setEnabled(false);
+            txb_SoPhong.setEnabled(true);
+       
+            Restart();
+            
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi ");}
+    }//GEN-LAST:event_btn_Delete_PhongActionPerformed
 
     /**
      * @param args the command line arguments

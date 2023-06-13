@@ -170,7 +170,190 @@ public class Source_code {
         return ketqua;
     }
     
+    public List<Integer> LayMaNhanVien () {  //Lấy list tên chức vụ
+        List<Integer> name = new ArrayList<>();
+        String sql = "select MaNV from NHANVIEN";
+        try{
+        Statement stat = con.createStatement();
+        ResultSet rs = stat.executeQuery(sql);
+            while(rs.next()) {
+            name.add(rs.getInt(1));
+            
+                }
+        }
+        catch(SQLException e) {
+            System.out.println(e);
+        }
+        return name;
+    }
     
+    public String LayThuocTinhNhanVien(int MaNV,String YC) {
+        String sql = "Select CAST( " + YC + " AS nvarchar) from NHANVIEN where MaNV = ?";
+  
+        String ketqua="";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            
+            
+            pres.setInt(1,MaNV);       
+            ResultSet rs = pres.executeQuery(); 
+            rs.next();
+            ketqua = rs.getString(1);
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        return ketqua;
+    
+    
+    }
+    
+     public List<Integer> LayMaBCLuong () {  //Lấy list mã bc luong
+        List<Integer> name = new ArrayList<>();
+        String sql = "select Ma_BC from BAOCAO_LUONG";
+        try{
+        Statement stat = con.createStatement();
+        ResultSet rs = stat.executeQuery(sql);
+            while(rs.next()) {
+            name.add(rs.getInt(1));
+            
+                }
+        }
+        catch(SQLException e) {
+            System.out.println(e);
+        }
+        return name;
+    }
+     
+      public String LayThang(int MaBC){ //Lấy thời gian
+        
+        String sql = "select Thang,Nam from BAOCAO_LUONG where Ma_BC = ?";
+        String ketqua="";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,MaBC);       
+            ResultSet rs = pres.executeQuery(); 
+            rs.next();
+            ketqua = rs.getString(1) +"/"+rs.getString(2);
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        return ketqua;
+    }
+      public List<Integer> LayMaLoaiPhong () {  //Lấy list mã bc luong
+        List<Integer> name = new ArrayList<>();
+        String sql = "select MaLoaiPhong from LOAIPHONG";
+        try{
+        Statement stat = con.createStatement();
+        ResultSet rs = stat.executeQuery(sql);
+            while(rs.next()) {
+            name.add(rs.getInt(1));
+            
+                }
+        }
+        catch(SQLException e) {
+            System.out.println(e);
+        }
+        return name;
+    }
+    public String LayThuocTinhLoaiPhong(int MaLP,String YC) {
+        String sql = "Select CAST( " + YC + " AS nvarchar) from LOAIPHONG where MaLoaiPhong = ?";
+  
+        String ketqua="";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,MaLP);       
+            ResultSet rs = pres.executeQuery(); 
+            rs.next();
+            ketqua = rs.getString(1);
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        return ketqua;
+    
+    
+    }
+    
+      public List<Integer> LayMaPhong () {  //Lấy list so phong
+        List<Integer> name = new ArrayList<>();
+        String sql = "select SoPhong from PHONG";
+        try{
+        Statement stat = con.createStatement();
+        ResultSet rs = stat.executeQuery(sql);
+            while(rs.next()) {
+            name.add(rs.getInt(1));
+            
+                }
+        }
+        catch(SQLException e) {
+            System.out.println(e);
+        }
+        return name;
+    }
+    public String LayThuocTinhPhong(int MaP,String YC) {
+        String sql = "Select CAST( " + YC + " AS nvarchar) from PHONG where SoPhong = ?";
+  
+        String ketqua="";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,MaP);       
+            ResultSet rs = pres.executeQuery(); 
+            rs.next();
+            ketqua = rs.getString(1);
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        return ketqua;
+    
+    
+    }
+    public String LayThuocTinhLuong(int MaBC,String YC) {
+        String sql = "Select CAST( " + YC + " AS nvarchar) from BAOCAO_LUONG where Ma_BC = ?";
+  
+        String ketqua="";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,MaBC);       
+            ResultSet rs = pres.executeQuery(); 
+            rs.next();
+            ketqua = rs.getString(1);
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        return ketqua;
+    
+    
+    }
+      public List<Integer> LayMaBCLuong (int BC) {  //Lấy list mã ctbc luong
+        List<Integer> name = new ArrayList<>();
+        String sql = "select MaCT_BC from BAOCAOCT_LUONG where Ma_BC = ?";
+        try{
+        PreparedStatement pres = con.prepareStatement(sql);
+        pres.setInt(1,BC);
+        ResultSet rs = pres.executeQuery();
+            while(rs.next()) {
+            name.add(rs.getInt(1));
+            
+           }
+        }
+        catch(SQLException e) {
+            System.out.println(e);
+        }
+        
+        return name;
+    }
+        public String LayThuocTinhCTLuong(int MaBC,String YC) {
+        
+        String sql = "Select CAST( " + YC + " AS nvarchar) from BAOCAOCT_LUONG where MaCT_BC = ?";
+  
+        String ketqua="";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,MaBC);       
+            ResultSet rs = pres.executeQuery(); 
+            rs.next();
+            ketqua = rs.getString(1);
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        return ketqua;
+    
+    
+    }
+      
 }
 
 
