@@ -200,8 +200,8 @@ public class Source_code {
     public ResultSet LayPhongDangChoThue(){
         String sql = "Select PHONG.SoPhong ,KHACHHANG.TenKH, PHIEUTHUEPHONG.NgayLap, PHONG.GhiChu\n" +
                     "From PHONG full outer join  CT_PTP on PHONG.SoPhong = CT_PTP.SoPhong\n" +
-                    "full outer join KHACHHANG on KHACHHANG.MaKH = CT_PTP.MaKH\n" +
                     "full outer join PHIEUTHUEPHONG on PHIEUTHUEPHONG.SoPTP = CT_PTP.SoPTP\n" +
+                    "full outer join KHACHHANG on KHACHHANG.MaKH = PHIEUTHUEPHONG.MaKH\n" +
                     "where PHONG.TinhTrang = 1 \n" +
                     "and PHIEUTHUEPHONG.NgayLap = (Select MAX(PHIEUTHUEPHONG.NgayLap) from PHIEUTHUEPHONG inner join CT_PTP on CT_PTP.SoPTP = PHIEUTHUEPHONG.SoPTP\n" +
         								"where CT_PTP.SoPhong in (Select SoPhong from PHONG where TinhTrang = 1))";
@@ -217,8 +217,8 @@ public class Source_code {
     public ResultSet LayPhongDangChoThueTheoSoPhong(String sophong){
         String sql = "Select PHONG.SoPhong ,KHACHHANG.TenKH, PHIEUTHUEPHONG.NgayLap, PHONG.GhiChu\n" +
                     "From PHONG full outer join  CT_PTP on PHONG.SoPhong = CT_PTP.SoPhong\n" +
-                    "full outer join KHACHHANG on KHACHHANG.MaKH = CT_PTP.MaKH\n" +
                     "full outer join PHIEUTHUEPHONG on PHIEUTHUEPHONG.SoPTP = CT_PTP.SoPTP\n" +
+                    "full outer join KHACHHANG on KHACHHANG.MaKH = PHIEUTHUEPHONG.MaKH\n" +
                     "where PHONG.SoPhong = " + sophong + " and PHONG.TinhTrang = 1 \n" +
                     "and PHIEUTHUEPHONG.NgayLap = (Select MAX(PHIEUTHUEPHONG.NgayLap) from PHIEUTHUEPHONG inner join CT_PTP on CT_PTP.SoPTP = PHIEUTHUEPHONG.SoPTP\n" +
         								"where CT_PTP.SoPhong in (Select SoPhong from PHONG where TinhTrang = 1))";
@@ -233,9 +233,9 @@ public class Source_code {
     
     public ResultSet LayPhongDangChoThueTheoTenKhach(String tenkhach){
         String sql = "Select PHONG.SoPhong ,KHACHHANG.TenKH, PHIEUTHUEPHONG.NgayLap, PHONG.GhiChu\n" +
-                    "From PHONG full outer join  CT_PTP on PHONG.SoPhong = CT_PTP.SoPhong\n" +
-                    "full outer join KHACHHANG on KHACHHANG.MaKH = CT_PTP.MaKH\n" +
+                    "From PHONG full outer join  CT_PTP on PHONG.SoPhong = PHIEUTHUEPHONG.SoPhong\n" +
                     "full outer join PHIEUTHUEPHONG on PHIEUTHUEPHONG.SoPTP = CT_PTP.SoPTP\n" +
+                    "full outer join KHACHHANG on KHACHHANG.MaKH = CT_PTP.MaKH\n" +
                     "where KHACHHANG.TenKH = N'" + tenkhach + "' and PHONG.TinhTrang = 1 \n" +
                     "and PHIEUTHUEPHONG.NgayLap = (Select MAX(PHIEUTHUEPHONG.NgayLap) from PHIEUTHUEPHONG inner join CT_PTP on CT_PTP.SoPTP = PHIEUTHUEPHONG.SoPTP\n" +
         								"where CT_PTP.SoPhong in (Select SoPhong from PHONG where TinhTrang = 1))";
@@ -251,8 +251,8 @@ public class Source_code {
     public ResultSet LayPhongDangChoThueTheoNgay(String ngay){
         String sql = "Select PHONG.SoPhong ,KHACHHANG.TenKH, PHIEUTHUEPHONG.NgayLap, PHONG.GhiChu\n" +
                     "From PHONG full outer join  CT_PTP on PHONG.SoPhong = CT_PTP.SoPhong\n" +
-                    "full outer join KHACHHANG on KHACHHANG.MaKH = CT_PTP.MaKH\n" +
                     "full outer join PHIEUTHUEPHONG on PHIEUTHUEPHONG.SoPTP = CT_PTP.SoPTP\n" +
+                    "full outer join KHACHHANG on KHACHHANG.MaKH = PHIEUTHUEPHONG.MaKH\n" +
                     "where PHIEUTHUEPHONG.NgayLap = '" + ngay + "' and PHONG.TinhTrang = 1 \n" +
                     "and PHIEUTHUEPHONG.NgayLap = (Select MAX(PHIEUTHUEPHONG.NgayLap) from PHIEUTHUEPHONG inner join CT_PTP on CT_PTP.SoPTP = PHIEUTHUEPHONG.SoPTP\n" +
         								"where CT_PTP.SoPhong in (Select SoPhong from PHONG where TinhTrang = 1))";
