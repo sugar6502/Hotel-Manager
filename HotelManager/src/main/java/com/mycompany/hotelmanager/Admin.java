@@ -686,9 +686,19 @@ public class Admin extends javax.swing.JFrame {
         jLabel10.setText("Tình trạng:");
 
         combob_LoaiPhong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
+        combob_LoaiPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combob_LoaiPhongActionPerformed(evt);
+            }
+        });
 
         combob_TinhTrang.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
         combob_TinhTrang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3" }));
+        combob_TinhTrang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combob_TinhTrangActionPerformed(evt);
+            }
+        });
 
         btn_Add_Phong.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
@@ -1522,6 +1532,14 @@ public class Admin extends javax.swing.JFrame {
         }
         catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi ");}
     }//GEN-LAST:event_btn_Delete_PhongActionPerformed
+
+    private void combob_LoaiPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combob_LoaiPhongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combob_LoaiPhongActionPerformed
+
+    private void combob_TinhTrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combob_TinhTrangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combob_TinhTrangActionPerformed
 
     /**
      * @param args the command line arguments

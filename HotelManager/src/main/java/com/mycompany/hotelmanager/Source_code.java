@@ -187,6 +187,7 @@ public class Source_code {
         return name;
     }
     
+
     public String LayThuocTinhNhanVien(int MaNV,String YC) {
         String sql = "Select CAST( " + YC + " AS nvarchar) from NHANVIEN where MaNV = ?";
   
@@ -350,11 +351,80 @@ public class Source_code {
             }
         catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
         return ketqua;
-    
-    
+   
     }
-      
+     public List<Integer> LaySoPhieuThuePhong () {  //Lấy list mã ctbc luong
+        List<Integer> name = new ArrayList<>();
+        String sql = "select SoPTP from PHIEUTHUEPHONG";
+        try{
+       Statement stat = con.createStatement();
+        ResultSet rs = stat.executeQuery(sql);
+            while(rs.next()) {
+            name.add(rs.getInt(1));
+            
+                }
+        }
+        catch(SQLException e) {
+            System.out.println(e);
+        }
+        
+        return name;
+    }
+     
+      public List<Integer> LaySoPhieuThanhToan () {  //Lấy list mã ctbc luong
+        List<Integer> name = new ArrayList<>();
+        String sql = "select SoPTT from PHIEUTHANHTOAN";
+        try{
+       Statement stat = con.createStatement();
+        ResultSet rs = stat.executeQuery(sql);
+            while(rs.next()) {
+            name.add(rs.getInt(1));
+            
+                }
+        }
+        catch(SQLException e) {
+            System.out.println(e);
+        }
+        
+        return name;
+    }
+       public String LayThangDoanhThu(int MaBC){ //Lấy thời gian
+        
+        String sql = "select Thang,Nam from BAOCAO where Ma_BC = ?";
+        String ketqua="";
+        try{
+            PreparedStatement pres = con.prepareStatement(sql);
+            pres.setInt(1,MaBC);       
+            ResultSet rs = pres.executeQuery(); 
+            rs.next();
+            ketqua = rs.getString(1) +"/"+rs.getString(2);
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
+        
+        return ketqua;
+    }
+     
+     public List<Integer> LayMaBCDT () {  //Lấy list mã ctbc luong
+        List<Integer> name = new ArrayList<>();
+        String sql = "select Ma_BC from BAOCAO";
+        try{
+        Statement stat = con.createStatement();
+          
+        ResultSet rs = stat.executeQuery(sql);
+            while(rs.next()) {
+            name.add(rs.getInt(1));
+            
+                }
+        }
+        catch(SQLException e) {
+            System.out.println(e);
+        }
+        
+        return name;
+    }
+    
+
 }
 
 
-    
+   

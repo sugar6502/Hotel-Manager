@@ -280,7 +280,7 @@ public class Salary extends javax.swing.JFrame {
         int Ma_BC = Luong.get(index);
       
         List<Integer> MaCT_Luong = model.LayMaBCLuong(Ma_BC);
-        String sql = "EXEC UpdatePhatSinhBangCTLuong ?,?,?,?,? ";
+        String sql = "EXEC UpdatePhatSinhBangCTLuong ?,?,?,? ";
         String Manv = "";
         Connection con = model.GetCon();
         for(int i =0;i<tb_NV.getRowCount();i++){
@@ -297,7 +297,7 @@ public class Salary extends javax.swing.JFrame {
           pres.setInt(2,Ma_BC);
           pres.setInt(3,Integer.parseInt(Manv));
           pres.setString(4,GhiChu);
-          pres.setInt(5,Integer.parseInt((String) tb_NV.getValueAt(i, 3)));
+          //pres.setInt(5,Integer.parseInt((String) tb_NV.getValueAt(i, 3)));
           pres.executeUpdate();
           
              }
