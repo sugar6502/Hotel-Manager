@@ -5,7 +5,7 @@
 package com.mycompany.hotelmanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 /**
  *
@@ -36,8 +36,8 @@ public class Khach_source { // Lớp khách hàng
             pres.setString(1,TenKhach);
             pres.setString(2,Cccd);
             pres.setString(3,Sdt);
-            ResultSet rs = pres.executeQuery();   
+            pres.executeQuery();   
         }
-        catch(Exception e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
     }
 }

@@ -25,25 +25,25 @@ public class Salary extends javax.swing.JFrame {
      */
     private final Source_code model = new Source_code();
     private  List<Integer> Luong ;
+    //Hàm reset dữ liệu
     public void restart() {
         Luong = model.LayMaBCLuong();
         List<String> ThoiGian = new ArrayList<>();
         for(int i:Luong) {
-        
-        ThoiGian.add(model.LayThang(i));
+            ThoiGian.add(model.LayThang(i));
          }
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(ThoiGian.toArray(String[]::new)));
-        //jComboBox1.setSelectedItem(null);
+        cb_thang.setModel(new javax.swing.DefaultComboBoxModel<>(ThoiGian.toArray(String[]::new)));
         DefaultTableModel tmodel = (DefaultTableModel) tb_NV.getModel();
         tmodel.setRowCount(0);
         String sql = "EXEC Update_BangLuong";
         Connection con = model.GetCon();
         try {
-        Statement pres = con.createStatement();
-         pres.executeUpdate(sql);
+            Statement pres = con.createStatement();
+            pres.executeUpdate(sql);
         }
         catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
     }
+    
     public Salary() {
         initComponents();
         String sql = "EXEC KT_BCL";
@@ -75,10 +75,10 @@ public class Salary extends javax.swing.JFrame {
         tb_NV = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btn_Back = new javax.swing.JButton();
-        btn_In = new javax.swing.JButton();
+        btn_XN = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        cb_thang = new javax.swing.JComboBox<>();
+        Text_Tong = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,39 +129,38 @@ public class Salary extends javax.swing.JFrame {
 
         btn_Back.setBackground(new java.awt.Color(252, 204, 204));
         btn_Back.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
-        btn_Back.setText("Back");
+        btn_Back.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\352020_arrow_back_icon.png")); // NOI18N
+        btn_Back.setBorder(null);
         btn_Back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_BackActionPerformed(evt);
             }
         });
 
-        btn_In.setBackground(new java.awt.Color(252, 204, 204));
-        btn_In.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
-        btn_In.setText("Xác Nhận");
-        btn_In.addActionListener(new java.awt.event.ActionListener() {
+        btn_XN.setBackground(new java.awt.Color(252, 204, 204));
+        btn_XN.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+        btn_XN.setForeground(new java.awt.Color(51, 204, 0));
+        btn_XN.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\1398912_circle_correct_mark_success_tick_icon.png")); // NOI18N
+        btn_XN.setText("Xác Nhận");
+        btn_XN.setBorder(null);
+        btn_XN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_InActionPerformed(evt);
+                btn_XNActionPerformed(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("SVN-Nexa Light", 1, 30)); // NOI18N
         jLabel3.setText("Tổng:");
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jComboBox1MouseClicked(evt);
-            }
-        });
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cb_thang.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        cb_thang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cb_thangActionPerformed(evt);
             }
         });
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jTextField1.setEnabled(false);
+        Text_Tong.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Text_Tong.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -181,16 +180,16 @@ public class Salary extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btn_Back))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cb_thang, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(btn_In)
+                .addComponent(btn_XN)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Text_Tong, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
         jPanel1Layout.setVerticalGroup(
@@ -203,16 +202,16 @@ public class Salary extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_thang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Text_Tong, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_In)
+                        .addComponent(btn_XN)
                         .addComponent(jLabel3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -225,29 +224,27 @@ public class Salary extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BackActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btn_BackActionPerformed
 
-    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
-
-    }//GEN-LAST:event_jComboBox1MouseClicked
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    //Lấy bảng lương tương ứng với tháng
+    private void cb_thangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_thangActionPerformed
        restart();
-       int index = jComboBox1.getSelectedIndex();
+       int index = cb_thang.getSelectedIndex();
        int MaBC = Luong.get(index);
        String sql = "EXEC HienThiChiTietBaoCaoLuong ?";
-        Connection con = model.GetCon();
-        String row[] = new String[7];
-        DefaultTableModel Tablemodel = (DefaultTableModel) tb_NV.getModel();
-        try{
+       Connection con = model.GetCon();
+       String row[] = new String[7];
+       DefaultTableModel Tablemodel = (DefaultTableModel) tb_NV.getModel();
+       try{
            
           PreparedStatement pres = con.prepareStatement(sql);
           pres.setInt(1,MaBC);
@@ -264,19 +261,14 @@ public class Salary extends javax.swing.JFrame {
               row[6] = rs.getString(6);
               Tablemodel.addRow(row);
           }
-          
-          
-         
-   
         }
-        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
-     
-                
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}        
+    }//GEN-LAST:event_cb_thangActionPerformed
 
-    private void btn_InActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InActionPerformed
+    //Hàm xác nhận
+    private void btn_XNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XNActionPerformed
         int TongTien = 0;
-        int index = jComboBox1.getSelectedIndex();
+        int index = cb_thang.getSelectedIndex();
         int Ma_BC = Luong.get(index);
       
         List<Integer> MaCT_Luong = model.LayMaBCLuong(Ma_BC);
@@ -290,25 +282,22 @@ public class Salary extends javax.swing.JFrame {
             int PhatSinh = Integer.parseInt((String) tb_NV.getValueAt(i, 4));
             String GhiChu = (String) tb_NV.getValueAt(i, 6);
             TongTien +=   Integer.parseInt((String) tb_NV.getValueAt(i, 5)) + PhatSinh;
-             try{
+            try{
            
-          PreparedStatement pres = con.prepareStatement(sql);
-          pres.setInt(1,PhatSinh);
-          pres.setInt(2,Ma_BC);
-          pres.setInt(3,Integer.parseInt(Manv));
-          pres.setString(4,GhiChu);
-          //pres.setInt(5,Integer.parseInt((String) tb_NV.getValueAt(i, 3)));
-          pres.executeUpdate();
+                PreparedStatement pres = con.prepareStatement(sql);
+                pres.setInt(1,PhatSinh);
+                pres.setInt(2,Ma_BC);
+                pres.setInt(3,Integer.parseInt(Manv));
+                pres.setString(4,GhiChu);
+                pres.executeUpdate();
           
              }
-             catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
-             //Integer.parseInt((String) tb_NV.getValueAt(i, 5))+PhatSinh
-             tb_NV.setValueAt(model.LayThuocTinhCTLuong(MaCT_BC,"Thanh_Tien"),i, 5);
+            catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
+            tb_NV.setValueAt(model.LayThuocTinhCTLuong(MaCT_BC,"Thanh_Tien"),i, 5);
         }
+        Text_Tong.setText(String.valueOf(TongTien));
         
-        jTextField1.setText(String.valueOf(TongTien));
-        
-    }//GEN-LAST:event_btn_InActionPerformed
+    }//GEN-LAST:event_btn_XNActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,15 +335,15 @@ public class Salary extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Text_Tong;
     private javax.swing.JButton btn_Back;
-    private javax.swing.JButton btn_In;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btn_XN;
+    private javax.swing.JComboBox<String> cb_thang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tb_NV;
     // End of variables declaration//GEN-END:variables
 }

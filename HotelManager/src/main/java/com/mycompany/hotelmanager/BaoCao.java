@@ -5,11 +5,13 @@
 package com.mycompany.hotelmanager;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,28 +25,22 @@ public class BaoCao extends javax.swing.JFrame {
     private final Source_code model = new Source_code();
     private  List<Integer> DoanhThu ;
     
+    //Hàm reset dữ liệu
     public void restart() {
     DoanhThu = model.LayMaBCDT();
     List<String> ThoiGian = new ArrayList<>();
         for(int i:DoanhThu) {
-        
         ThoiGian.add(model.LayThangDoanhThu(i));
          }
-    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(ThoiGian.toArray(String[]::new)));
+    cb_Thang.setModel(new javax.swing.DefaultComboBoxModel<>(ThoiGian.toArray(String[]::new)));
+    
+   
+    DefaultTableModel Tablemodel = (DefaultTableModel) tb_LP.getModel();
+     Tablemodel.setRowCount(0);
     }
         
     public BaoCao() {
         initComponents();
-        String sql = "EXEC KT_BC";
-        Connection con = model.GetCon();
-        try{
-           
-          Statement pres = con.createStatement();
-          pres.executeUpdate(sql);
-     
-   
-        }
-        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
         restart();
     }
 
@@ -63,10 +59,9 @@ public class BaoCao extends javax.swing.JFrame {
         tb_LP = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btn_Back = new javax.swing.JButton();
-        btn_In = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         lb_Tong = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cb_Thang = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,17 +111,24 @@ public class BaoCao extends javax.swing.JFrame {
 
         btn_Back.setBackground(new java.awt.Color(252, 204, 204));
         btn_Back.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
-        btn_Back.setText("Back");
-
-        btn_In.setBackground(new java.awt.Color(252, 204, 204));
-        btn_In.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
-        btn_In.setText("In");
+        btn_Back.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\352020_arrow_back_icon.png")); // NOI18N
+        btn_Back.setBorder(null);
+        btn_Back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_BackActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("SVN-Nexa Light", 1, 30)); // NOI18N
         jLabel3.setText("Tổng:");
 
         lb_Tong.setFont(new java.awt.Font("SVN-Nexa Light", 1, 30)); // NOI18N
-        lb_Tong.setText("...");
+
+        cb_Thang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_ThangActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,8 +140,6 @@ public class BaoCao extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_In)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_Back))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +151,7 @@ public class BaoCao extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cb_Thang, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 16, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -161,14 +161,12 @@ public class BaoCao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_Back)
-                        .addComponent(btn_In)))
+                    .addComponent(btn_Back))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cb_Thang, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,7 +174,7 @@ public class BaoCao extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(lb_Tong))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -187,11 +185,43 @@ public class BaoCao extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    //Hàm lấy doanh thu khi chọn vào combo box
+    private void cb_ThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_ThangActionPerformed
+        restart();
+        int index = cb_Thang.getSelectedIndex();
+        int DoanhThuT = 0;
+        int MaBC = DoanhThu.get(index);
+        String sql = "EXEC HienThiChiTietBaoCao ?";
+        Connection con = model.GetCon();
+        String row[] = new String[3];
+        DefaultTableModel Tablemodel = (DefaultTableModel) tb_LP.getModel();
+        try{
+          PreparedStatement pres = con.prepareStatement(sql);
+          pres.setInt(1,MaBC);
+          ResultSet rs = pres.executeQuery();
+
+          while(rs.next()) {
+              row[0] = Integer.toString(Tablemodel.getRowCount()+1);
+              row[1] = rs.getString(1);
+              row[2] = rs.getString(2);
+              DoanhThuT += rs.getInt(2);
+              Tablemodel.addRow(row);
+          }
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
+        lb_Tong.setText(Integer.toString(DoanhThuT));
+    }//GEN-LAST:event_cb_ThangActionPerformed
+
+    private void btn_BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BackActionPerformed
+       setVisible(false);
+    }//GEN-LAST:event_btn_BackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,8 +261,7 @@ public class BaoCao extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Back;
-    private javax.swing.JButton btn_In;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cb_Thang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

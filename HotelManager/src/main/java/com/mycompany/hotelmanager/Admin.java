@@ -204,6 +204,8 @@ public class Admin extends javax.swing.JFrame {
         btn_Delete_DV1 = new javax.swing.JButton();
         btn_Adjust_DV1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btn_Back = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -239,7 +241,7 @@ public class Admin extends javax.swing.JFrame {
 
         tb_NV.setBackground(new java.awt.Color(255, 204, 204));
         tb_NV.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tb_NV.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
+        tb_NV.setFont(new java.awt.Font("SVN-Nexa Light", 0, 14)); // NOI18N
         tb_NV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -278,6 +280,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Salary.setBackground(new java.awt.Color(255, 204, 204));
         btn_Salary.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Salary.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\3586362_checklist_document_list_paper_icon.png")); // NOI18N
         btn_Salary.setText("Lương");
         btn_Salary.setToolTipText("");
         btn_Salary.setBorder(null);
@@ -289,6 +292,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Delete_NV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_NV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Delete_NV.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\3669361_delete_ic_icon.png")); // NOI18N
         btn_Delete_NV.setText("Xóa");
         btn_Delete_NV.setToolTipText("");
         btn_Delete_NV.setBorder(null);
@@ -301,6 +305,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Add_NV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add_NV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Add_NV.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\134224_add_plus_new_icon.png")); // NOI18N
         btn_Add_NV.setText("Thêm");
         btn_Add_NV.setToolTipText("");
         btn_Add_NV.setBorder(null);
@@ -309,14 +314,10 @@ public class Admin extends javax.swing.JFrame {
                 btn_Add_NVMouseClicked(evt);
             }
         });
-        btn_Add_NV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Add_NVActionPerformed(evt);
-            }
-        });
 
         btn_Adjust_NV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_NV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Adjust_NV.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\2931152_adjust_control_gear_settings_setup_icon.png")); // NOI18N
         btn_Adjust_NV.setText("Sửa");
         btn_Adjust_NV.setToolTipText("");
         btn_Adjust_NV.setBorder(null);
@@ -329,6 +330,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Account.setBackground(new java.awt.Color(255, 204, 204));
         btn_Account.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Account.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\2203549_admin_avatar_human_login_user_icon.png")); // NOI18N
         btn_Account.setText("Tài khoản");
         btn_Account.setToolTipText("");
         btn_Account.setBorder(null);
@@ -355,34 +357,36 @@ public class Admin extends javax.swing.JFrame {
                         .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_Adjust_NV)
                             .addComponent(btn_Delete_NV))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
                 .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_NVLayout.createSequentialGroup()
+                    .addGroup(tabpn_NVLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
                         .addComponent(btn_Salary)
-                        .addGap(322, 322, 322))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_NVLayout.createSequentialGroup()
+                        .addGap(367, 367, 367))
+                    .addGroup(tabpn_NVLayout.createSequentialGroup()
+                        .addGap(102, 102, 102)
                         .addComponent(btn_Account)
-                        .addGap(289, 289, 289))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         tabpn_NVLayout.setVerticalGroup(
             tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_NVLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tabpn_NVLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(tabpn_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_Salary)
-                            .addComponent(btn_Add_NV))
+                        .addComponent(btn_Add_NV)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_Delete_NV)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_NVLayout.createSequentialGroup()
+                        .addGap(18, 18, Short.MAX_VALUE))
+                    .addGroup(tabpn_NVLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Salary)
+                        .addGap(18, 18, 18)
                         .addComponent(btn_Account)
                         .addGap(2, 2, 2)))
                 .addComponent(btn_Adjust_NV)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         tabbedPanel.addTab("NHÂN VIÊN", tabpn_NV);
@@ -391,6 +395,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Add_DV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add_DV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Add_DV.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\134224_add_plus_new_icon.png")); // NOI18N
         btn_Add_DV.setText("Thêm");
         btn_Add_DV.setToolTipText("");
         btn_Add_DV.setBorder(null);
@@ -402,6 +407,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Delete_DV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_DV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Delete_DV.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\3669361_delete_ic_icon.png")); // NOI18N
         btn_Delete_DV.setText("Xóa");
         btn_Delete_DV.setToolTipText("");
         btn_Delete_DV.setBorder(null);
@@ -414,6 +420,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Adjust_DV.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_DV.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Adjust_DV.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\2931152_adjust_control_gear_settings_setup_icon.png")); // NOI18N
         btn_Adjust_DV.setText("Sửa");
         btn_Adjust_DV.setToolTipText("");
         btn_Adjust_DV.setBorder(null);
@@ -438,7 +445,7 @@ public class Admin extends javax.swing.JFrame {
 
         tb_DV.setBackground(new java.awt.Color(255, 204, 204));
         tb_DV.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tb_DV.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
+        tb_DV.setFont(new java.awt.Font("SVN-Nexa Light", 0, 14)); // NOI18N
         tb_DV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -491,7 +498,7 @@ public class Admin extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(tabpn_DVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btn_Delete_DV, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_Add_DV, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_Add_DV, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                             .addComponent(btn_Adjust_DV, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(tabpn_DVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -516,7 +523,7 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(txb_GiaDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(tabpn_DVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpn_DVLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btn_Add_DV)
@@ -554,7 +561,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Add_LP.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add_LP.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
-        btn_Add_LP.setText("T");
+        btn_Add_LP.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\134224_add_plus_new_icon.png")); // NOI18N
         btn_Add_LP.setToolTipText("");
         btn_Add_LP.setBorder(null);
         btn_Add_LP.addActionListener(new java.awt.event.ActionListener() {
@@ -565,7 +572,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Adjust_LP.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_LP.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
-        btn_Adjust_LP.setText("S");
+        btn_Adjust_LP.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\2931152_adjust_control_gear_settings_setup_icon.png")); // NOI18N
         btn_Adjust_LP.setToolTipText("");
         btn_Adjust_LP.setBorder(null);
         btn_Adjust_LP.setEnabled(false);
@@ -577,7 +584,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Delete_LP.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_LP.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
-        btn_Delete_LP.setText("X");
+        btn_Delete_LP.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\3669361_delete_ic_icon.png")); // NOI18N
         btn_Delete_LP.setToolTipText("");
         btn_Delete_LP.setBorder(null);
         btn_Delete_LP.setEnabled(false);
@@ -591,7 +598,7 @@ public class Admin extends javax.swing.JFrame {
 
         tb_LPhong.setBackground(new java.awt.Color(255, 204, 204));
         tb_LPhong.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tb_LPhong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
+        tb_LPhong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 14)); // NOI18N
         tb_LPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -645,7 +652,7 @@ public class Admin extends javax.swing.JFrame {
 
         tb_Phong.setBackground(new java.awt.Color(255, 204, 204));
         tb_Phong.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tb_Phong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
+        tb_Phong.setFont(new java.awt.Font("SVN-Nexa Light", 0, 14)); // NOI18N
         tb_Phong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -693,7 +700,7 @@ public class Admin extends javax.swing.JFrame {
         });
 
         combob_TinhTrang.setFont(new java.awt.Font("SVN-Nexa Light", 0, 24)); // NOI18N
-        combob_TinhTrang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3" }));
+        combob_TinhTrang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "3" }));
         combob_TinhTrang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combob_TinhTrangActionPerformed(evt);
@@ -702,7 +709,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Add_Phong.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
-        btn_Add_Phong.setText("T");
+        btn_Add_Phong.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\134224_add_plus_new_icon.png")); // NOI18N
         btn_Add_Phong.setToolTipText("");
         btn_Add_Phong.setBorder(null);
         btn_Add_Phong.addActionListener(new java.awt.event.ActionListener() {
@@ -713,7 +720,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Adjust_Phong.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
-        btn_Adjust_Phong.setText("S");
+        btn_Adjust_Phong.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\2931152_adjust_control_gear_settings_setup_icon.png")); // NOI18N
         btn_Adjust_Phong.setToolTipText("");
         btn_Adjust_Phong.setBorder(null);
         btn_Adjust_Phong.setEnabled(false);
@@ -725,7 +732,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Delete_Phong.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_Phong.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 48)); // NOI18N
-        btn_Delete_Phong.setText("X");
+        btn_Delete_Phong.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\3669361_delete_ic_icon.png")); // NOI18N
         btn_Delete_Phong.setToolTipText("");
         btn_Delete_Phong.setBorder(null);
         btn_Delete_Phong.setEnabled(false);
@@ -768,7 +775,7 @@ public class Admin extends javax.swing.JFrame {
                                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(64, Short.MAX_VALUE))
                     .addGroup(tabpn_PhongLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
+                        .addGap(77, 77, 77)
                         .addComponent(btn_Add_LP)
                         .addGap(18, 18, 18)
                         .addComponent(btn_Adjust_LP)
@@ -780,7 +787,7 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(btn_Adjust_Phong)
                         .addGap(18, 18, 18)
                         .addComponent(btn_Delete_Phong)
-                        .addGap(142, 142, 142))))
+                        .addGap(152, 152, 152))))
         );
         tabpn_PhongLayout.setVerticalGroup(
             tabpn_PhongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -819,7 +826,7 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(txb_GhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(33, 33, 33)
                 .addGroup(tabpn_PhongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_Add_LP)
                     .addComponent(btn_Adjust_LP)
@@ -827,7 +834,7 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(btn_Add_Phong)
                     .addComponent(btn_Adjust_Phong)
                     .addComponent(btn_Delete_Phong))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         tabbedPanel.addTab("Phòng", tabpn_Phong);
@@ -854,7 +861,7 @@ public class Admin extends javax.swing.JFrame {
 
         tb_DV1.setBackground(new java.awt.Color(255, 204, 204));
         tb_DV1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tb_DV1.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
+        tb_DV1.setFont(new java.awt.Font("SVN-Nexa Light", 0, 14)); // NOI18N
         tb_DV1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -893,6 +900,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Add_DV1.setBackground(new java.awt.Color(255, 204, 204));
         btn_Add_DV1.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Add_DV1.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\134224_add_plus_new_icon.png")); // NOI18N
         btn_Add_DV1.setText("Thêm");
         btn_Add_DV1.setToolTipText("");
         btn_Add_DV1.setBorder(null);
@@ -904,6 +912,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Delete_DV1.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete_DV1.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Delete_DV1.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\3669361_delete_ic_icon.png")); // NOI18N
         btn_Delete_DV1.setText("Xóa");
         btn_Delete_DV1.setToolTipText("");
         btn_Delete_DV1.setBorder(null);
@@ -916,6 +925,7 @@ public class Admin extends javax.swing.JFrame {
 
         btn_Adjust_DV1.setBackground(new java.awt.Color(255, 204, 204));
         btn_Adjust_DV1.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
+        btn_Adjust_DV1.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\2931152_adjust_control_gear_settings_setup_icon.png")); // NOI18N
         btn_Adjust_DV1.setText("Sửa");
         btn_Adjust_DV1.setToolTipText("");
         btn_Adjust_DV1.setBorder(null);
@@ -964,10 +974,10 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(tabpn_ChucVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tabpn_ChucVuLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(tabpn_ChucVuLayout.createSequentialGroup()
-                        .addGap(144, 144, 144)
+                        .addGap(186, 186, 186)
                         .addComponent(btn_Add_DV1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_Delete_DV1)
@@ -981,6 +991,20 @@ public class Admin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("SVN-Nexa Rush Handmade Extended", 1, 48)); // NOI18N
         jLabel1.setText("QUẢN LÝ");
 
+        btn_Back.setBackground(new java.awt.Color(252, 204, 204));
+        btn_Back.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+        btn_Back.setText("Back");
+
+        jButton1.setBackground(new java.awt.Color(252, 204, 204));
+        jButton1.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\352020_arrow_back_icon.png")); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -988,18 +1012,35 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabbedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1063, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tabbedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1063, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(btn_Back)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(tabbedPanel)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(btn_Back)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1060,6 +1101,7 @@ public class Admin extends javax.swing.JFrame {
             
         }
         catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+        Restart();
     }//GEN-LAST:event_btn_Add_DV1ActionPerformed
 
     private void txb_GiaDV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txb_GiaDV1ActionPerformed
@@ -1254,6 +1296,7 @@ public class Admin extends javax.swing.JFrame {
 
     private void btn_AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AccountActionPerformed
         new Account().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_AccountActionPerformed
 
     private void tb_NVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_NVMouseClicked
@@ -1283,10 +1326,6 @@ public class Admin extends javax.swing.JFrame {
         String DT = (String)tb_NV.getValueAt(index, 4);
         new Worker(TenNhanVien,TenCV,CCCD,DT,MaNV).setVisible(true);
     }//GEN-LAST:event_btn_Adjust_NVActionPerformed
-
-    private void btn_Add_NVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Add_NVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_Add_NVActionPerformed
 
     private void btn_Delete_NVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Delete_NVActionPerformed
         int index = tb_NV.getSelectedRow();
@@ -1406,7 +1445,8 @@ public class Admin extends javax.swing.JFrame {
        String TinhTrang = (String) combob_TinhTrang.getSelectedItem();
        int index = combob_LoaiPhong.getSelectedIndex();
        int MaLoaiPhong = LoaiPhong.get(index);
-       String sql="Insert into PHONG values(?,?,?,?)";
+       String sql="EXEC ThemPhong ?,?,?,?";
+       
        Connection con = model.GetCon();
         //DefaultTableModel Tablemodel = (DefaultTableModel) tb_LPhong.getModel();
         try{
@@ -1511,15 +1551,22 @@ public class Admin extends javax.swing.JFrame {
 
     private void btn_Delete_PhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Delete_PhongActionPerformed
         String SoPhong = txb_SoPhong.getText();
+        int ret = JOptionPane.showConfirmDialog(null,"Nếu bạn xóa, bạn sẽ mất thông tin ở bảng doanh thu","Xóa dữ liệu",JOptionPane.YES_NO_OPTION);
+         if(ret == JOptionPane.YES_OPTION ){
         Connection con = model.GetCon();
-        String sql="DELETE FROM PHONG WHERE SoPhong=?";
+        //String sql="DELETE FROM PHONG WHERE SoPhong=?";
+        String sql1="EXEC XoaPhong ? ";
         //DefaultTableModel Tablemodel = (DefaultTableModel) tb_LPhong.getModel();
         try{
-            PreparedStatement pres = con.prepareStatement(sql);
-            pres.setInt(1,Integer.parseInt(SoPhong));
-            pres.executeUpdate();
+            //PreparedStatement pres = con.prepareStatement(sql);
+            PreparedStatement pres1 = con.prepareStatement(sql1);
+            //pres.setInt(1,Integer.parseInt(SoPhong));
+            //pres.executeUpdate();
+            System.out.print(SoPhong);
+            pres1.setInt(1,Integer.parseInt(SoPhong));
+            pres1.executeUpdate();
             JOptionPane.showMessageDialog(null, "Xóa thành công");
-  
+            Restart();
             txb_SoPhong.setText("");
             txb_GhiChu.setText("");
             btn_Add_Phong.setEnabled(true);
@@ -1527,10 +1574,11 @@ public class Admin extends javax.swing.JFrame {
             btn_Delete_Phong.setEnabled(false);
             txb_SoPhong.setEnabled(true);
        
-            Restart();
+            
             
         }
-        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi ");}
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi do bạn không thể xóa phòng đang được sử dụng");}
+         }
     }//GEN-LAST:event_btn_Delete_PhongActionPerformed
 
     private void combob_LoaiPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combob_LoaiPhongActionPerformed
@@ -1540,6 +1588,11 @@ public class Admin extends javax.swing.JFrame {
     private void combob_TinhTrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combob_TinhTrangActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_combob_TinhTrangActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      new Menu().setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1588,6 +1641,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton btn_Adjust_LP;
     private javax.swing.JButton btn_Adjust_NV;
     private javax.swing.JButton btn_Adjust_Phong;
+    private javax.swing.JButton btn_Back;
     private javax.swing.JButton btn_Delete_DV;
     private javax.swing.JButton btn_Delete_DV1;
     private javax.swing.JButton btn_Delete_LP;
@@ -1596,6 +1650,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton btn_Salary;
     private javax.swing.JComboBox<String> combob_LoaiPhong;
     private javax.swing.JComboBox<String> combob_TinhTrang;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

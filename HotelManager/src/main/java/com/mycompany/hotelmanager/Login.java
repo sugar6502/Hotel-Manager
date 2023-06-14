@@ -16,8 +16,8 @@ import javax.swing.JOptionPane;
  * @author Admins
  */
 public class Login extends javax.swing.JFrame {
-
-    private Connection con = new ConnectionSQL().getCon();
+    
+    private final Connection con = new ConnectionSQL().getCon(); // khởi tạm kết nối với sql
     public Login() {
         initComponents();
     }
@@ -66,6 +66,7 @@ public class Login extends javax.swing.JFrame {
 
         btn_Login.setBackground(new java.awt.Color(255, 204, 204));
         btn_Login.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 14)); // NOI18N
+        btn_Login.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\4115234_login_sign in_icon.png")); // NOI18N
         btn_Login.setText("Đăng nhập");
         btn_Login.setBorderPainted(false);
         btn_Login.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -135,7 +136,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_LoginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LoginMousePressed
-        // Nhấn nút đăng nhập
+        // Hàm kiểm tra đăng nhập
         String username = txb_Username.getText();
         String password = String.valueOf(txb_Password.getPassword());
         // Kiểm tra tài khoản trong SQL
@@ -148,15 +149,14 @@ public class Login extends javax.swing.JFrame {
             rs.next();
             if (rs.getRow()!= 0){ // Có tài khoản trong SQL
                 JOptionPane.showMessageDialog(null, "Đăng nhập thành công.");
-                Global chucvu = new Global();         
                 if (rs.getInt(1)==1) {
                     // Tiến hành lưu chức vụ của tài khoản 
                     // Với 1 là tài khoản Admin/Quản lí                
-                    chucvu.setChucVu(1);
+                    Source_code.setChucVu(1);
                 }
                 else{
                     // Với 2 là tài khoản nhân viên thu ngân                   
-                    chucvu.setChucVu(2);
+                    Source_code.setChucVu(2);
                 }
                 new Menu().setVisible(true);  // Mở menu chính
                 this.dispose();
@@ -171,7 +171,17 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_LoginMousePressed
 
     private void btn_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginActionPerformed
-
+        // Tự động tạo báo cáo khi qua tháng mới 
+        String sql = "EXEC KT_BC";
+      
+        try{
+           
+          Statement pres = con.createStatement();
+          pres.executeUpdate(sql);
+     
+   
+        }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
     }//GEN-LAST:event_btn_LoginActionPerformed
 
     /**

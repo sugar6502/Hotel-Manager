@@ -4,9 +4,7 @@
  */
 package com.mycompany.hotelmanager;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -68,6 +66,7 @@ public class CheckIn extends javax.swing.JFrame {
         btn_Yes.setBackground(new java.awt.Color(255, 204, 204));
         btn_Yes.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Yes.setForeground(new java.awt.Color(0, 204, 0));
+        btn_Yes.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\1398912_circle_correct_mark_success_tick_icon.png")); // NOI18N
         btn_Yes.setText("Xác nhận");
         btn_Yes.setBorder(null);
         btn_Yes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -75,11 +74,17 @@ public class CheckIn extends javax.swing.JFrame {
                 btn_YesMouseClicked(evt);
             }
         });
+        btn_Yes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_YesActionPerformed(evt);
+            }
+        });
 
         btn_No.setBackground(new java.awt.Color(255, 204, 204));
         btn_No.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_No.setForeground(new java.awt.Color(255, 0, 51));
-        btn_No.setText("HỦy");
+        btn_No.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\1398917_circle_close_cross_incorrect_invalid_icon.png")); // NOI18N
+        btn_No.setText("Hủy");
         btn_No.setBorder(null);
         btn_No.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -111,8 +116,9 @@ public class CheckIn extends javax.swing.JFrame {
                             .addComponent(txb_CusName, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txb_SDT, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pn_CheckInLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addComponent(btn_Yes)
-                        .addGap(104, 104, 104)
+                        .addGap(84, 84, 84)
                         .addComponent(btn_No)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
@@ -177,10 +183,14 @@ public class CheckIn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Giá trị phải là số.");
             return;
         }  
-        Khach_source newKhach = new Khach_source(tenKhach,cccd,sdt);  
-        new CheckIn_2().setVisible(true);
+        // nếu ok thì dẫn tới form checkin2
+        new CheckIn_2(tenKhach,sdt,cccd).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_YesMouseClicked
+
+    private void btn_YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_YesActionPerformed
+
+    }//GEN-LAST:event_btn_YesActionPerformed
 
     /**
      * @param args the command line arguments

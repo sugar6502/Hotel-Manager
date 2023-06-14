@@ -4,6 +4,11 @@
  */
 package com.mycompany.hotelmanager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Admins
@@ -13,6 +18,7 @@ public class Account extends javax.swing.JFrame {
     /**
      * Creates new form Account
      */
+    private final Source_code model = new Source_code();
     public Account() {
         initComponents();
     }
@@ -58,12 +64,20 @@ public class Account extends javax.swing.JFrame {
         btn_Yes.setBackground(new java.awt.Color(255, 204, 204));
         btn_Yes.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Yes.setForeground(new java.awt.Color(0, 204, 0));
+        btn_Yes.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\1398912_circle_correct_mark_success_tick_icon.png")); // NOI18N
         btn_Yes.setText("Xác nhận");
         btn_Yes.setBorder(null);
+        btn_Yes.setEnabled(false);
+        btn_Yes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_YesActionPerformed(evt);
+            }
+        });
 
         btn_No.setBackground(new java.awt.Color(255, 204, 204));
         btn_No.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_No.setForeground(new java.awt.Color(255, 0, 51));
+        btn_No.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\1398917_circle_close_cross_incorrect_invalid_icon.png")); // NOI18N
         btn_No.setText("Hủy");
         btn_No.setBorder(null);
         btn_No.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +89,11 @@ public class Account extends javax.swing.JFrame {
         Passtxb_MatKhau.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
 
         Passtxb_XNMatKhau.setFont(new java.awt.Font("SVN-Nexa Light", 0, 36)); // NOI18N
+        Passtxb_XNMatKhau.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                Passtxb_XNMatKhauKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,17 +108,16 @@ public class Account extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
-                            .addComponent(txb_TaiKhoan)
+                            .addComponent(txb_TaiKhoan, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(Passtxb_MatKhau)
-                            .addComponent(Passtxb_XNMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                            .addComponent(Passtxb_XNMatKhau)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btn_Yes)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_No)
-                                .addGap(36, 36, 36)))))
-                .addContainerGap(49, Short.MAX_VALUE))
+                                .addComponent(btn_No)))))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,7 +160,39 @@ public class Account extends javax.swing.JFrame {
 
     private void btn_NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NoActionPerformed
         setVisible(false);
+        new Admin().setVisible(true);
     }//GEN-LAST:event_btn_NoActionPerformed
+
+    private void btn_YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_YesActionPerformed
+        String name = txb_TaiKhoan.getText();
+        String pass = new String(Passtxb_MatKhau.getPassword());
+        String confirm = new String(Passtxb_XNMatKhau.getPassword());
+        if(name.equals("") | pass.equals("") | confirm.equals("") ) {
+         JOptionPane.showMessageDialog(null, "Không được bỏ trống");
+        }
+        else {
+        if(pass.equals(confirm)) {
+            String sql = "INSERT INTO NGUOIDUNG VALUES(?,?,2)";
+            Connection con = model.GetCon();
+            try{
+                PreparedStatement pres = con.prepareStatement(sql);
+                pres.setString(1,name);
+                pres.setString(2,pass);
+                pres.executeUpdate();
+            }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+         JOptionPane.showMessageDialog(null, "Tạo tài khoản thành công");
+         setVisible(false);
+         new Admin().setVisible(true);
+        
+        }
+        else JOptionPane.showMessageDialog(null, "Mật khẩu và xác nhận không giống nhau");
+        }
+    }//GEN-LAST:event_btn_YesActionPerformed
+
+    private void Passtxb_XNMatKhauKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Passtxb_XNMatKhauKeyTyped
+        btn_Yes.setEnabled(true);
+    }//GEN-LAST:event_Passtxb_XNMatKhauKeyTyped
 
     /**
      * @param args the command line arguments

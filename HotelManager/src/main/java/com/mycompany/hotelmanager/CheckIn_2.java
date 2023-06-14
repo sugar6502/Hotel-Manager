@@ -6,16 +6,10 @@ package com.mycompany.hotelmanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.Map;
@@ -25,26 +19,29 @@ import java.util.Set;
  *
  * @author netpr
  */
-public class CheckIn_2 extends javax.swing.JFrame {
+public final class CheckIn_2 extends javax.swing.JFrame {
     Source_code model = new Source_code();
     private List<Integer> MaLP;
-
     private List<Integer> DichVu;
     private Map<Integer,ArrayList<Integer> > map;
     private ArrayList<Integer> TempDichVu;
+    private ArrayList<String> TempSoPhong;
+    private String TenKH;
+    private String SDT;
+    private String CCCD;
     
-   
-    private int MaKH = 1;
+    //Hàm reset lại dữ liệu
     public void restart() {
         map = new  HashMap();
         TempDichVu = new ArrayList<>();
+        TempSoPhong = new ArrayList<>();
         MaLP = model.LayMaLoaiPhong();
         List<String> TenLoaiPhong = new ArrayList<>();
         for(int i:MaLP) {
          TenLoaiPhong.add(model.LayThuocTinhLoaiPhong(i,"TenLoaiPhong"));
          }
-        
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(TenLoaiPhong.toArray(String[]::new)));
+     
+        cb_LP.setModel(new javax.swing.DefaultComboBoxModel<>(TenLoaiPhong.toArray(String[]::new)));
         DichVu = model.LayMaDichVu();
         List<String> TenDV = new ArrayList<>();
          for(int i:DichVu) {
@@ -56,12 +53,18 @@ public class CheckIn_2 extends javax.swing.JFrame {
     }
     public CheckIn_2() {
         initComponents();
-        //System.out.println("2");
-//        Khach_source newKhach = new Khach_source();
-//        // Thông tin khách sẽ checkin
-//        lb_cusname.setText(newKhach.getTenKhach());
-//        lb_cccd.setText(newKhach.getCCCD());
-//        lb_sdt.setText(newKhach.getSDT());
+        restart();
+   
+    }
+    
+    public CheckIn_2(String tenKH, String sdt, String cccd ) {
+        initComponents();
+        this.TenKH = tenKH;
+        lb_cusname.setText(this.TenKH);
+        this.SDT = sdt;
+        lb_sdt.setText(this.SDT);
+        this.CCCD = cccd;
+        lb_cccd.setText(this.CCCD);
         restart();
         
     }
@@ -90,8 +93,8 @@ public class CheckIn_2 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_Room = new javax.swing.JTable();
         btn_Delete = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cb_LP = new javax.swing.JComboBox<>();
+        cb_Phong = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         cb_DichVu = new javax.swing.JComboBox<>();
 
@@ -121,14 +124,9 @@ public class CheckIn_2 extends javax.swing.JFrame {
         btn_Yes.setBackground(new java.awt.Color(255, 204, 204));
         btn_Yes.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Yes.setForeground(new java.awt.Color(0, 204, 0));
-        btn_Yes.setText("Xác nhận");
+        btn_Yes.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\1398912_circle_correct_mark_success_tick_icon.png")); // NOI18N
         btn_Yes.setBorder(null);
         btn_Yes.setEnabled(false);
-        btn_Yes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_YesMouseClicked(evt);
-            }
-        });
         btn_Yes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_YesActionPerformed(evt);
@@ -138,7 +136,7 @@ public class CheckIn_2 extends javax.swing.JFrame {
         btn_No.setBackground(new java.awt.Color(255, 204, 204));
         btn_No.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_No.setForeground(new java.awt.Color(255, 0, 51));
-        btn_No.setText("HỦy");
+        btn_No.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\1398917_circle_close_cross_incorrect_invalid_icon.png")); // NOI18N
         btn_No.setBorder(null);
         btn_No.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,7 +162,7 @@ public class CheckIn_2 extends javax.swing.JFrame {
 
         tb_Room.setBackground(new java.awt.Color(255, 204, 204));
         tb_Room.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tb_Room.setFont(new java.awt.Font("SVN-Nexa Light", 0, 12)); // NOI18N
+        tb_Room.setFont(new java.awt.Font("SVN-Nexa Light", 0, 14)); // NOI18N
         tb_Room.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -204,31 +202,26 @@ public class CheckIn_2 extends javax.swing.JFrame {
         btn_Delete.setBackground(new java.awt.Color(255, 204, 204));
         btn_Delete.setFont(new java.awt.Font("SVN-Nexa Rush Sans Black", 0, 36)); // NOI18N
         btn_Delete.setForeground(new java.awt.Color(153, 0, 204));
-        btn_Delete.setText("Xóa");
+        btn_Delete.setIcon(new javax.swing.ImageIcon("D:\\Hotel_Manager\\HotelManager\\src\\main\\java\\Icon\\3669361_delete_ic_icon.png")); // NOI18N
         btn_Delete.setToolTipText("");
         btn_Delete.setBorder(null);
         btn_Delete.setEnabled(false);
-        btn_Delete.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_DeleteMouseClicked(evt);
-            }
-        });
         btn_Delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_DeleteActionPerformed(evt);
             }
         });
 
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cb_LP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cb_LPActionPerformed(evt);
             }
         });
 
-        jComboBox2.setEnabled(false);
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        cb_Phong.setEnabled(false);
+        cb_Phong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                cb_PhongActionPerformed(evt);
             }
         });
 
@@ -247,50 +240,45 @@ public class CheckIn_2 extends javax.swing.JFrame {
         pn_CheckIn.setLayout(pn_CheckInLayout);
         pn_CheckInLayout.setHorizontalGroup(
             pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn_CheckInLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pn_CheckInLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pn_CheckInLayout.createSequentialGroup()
+                                .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cb_DichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cb_LP, 0, 324, Short.MAX_VALUE)
+                                        .addComponent(cb_Phong, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(pn_CheckInLayout.createSequentialGroup()
+                                    .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(lb_sdt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lb_cusname, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                                        .addComponent(lb_cccd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_Yes)
+                                    .addComponent(btn_Delete)
+                                    .addComponent(btn_No)))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_CheckInLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(285, 285, 285))
-            .addGroup(pn_CheckInLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_CheckInLayout.createSequentialGroup()
-                        .addComponent(btn_No)
-                        .addGap(15, 15, 15))
-                    .addComponent(btn_Yes, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_CheckInLayout.createSequentialGroup()
-                        .addComponent(btn_Delete)
-                        .addGap(75, 75, 75))))
-            .addGroup(pn_CheckInLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pn_CheckInLayout.createSequentialGroup()
-                        .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lb_sdt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lb_cusname, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                            .addComponent(lb_cccd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(pn_CheckInLayout.createSequentialGroup()
-                        .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pn_CheckInLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel10)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cb_DichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jComboBox1, 0, 324, Short.MAX_VALUE)
-                                .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(219, 219, 219))
         );
         pn_CheckInLayout.setVerticalGroup(
             pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,35 +300,39 @@ public class CheckIn_2 extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_LP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pn_CheckInLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(jComboBox2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cb_Phong)))
+                .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pn_CheckInLayout.createSequentialGroup()
-                        .addGap(0, 182, Short.MAX_VALUE)
+                        .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pn_CheckInLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cb_DichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pn_CheckInLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_CheckInLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_Delete)
-                        .addGap(43, 43, 43)
+                        .addGap(18, 18, 18)
                         .addComponent(btn_Yes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_No))
-                    .addGroup(pn_CheckInLayout.createSequentialGroup()
-                        .addGroup(pn_CheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cb_DichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(26, 26, 26)
+                        .addComponent(btn_No)
+                        .addGap(41, 41, 41)))
+                .addGap(0, 34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pn_CheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pn_CheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,49 +343,13 @@ public class CheckIn_2 extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CapNhatPhong(){ // Cập nhật thông tin cho combo box Phòng
-//        //System.out.print(cb_LoaiPhong.getSelectedItem().toString());
-//        int maloaiphong = model.LayMaLoaiPhong(cb_LoaiPhong.getSelectedItem().toString());
-//        //System.out.print(maloaiphong);
-//        List<String> tenPhong = new ArrayList<String>();
-//        try{//Lấy phòng từ CSDL
-//            ResultSet rs_P = model.LayPhong(maloaiphong,0);
-//            while(rs_P.next())
-//            tenPhong.add(rs_P.getString(1));
-//        }
-//        catch(SQLException e){System.out.print(e);};
-//        cb_Phong.setModel(new javax.swing.DefaultComboBoxModel<>(tenPhong.toArray(String[]::new)));
-    }
     
-    private void btn_DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_DeleteMouseClicked
-//        int indexTb = tb_Room.getSelectedRow();
-//        try{// Đổi tình trạng phòng đã chọn từ Thuê sang Trống
-//            var sophong = tb_Room.getValueAt(indexTb, 2);
-//            model.XetTinhTrangPhong((int) sophong,0);}
-//        catch(Exception e){}
-//        int i=1;
-//        try {// Cập nhật lại bảng 
-//            ResultSet rs_P2 = model.PhongTinhTrang2();
-//            DefaultTableModel model = (DefaultTableModel)tb_Room.getModel();
-//            model.setRowCount(0);
-//            while(rs_P2.next()){
-//                Object[] rowData = {i,rs_P2.getString(1),rs_P2.getInt(2),rs_P2.getString(3)};
-//                i++;
-//                model.addRow(rowData);
-//            }
-//        } catch (SQLException ex) {}
-//        CapNhatPhong();//Cập nhật thông tin combo box
-    }//GEN-LAST:event_btn_DeleteMouseClicked
-
+    
     private void btn_NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NoActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btn_NoActionPerformed
 
-    private void btn_YesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_YesMouseClicked
-//        int item = tb_Room.getRowCount();
-        
-    }//GEN-LAST:event_btn_YesMouseClicked
-
+    //Hàm xử lí khi nhấn click vào table
     private void tb_RoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_RoomMouseClicked
        
        if(evt.getClickCount()>=2) {
@@ -402,10 +358,8 @@ public class CheckIn_2 extends javax.swing.JFrame {
        btn_Yes.setEnabled(true);
        cb_DichVu.setEnabled(false);
        btn_Delete.setEnabled(false);
-       jComboBox1.setEnabled(true);
-       int sophong =Integer.parseInt((String)jComboBox2.getSelectedItem());
-       //System.out.println(TempDichVu);
-       //System.out.println(sophong);
+       cb_LP.setEnabled(true);
+       int sophong =Integer.parseInt((String)cb_Phong.getSelectedItem());
        if(TempDichVu.isEmpty()) TempDichVu.add(0);
    
        map.put(sophong, TempDichVu);
@@ -415,15 +369,16 @@ public class CheckIn_2 extends javax.swing.JFrame {
        else{
            btn_Delete.setEnabled(true);
             cb_DichVu.setEnabled(true);
-            jComboBox1.setEnabled(false);
+            cb_LP.setEnabled(false);
             btn_Yes.setEnabled(false);
-            jComboBox2.setEnabled(false);
+            cb_Phong.setEnabled(false);
     
        }
     }//GEN-LAST:event_tb_RoomMouseClicked
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        int index = jComboBox1.getSelectedIndex();
+    //Chọn loại phòng
+    private void cb_LPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_LPActionPerformed
+        int index = cb_LP.getSelectedIndex();
         List<String> SoPhong = new ArrayList<>();
         int malp = MaLP.get(index);
         String sql = "SELECT SoPhong FROM PHONG WHERE MaLoaiPhong=? and TinhTrang = 0";
@@ -437,74 +392,86 @@ public class CheckIn_2 extends javax.swing.JFrame {
             }
         }
         catch(SQLException e) {JOptionPane.showMessageDialog(null,"Lỗi");}
-     
-      
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(SoPhong.toArray(String[]::new)));
-        jComboBox2.setEnabled(true);
+        SoPhong.removeAll(TempSoPhong);
+        cb_Phong.setModel(new javax.swing.DefaultComboBoxModel<>(SoPhong.toArray(String[]::new)));
+        cb_Phong.setEnabled(true);
        
         
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        int index = jComboBox1.getSelectedIndex();
+    }//GEN-LAST:event_cb_LPActionPerformed
+    //Chọn phòng muốn đặt
+    private void cb_PhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_PhongActionPerformed
+        int index = cb_LP.getSelectedIndex();
         DefaultTableModel tmodel = (DefaultTableModel) tb_Room.getModel();
-        int sophong =Integer.parseInt((String)jComboBox2.getSelectedItem());
+        int sophong =Integer.parseInt((String)cb_Phong.getSelectedItem());
+        TempSoPhong.add(Integer.toString(sophong));
         int malp = MaLP.get(index);
-        //jComboBox2.removeItem(jComboBox2.getSelectedItem());
         String row[] = new String[5];
         row[0] = Integer.toString(tmodel.getRowCount()+1);
         row[1] = model.LayThuocTinhLoaiPhong(malp,"TenLoaiPhong");
         row[2] = Integer.toString(sophong);
         row[3] = "";
-        
         tmodel.addRow(row);
-        jComboBox2.setEnabled(false);
+        cb_Phong.setEnabled(false);
         btn_Yes.setEnabled(true);
         map.put(sophong, TempDichVu);
         
         
         
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
+    }//GEN-LAST:event_cb_PhongActionPerformed
+    //Đưa dịch vụ từ combobox vào table
     private void cb_DichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_DichVuActionPerformed
         int index = cb_DichVu.getSelectedIndex();
-        
         int index_table = tb_Room.getSelectedRow();
-        String DichVu1 = (String) tb_Room.getValueAt(index_table, 3);
-       
+        String DichVu1 = (String) tb_Room.getValueAt(index_table, 3);   
         String t =" ";
-        //DichVu = DichVu.concat((String)cb_DichVu.getSelectedItem());
         if(DichVu1 == "") t=" ";
-        
         DichVu1 = DichVu1 + (String)cb_DichVu.getSelectedItem() + t;
         tb_Room.setValueAt(DichVu1,index_table, 3);
-       
-        
-        
         TempDichVu.add(DichVu.get(index));
+       
 
     }//GEN-LAST:event_cb_DichVuActionPerformed
-
+   
+    //Hàm xóa phòng đã chọn trong table
     private void btn_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeleteActionPerformed
-      int sophong = Integer.parseInt((String)jComboBox2.getSelectedItem());
+      int sophong = Integer.parseInt((String)cb_Phong.getSelectedItem());
       DefaultTableModel Tablemodel = (DefaultTableModel) tb_Room.getModel();
       Tablemodel.removeRow(tb_Room.getSelectedRow());
       map.remove(sophong);
       btn_Yes.setEnabled(true);
     }//GEN-LAST:event_btn_DeleteActionPerformed
 
+    //Khi nhấn yes thì bắt đầu đẩy dữ liệu vào sql
     private void btn_YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_YesActionPerformed
+        int ret = JOptionPane.showConfirmDialog(null,"Bạn có muốn lưu","lưu dữ liệu",JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.NO_OPTION) return;
         String sql ="EXEC ThemPhieuThuePhong ? ";
         String sql2= "EXEC ThemPhieuThanhToan ? ";
-        System.out.println(map);
+        String sql4= "EXEC ThemKhachHang ?,?,?";
         Connection con = model.GetCon();
+           // System.out.println(map);
+           try{
+            PreparedStatement pres2 = con.prepareStatement(sql4);   
+            pres2.setString(1,this.TenKH);
+            pres2.setString(2,this.CCCD);
+            pres2.setString(3,this.SDT);
+            pres2.executeUpdate();
+           }
+        catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
+           
+        
+        /// Them KhachHang truoc
+    
+       
         try{
             PreparedStatement pres = con.prepareStatement(sql);
             PreparedStatement pres1 = con.prepareStatement(sql2);
-            pres.setInt(1,MaKH);       
+            
+            pres.setString(1,this.CCCD);       
             pres.executeUpdate();  
-            pres1.setInt(1,MaKH);
-            pres1.executeUpdate(); 
+            pres1.setString(1,this.CCCD);
+            pres1.executeUpdate();
+           
             }
         catch(SQLException e) {JOptionPane.showMessageDialog(null, e);}
         List<Integer> ds = model.LaySoPhieuThuePhong();
@@ -515,7 +482,14 @@ public class CheckIn_2 extends javax.swing.JFrame {
         String sql3 = "EXEC ThemChiTietPTT  ?,?,?";
         Set<Integer> set = map.keySet();
         for (Integer key : set) {
-             
+            String sql5 = "UPDATE PHONG SET TinhTrang = 1 WHERE SoPhong=?";
+            try{
+            PreparedStatement pres5 = con.prepareStatement(sql5);
+            pres5.setInt(1,key);
+            pres5.executeUpdate();
+            }     
+            catch(SQLException e) {JOptionPane.showMessageDialog(null, "Lỗi");}
+               
       
             ArrayList<Integer> dv = map.get(key);
             if (dv.isEmpty()) dv.add(0);
@@ -545,6 +519,7 @@ public class CheckIn_2 extends javax.swing.JFrame {
             }
         }
        setVisible(false);
+       new Menu().setVisible(true);
     }//GEN-LAST:event_btn_YesActionPerformed
 
     /**
@@ -590,8 +565,8 @@ public class CheckIn_2 extends javax.swing.JFrame {
     private javax.swing.JButton btn_No;
     private javax.swing.JButton btn_Yes;
     private javax.swing.JComboBox<String> cb_DichVu;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> cb_LP;
+    private javax.swing.JComboBox<String> cb_Phong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
