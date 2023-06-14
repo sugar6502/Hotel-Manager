@@ -26,34 +26,34 @@ Về từng thành viên trong nhóm:
 
 ### **Biên bản họp nhóm:**  
 -Ngày đầu tiên:  
-![markdown](.\Image\Picture1.png )
+![markdown](.\Image\Picture1.png )  
 -Tuần 1:  
-![markdown](.\Image\Picture2.png )
+![markdown](.\Image\Picture2.png )  
 -Tuần 2:  
-![markdown](.\Image\Picture3.png )
+![markdown](.\Image\Picture3.png )  
 -Tuần 3:  
-![markdown](.\Image\Picture4.png )
+![markdown](.\Image\Picture4.png )  
 -Tuần 4:  
-![markdown](.\Image\Picture5.png )
+![markdown](.\Image\Picture5.png )  
 -Tuần 5:  
-![markdown](.\Image\Picture6.png )
+![markdown](.\Image\Picture6.png )  
 -Tuần 6:  
-![markdown](.\Image\Picture7.png )
+![markdown](.\Image\Picture7.png )  
 -Tuần 7:  
-![markdown](.\Image\Picture8.png )
+![markdown](.\Image\Picture8.png )  
 -Tuần 8:  
-![markdown](.\Image\Picture9.png )
+![markdown](.\Image\Picture9.png )  
 -Tuần 9:  
-![markdown](.\Image\Picture10.png )
+![markdown](.\Image\Picture10.png )  
 -Tuần 10:  
-![markdown](.\Image\Picture11.png )
+![markdown](.\Image\Picture11.png )  
 Hoặc các bạn có thể xem đầy đủ các biên bản họp đầy đủ [tại đây](https://drive.google.com/drive/folders/1zBTsn84dvBALRYLg0gIKauWknH8d6fFC?usp=sharing)
 
 ### **Về việc phân công và đánh giá tiến độ hoành thành:**  
-![markdown](.\Image\Picture12.png )
+![markdown](.\Image\Picture12.png )  
 
 ### **Về việc quản lí thời gian và phạm vi:**  
-![markdown](.\Image\Picture13.png )
+![markdown](.\Image\Picture13.png )  
  
 ### **Về đồ án:**  
 1.Giới thiệu sơ lược về đồ án  
@@ -79,29 +79,28 @@ Mà đồng thời:
 Nhóm đã đạt được các mục tiêu đã đề ra!  
 5.Một số giao diện nhóm đã thực hiện:  
 -Giao diện đăng nhập:  
-![markdown](.\Image\Picture14.png )  
+![markdown](.\Image\Picture14.png )    
 -Giao diện menu:  
-![markdown](.\Image\Picture15.png )  
-![markdown](.\Image\Picture16.png )  
-![markdown](.\Image\Picture17.png )  
+![markdown](.\Image\Picture15.png )    
+![markdown](.\Image\Picture16.png )    
+![markdown](.\Image\Picture17.png )     
 -Giao diện quản lí:  
-![markdown](.\Image\Picture18.png )  
-![markdown](.\Image\Picture19.png )  
-![markdown](.\Image\Picture20.png )  
-![markdown](.\Image\Picture21.png )  
+![markdown](.\Image\Picture18.png )    
+![markdown](.\Image\Picture19.png )    
+![markdown](.\Image\Picture21.png )    
 -Giao diện Check In:  
-![markdown](.\Image\Picture22.png )  
-![markdown](.\Image\Picture23.png )  
+![markdown](.\Image\Picture22.png )    
+![markdown](.\Image\Picture23.png )    
 -Giao diện Check Out:  
-![markdown](.\Image\Picture24.png )  
+![markdown](.\Image\Picture24.png )    
 -Giao diện báo cáo doanh thu:  
-![markdown](.\Image\Picture25.png )  
+![markdown](.\Image\Picture25.png )    
 -Giao diện báo cáo lương:  
-![markdown](.\Image\Picture26.png )  
+![markdown](.\Image\Picture26.png )    
 -Giao diện nhân viên:  
-![markdown](.\Image\Picture27.png )  
+![markdown](.\Image\Picture27.png )    
 -Giao diện tài khoản:  
-![markdown](.\Image\Picture28.png )  
+![markdown](.\Image\Picture28.png )    
 6.Công cụ quản lí đồ án:  
 Công cụ quản lý CSDL: SQL Server  
 Công cụ vẽ sơ đồ thiết kế: Draw.IO  
