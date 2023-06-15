@@ -347,6 +347,7 @@ public final class CheckIn_2 extends javax.swing.JFrame {
     
     private void btn_NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NoActionPerformed
         setVisible(false);
+        
     }//GEN-LAST:event_btn_NoActionPerformed
 
     //Hàm xử lí khi nhấn click vào table

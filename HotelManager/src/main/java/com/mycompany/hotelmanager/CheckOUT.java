@@ -328,6 +328,7 @@ public class CheckOUT extends javax.swing.JFrame {
 
     private void btn_NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NoActionPerformed
         setVisible(false);
+        new Menu().setVisible(true);
     }//GEN-LAST:event_btn_NoActionPerformed
 
     //Đẩy dữ liệu khi nhấn yes

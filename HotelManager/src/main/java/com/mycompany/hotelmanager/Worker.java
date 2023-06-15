@@ -210,8 +210,8 @@ public class Worker extends javax.swing.JFrame {
 
     private void btn_NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NoActionPerformed
        setVisible(false);
-       
-       new Admin().setVisible(true);
+       new Menu().setVisible(true);
+      
     }//GEN-LAST:event_btn_NoActionPerformed
         //Hàm đẩy dữ liệu vào sql
     private void btn_YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_YesActionPerformed

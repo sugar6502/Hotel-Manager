@@ -1292,6 +1292,7 @@ public class Admin extends javax.swing.JFrame {
 
     private void btn_Add_NVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_Add_NVMouseClicked
         new Worker().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btn_Add_NVMouseClicked
 
     private void btn_AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AccountActionPerformed
@@ -1325,6 +1326,7 @@ public class Admin extends javax.swing.JFrame {
         String CCCD = (String)tb_NV.getValueAt(index, 3);
         String DT = (String)tb_NV.getValueAt(index, 4);
         new Worker(TenNhanVien,TenCV,CCCD,DT,MaNV).setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btn_Adjust_NVActionPerformed
 
     private void btn_Delete_NVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Delete_NVActionPerformed

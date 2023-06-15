@@ -352,6 +352,7 @@ end
 -----------------------------------------------------------------------------------------------
 -- PHAN HIEN THI --
 
+
 Go
 CREATE PROC HienThiChiTietBaoCao -- hien thi chi tiet bao cao
 @mabc int
@@ -361,7 +362,6 @@ select SoPhong, DoanhThu
 from CT_BAOCAO
 where CT_BAOCAO.Ma_BC = @mabc
 end
-
 
 
 Go 
@@ -374,7 +374,7 @@ from NHANVIEN, BAOCAOCT_LUONG, CHUCVU
 where BAOCAOCT_LUONG.Ma_BC=@mabv  and NHANVIEN.MaNV = BAOCAOCT_LUONG.MaNV and NHANVIEN.MaCV = CHUCVU.MaCV
 end
 --------------------------------------------------------------------------------------------------
---exec HienThiChiTietBaoCaoLuong 1
+
 -- PHAN UPDATE --
 
 Go
@@ -464,11 +464,7 @@ WHERE PHONG.SoPhong = @sophong and PHONG.SoPhong = CT_PTP.SoPhong and PHONG.SoPh
 
 end
 
-EXEC LayThongTinPhongDaChoThue 4
 
-SELECT * FROM CT_PTT
-SELECT * FROM PHIEUTHANHTOAN
-SELECT * FROM KHACHHANG
 
 
 Go
@@ -478,7 +474,7 @@ as
 begin
 SELECT TenDV, DonGia, DICHVU.MaDV
 FROM DICHVU, CT_PTT
-WHERE ThanhTien = 0 and SoPhong = @sophong and  CT_PTT.MaDV = DICHVU.MaDV
+WHERE ThanhTien = -1 and SoPhong = @sophong and  CT_PTT.MaDV = DICHVU.MaDV
 end
 
 

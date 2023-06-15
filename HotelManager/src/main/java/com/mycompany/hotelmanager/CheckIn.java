@@ -164,6 +164,7 @@ public class CheckIn extends javax.swing.JFrame {
     private void btn_NoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NoMouseClicked
         // Nhấp vào nút Hủy
         this.dispose();
+        new Menu().setVisible(true);
     }//GEN-LAST:event_btn_NoMouseClicked
 
     private void btn_YesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_YesMouseClicked

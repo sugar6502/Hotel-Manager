@@ -541,6 +541,7 @@ public final class Menu extends javax.swing.JFrame {
     private void btn_CheckINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CheckINMouseClicked
         // Click chuột nút Nhận phòng
         new CheckIn().setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_btn_CheckINMouseClicked
 
        
@@ -570,7 +571,7 @@ public final class Menu extends javax.swing.JFrame {
 
     //Vào checkin
     private void btn_CheckINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CheckINActionPerformed
-        setVisible(false);
+        setVisible(true);
     }//GEN-LAST:event_btn_CheckINActionPerformed
 
     //Hàm check table để check out
